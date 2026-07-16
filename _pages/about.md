@@ -29,7 +29,7 @@ latest_posts:
 <div class="ale-intro">
   <div class="ale-intro-copy">
     <p class="ale-eyebrow">Ph.D. Candidate · Politecnico di Torino</p>
-    <h1 class="ale-hero-name">Alessandro<br>Pecora</h1>
+    <h1 class="ale-hero-name"><strong>Alessandro</strong><br>Emmanuel Pecora</h1>
     <p class="ale-hero-roles">Agentic AI · Cognitive architectures<br>Virtual humans · Embodied AI</p>
   </div>
   <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
@@ -68,9 +68,10 @@ latest_posts:
 <div class="ale-see-also ale-reveal">
   <span>Continue through the work</span>
   <div class="ale-work-links">
-    <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Research systems, prototypes and applied AI</span><i aria-hidden="true">→</i></a>
-    <a href="{{ '/publications/' | relative_url }}"><small>02</small><strong>Publications</strong><span>Papers, surveys and academic work</span><i aria-hidden="true">→</i></a>
+    <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Systems, experiments and applied research</span><i aria-hidden="true">→</i></a>
+    <a href="{{ '/publications/' | relative_url }}"><small>02</small><strong>Publications</strong><span>Peer-reviewed research and scholarly output</span><i aria-hidden="true">→</i></a>
   </div>
+  <p class="ale-contact-cta">Or <a href="{{ '/contact/' | relative_url }}">contact me <span aria-hidden="true">→</span></a></p>
 </div>
 
 <script>
@@ -82,15 +83,42 @@ latest_posts:
       });
       return;
     }
+    var lastScrollY = window.scrollY;
+    var direction = "down";
+    window.addEventListener(
+      "scroll",
+      function () {
+        var currentY = window.scrollY;
+        if (Math.abs(currentY - lastScrollY) > 2) {
+          direction = currentY > lastScrollY ? "down" : "up";
+          lastScrollY = currentY;
+        }
+      },
+      { passive: true }
+    );
+
+    els.forEach(function (el) {
+      el.classList.add("ale-off-left");
+    });
+
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.toggle("ale-visible", entry.isIntersecting);
+            entry.target.classList.remove("ale-visible", "ale-off-left", "ale-off-right");
+            entry.target.classList.add(direction === "down" ? "ale-off-left" : "ale-off-right");
+            void entry.target.offsetWidth;
+            requestAnimationFrame(function () {
+              entry.target.classList.add("ale-visible");
+              entry.target.classList.remove("ale-off-left", "ale-off-right");
+            });
+          } else {
+            entry.target.classList.remove("ale-visible", "ale-off-left", "ale-off-right");
+            entry.target.classList.add(direction === "down" ? "ale-off-right" : "ale-off-left");
           }
         });
       },
-      { threshold: [0.18, 0.55], rootMargin: "-8% 0px -12%" }
+      { threshold: 0.12, rootMargin: "-6% 0px -8%" }
     );
     els.forEach(function (el) {
       io.observe(el);

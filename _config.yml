@@ -2,9 +2,9 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: Alessandro Pecora
+title: Alessandro Emmanuel Pecora
 first_name: Alessandro
-middle_name:
+middle_name: Emmanuel
 last_name: Pecora
 contact_note: >
   The best way to reach me is by email.
@@ -13,7 +13,7 @@ description: > # the ">" symbol means to ignore newlines until "footer_text:"
 footer_text:
 keywords: alessandro pecora, agentic ai, virtual humans, cognitive architectures, llm agents, embodied ai, politecnico di torino # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: AP # compact personal monogram used as the browser icon
+icon: favicon.svg
 
 url: https://alessandropec.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root

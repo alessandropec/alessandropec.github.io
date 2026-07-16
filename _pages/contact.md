@@ -9,7 +9,7 @@ nav_order: 4
 
 <script>document.documentElement.classList.add("ale-contact-page");</script>
 
-<section class="ale-contact-content">
+<section class="ale-contact-content" markdown="1">
 <div class="ale-jump" style="margin-top: 0.5rem">
   <a href="mailto:alessandro.pecora@polito.it">
     <span class="ale-jump-title"><i class="fa-solid fa-envelope"></i>&nbsp; Academic email</span>

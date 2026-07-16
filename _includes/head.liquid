@@ -107,6 +107,16 @@
   </script>
 {% endif %}
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var brand = document.querySelector(".navbar-brand");
+    if (brand) {
+      brand.innerHTML = '<span class="ale-brand-mark" aria-hidden="true">AP</span><span class="ale-brand-name"><strong>Alessandro</strong> Emmanuel Pecora</span>';
+      brand.setAttribute("aria-label", "Alessandro Emmanuel Pecora — home");
+    }
+  });
+</script>
+
 {% if page.map %}
   <!-- GeoJSON support via Leaflet -->
   <link
