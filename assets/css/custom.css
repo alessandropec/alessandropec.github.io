@@ -19,6 +19,9 @@
 .ale-project-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.5rem; }
 .ale-project-actions a, .ale-thesis-links a { display: inline-flex; align-items: center; gap: .4rem; padding: .42rem .72rem; border: 1px solid #191915; color: #191915; font-size: .78rem; line-height: 1; text-decoration: none; }
 .ale-project-actions a:hover, .ale-thesis-links a:hover { background: #191915; color: #f3efe5; }
+.ale-project-actions a, .ale-thesis-links a { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
+.ale-project-actions a:hover, .ale-project-actions a:focus-visible,
+.ale-thesis-links a:hover, .ale-thesis-links a:focus-visible { background: #f3efe5; color: #191915; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915; }
 .ale-supervised-theses { margin-top: clamp(4rem, 8vw, 7rem); border-top: 1px solid #191915; }
 .ale-supervised-theses .ale-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding: 1.2rem 0 1rem; }
 .ale-supervised-theses .ale-kicker { margin: 0; color: #666158; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
@@ -855,9 +858,10 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 }
 
 /* Publication records: preserve al-folio's Bib DOM relationship and lay it out visually. */
-.ale-publications-page .post-header.ale-publications-header { min-height: 88px; margin: 0 0 2.5rem !important; padding: 1.35rem 0 1rem; display: flex !important; align-items: center !important; position: relative; background: transparent !important; }
-.ale-publications-page .ale-publications-header .post-title { margin: 0 !important; padding: 0 !important; background: transparent !important; }
-.ale-publications-page .ale-publications-header .ale-page-actions { flex: 0 0 auto; margin: 0 0 0 auto !important; }
+.ale-publications-page .post-header.ale-publications-header { min-height: 88px; margin: 0 0 2.5rem !important; padding: 1.35rem 0 1rem; display: flex !important; align-items: baseline !important; justify-content: flex-start !important; position: static !important; inset: auto !important; transform: none !important; background: transparent !important; box-shadow: none !important; }
+.ale-publications-page .ale-publications-header .post-title { position: static !important; inset: auto !important; transform: none !important; margin: 0 !important; padding: 0 !important; background: transparent !important; }
+.ale-publications-page .ale-publications-header .ale-page-actions { flex: 0 0 auto; margin: 0 0 0 .8rem !important; position: static !important; transform: translateY(-.15rem); }
+.ale-publications-page .ale-publications-header .ale-action { min-height: 28px; padding: .28rem .55rem !important; gap: .35rem; border-radius: 999px !important; font-size: .66rem !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
 .ale-publications-page .publications { clear: both; }
 .ale-publications-page ol.bibliography > li > .row { display: grid !important; grid-template-columns: 170px minmax(0, 1fr); grid-template-rows: repeat(4, auto); column-gap: 1.25rem; align-items: start; }
 .ale-publications-page ol.bibliography > li > .row > .abbr { grid-column: 1; grid-row: 1; width: 100% !important; max-width: none !important; padding: 0 !important; }
@@ -870,11 +874,19 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .ale-publications-page ol.bibliography .links { grid-column: 1; grid-row: 2 / span 3; align-self: start; display: flex; flex-wrap: wrap; gap: .45rem; margin: .55rem 0 0 !important; }
 .ale-publications-page ol.bibliography .bibtex.hidden { grid-column: 1 / -1; grid-row: 5; width: 100%; margin-top: 1rem; }
 .ale-publications-page ol.bibliography div.bibtex:not(.hidden) { grid-column: 1 / -1; grid-row: 5; width: 100%; margin-top: 1rem; }
-.ale-publications-page .abbr abbr { min-height: 34px; display: grid !important; place-items: center; border: 1px solid #191915 !important; border-radius: 999px !important; background: #c9bda9 !important; color: #191915 !important; font-weight: 700 !important; opacity: 1 !important; }
+.ale-publications-page .abbr abbr { min-height: 34px; display: grid !important; place-items: center; border: 1px solid #191915 !important; border-radius: 999px !important; background: #9fbab4 !important; color: #10201d !important; font-weight: 700 !important; opacity: 1 !important; }
 .ale-publications-page .abbr .ale-pub-status { margin-top: .45rem !important; border-radius: 999px; }
-.ale-publications-page .links .btn { min-width: 78px; margin: 0 !important; padding: .42rem .65rem !important; border: 1px solid #191915 !important; border-radius: 0 !important; background: transparent !important; color: #191915 !important; opacity: 1 !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
+.ale-publications-page .links .btn { min-width: 78px; margin: 0 !important; padding: .42rem .65rem !important; display: inline-flex !important; align-items: center; justify-content: center; gap: .38rem; border: 1px solid #191915 !important; border-radius: 0 !important; background: transparent !important; color: #191915 !important; opacity: 1 !important; cursor: pointer !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
 .ale-publications-page .links .btn:hover,
-.ale-publications-page .links .btn:focus-visible { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
+.ale-publications-page .links .btn:focus-visible,
+.ale-publications-page .ale-publications-header .ale-action:hover,
+.ale-publications-page .ale-publications-header .ale-action:focus-visible { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
+.ale-publications-page div.bibtex figure,
+.ale-publications-page div.bibtex pre,
+.ale-publications-page div.bibtex code { cursor: text; }
+.ale-publications-page div.bibtex button,
+.ale-publications-page div.bibtex [role="button"],
+.ale-publications-page div.bibtex .copy { cursor: pointer !important; }
 .ale-publications-page .ale-unpublished .links .btn { border-color: #191915 !important; background: transparent !important; color: #191915 !important; }
 .ale-publications-page .ale-in-press .abbr abbr { background: #d7aa55 !important; color: #2d1b00 !important; }
 .ale-publications-page .ale-under-review .abbr abbr { background: #ce796b !important; color: #2d0d08 !important; }
@@ -889,4 +901,31 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
   .ale-publications-page ol.bibliography .links,
   .ale-publications-page ol.bibliography .bibtex.hidden { grid-column: 1; grid-row: auto; }
   .ale-publications-page ol.bibliography .links { margin-top: .35rem !important; }
+}
+
+/* Final chrome dimensions: intentionally compact on every page and scroll state. */
+body > header, header:has(.navbar) { min-height: 0 !important; height: 36px !important; padding: 0 !important; }
+.navbar,
+.navbar.fixed-top { min-height: 36px !important; height: 36px !important; max-height: 36px !important; padding: 0 !important; }
+.navbar > .container { min-height: 36px !important; height: 36px !important; padding-block: 0 !important; }
+.navbar-brand { height: 36px !important; padding: 0 !important; gap: .38rem !important; font-size: .76rem !important; }
+.ale-brand-logo { width: 38px !important; height: 25px !important; }
+.navbar .nav-link { padding: .2rem .25rem !important; font-size: .78rem !important; }
+.navbar .nav-link.active::after,
+.navbar .nav-item.active .nav-link::after { left: .25rem !important; right: .25rem !important; bottom: -.1rem !important; }
+
+footer.sticky-bottom { min-height: 0 !important; padding: 0 !important; }
+footer.sticky-bottom > .container { min-height: 0 !important; }
+.ale-footer { min-height: 38px !important; height: auto !important; padding: .18rem 0 !important; row-gap: 0 !important; }
+.ale-footer-question { font-size: .61rem !important; line-height: 1.05 !important; }
+.ale-footer-social { gap: .65rem !important; line-height: .9 !important; }
+.ale-footer-social a { font-size: .72rem !important; line-height: 1 !important; }
+.ale-footer .ale-footer-copy { font-size: .59rem !important; line-height: 1 !important; }
+
+/* Contact already has a structural rule on the content block; avoid a duplicate rule below the heading. */
+.ale-contact-page .post-header { border-bottom: 0 !important; }
+
+@media (max-width: 720px) {
+  body > header, header:has(.navbar), .navbar, .navbar.fixed-top { height: 36px !important; min-height: 36px !important; max-height: 36px !important; }
+  .ale-footer { min-height: 38px !important; padding: .2rem 0 !important; gap: .08rem !important; }
 }
