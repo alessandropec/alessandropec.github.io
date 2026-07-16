@@ -949,7 +949,7 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .ale-keywords span { position: relative; cursor: help; outline: none; }
 .ale-keywords span:hover,
 .ale-keywords span:focus-visible { color: #191915; background: #d49a78; border-color: #9b3f2f; transform: translate(-3px, -3px); box-shadow: 4px 4px 0 #191915; }
-.ale-keywords span::after { content: attr(data-note); position: absolute; left: 50%; bottom: calc(100% + .65rem); z-index: 80; width: max-content; max-width: 235px; padding: .65rem .75rem; border-top: 3px solid #b64a2f; background: #191915; color: #f3efe5; box-shadow: 4px 4px 0 rgba(155,63,47,.8); font: 400 .72rem/1.45 Roboto, sans-serif; letter-spacing: 0; text-align: left; text-transform: none; opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, .35rem); transition: opacity .16s ease, transform .16s ease, visibility .16s ease; }
+.ale-keywords span::after { display: none; }
 .ale-keywords span:hover::after,
 .ale-keywords span:focus-visible::after { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 .ale-keywords span:nth-child(7n + 1)::after { left: 0; transform: translate(0, .35rem); }
@@ -962,7 +962,16 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .ale-see-also { border-top: 2px solid #9b3f2f !important; }
 .ale-keywords span { border-radius: 0 !important; }
 .ale-work-links a { border-radius: 0 !important; }
-.ale-story, .ale-scroll-cue, .ale-section-next, #back-to-top { border-radius: 0 !important; }
+.ale-story, #back-to-top { border-radius: 0 !important; }
+.ale-scroll-cue, .ale-section-next { border-radius: 50% !important; }
+.ale-home-page .ale-intro { position: relative; align-content: center; }
+.ale-home-page:not(.ale-has-scrolled) .ale-scroll-cue { display: grid !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+.ale-doctorate { padding-left: .85rem; border-left: 3px solid #9b3f2f; }
+.ale-hero-name::after { content: ""; display: block; width: clamp(3.5rem, 7vw, 6rem); height: 3px; margin-top: .45rem; background: #9b3f2f; }
+.ale-keywords span::before { content: "i"; position: absolute; top: .22rem; right: .35rem; color: #9b3f2f; font: 700 .58rem/1 Georgia, serif; text-transform: lowercase; }
+.ale-keyword-popover { position: fixed; z-index: 500; width: min(250px, calc(100vw - 1rem)); padding: .7rem .8rem; border-top: 3px solid #b64a2f; background: #191915; color: #f3efe5; box-shadow: 5px 5px 0 rgba(155,63,47,.82); font: 400 .74rem/1.48 Roboto, sans-serif; opacity: 0; transform: translateY(.3rem); transition: opacity .16s ease, transform .16s ease; }
+.ale-keyword-popover.ale-open { opacity: 1; transform: translateY(0); }
+.ale-keyword-popover[hidden] { display: none !important; }
 .ale-scroll-cue { position: absolute !important; bottom: .75rem !important; box-shadow: none !important; }
 .ale-has-scrolled .ale-scroll-cue { opacity: 0 !important; }
 .ale-story-track { padding: 10vh 0 !important; }
@@ -1026,6 +1035,7 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .ale-publications-page .ale-publications-header .ale-action:hover,
 .ale-publications-page .ale-publications-header .ale-action:focus-visible { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
 .ale-publications-page .links:has(+ div.bibtex:not(.hidden)) .bibtex.btn { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
+.ale-publications-page .links .bibtex.btn.ale-active { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
 .ale-publications-page div.bibtex figure,
 .ale-publications-page div.bibtex pre,
 .ale-publications-page div.bibtex code { cursor: text; }
@@ -1058,7 +1068,7 @@ body > header, header:has(.navbar) { min-height: 0 !important; height: 36px !imp
 .navbar.ale-navbar-compact { min-height: 36px !important; height: 36px !important; max-height: 36px !important; padding: 0 !important; transform: none !important; }
 .navbar > .container { min-height: 36px !important; height: 36px !important; padding-block: 0 !important; }
 .navbar-brand { height: 36px !important; padding: 0 !important; gap: .38rem !important; font-size: .76rem !important; }
-.ale-brand-logo { width: 28px !important; height: 28px !important; }
+.ale-brand-logo { width: 32px !important; height: 32px !important; }
 .navbar .nav-link { padding: .2rem .25rem !important; font-size: .78rem !important; }
 .navbar .nav-link.active::after,
 .navbar .nav-link[aria-current="page"]::after,

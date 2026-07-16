@@ -51,6 +51,19 @@ nav_order: 3
       [bib, code, doi].forEach(function (control) {
         if (control) links.appendChild(control);
       });
+      if (bib) {
+        var bibPanel = entry.querySelector("div.bibtex");
+        if (bibPanel) {
+          var syncBibState = function () {
+            var isOpen = !bibPanel.classList.contains("hidden") && bibPanel.getAttribute("aria-hidden") !== "true";
+            bib.classList.toggle("ale-active", isOpen);
+            bib.setAttribute("aria-expanded", String(isOpen));
+          };
+          new MutationObserver(syncBibState).observe(bibPanel, { attributes: true, attributeFilter: ["class", "aria-hidden", "style"] });
+          bib.addEventListener("click", function () { window.setTimeout(syncBibState, 0); });
+          syncBibState();
+        }
+      }
       var status = entry.querySelector(".ale-pub-status");
       if (status) venue.appendChild(status);
 

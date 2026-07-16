@@ -97,6 +97,62 @@ latest_posts:
 <script>
   (function () {
     var els = document.querySelectorAll(".ale-reveal");
+    var keywords = document.querySelectorAll(".ale-keywords [data-note]");
+    var info = document.createElement("div");
+    var activeKeyword = null;
+    var infoPinned = false;
+    info.className = "ale-keyword-popover";
+    info.setAttribute("role", "dialog");
+    info.setAttribute("aria-label", "Research area context");
+    info.hidden = true;
+    document.body.appendChild(info);
+
+    function placeInfo(keyword) {
+      var rect = keyword.getBoundingClientRect();
+      var width = info.offsetWidth;
+      var height = info.offsetHeight;
+      var left = Math.max(8, Math.min(window.innerWidth - width - 8, rect.left + rect.width / 2 - width / 2));
+      var top = rect.top - height - 10;
+      if (top < 8) top = rect.bottom + 10;
+      info.style.left = Math.round(left) + "px";
+      info.style.top = Math.round(top) + "px";
+    }
+
+    function showInfo(keyword, pinned) {
+      if (activeKeyword && activeKeyword !== keyword) activeKeyword.setAttribute("aria-expanded", "false");
+      activeKeyword = keyword;
+      infoPinned = Boolean(pinned);
+      info.textContent = keyword.getAttribute("data-note");
+      info.hidden = false;
+      keyword.setAttribute("aria-expanded", "true");
+      requestAnimationFrame(function () { placeInfo(keyword); info.classList.add("ale-open"); });
+    }
+
+    function hideInfo(force) {
+      if (infoPinned && !force) return;
+      infoPinned = false;
+      info.classList.remove("ale-open");
+      if (activeKeyword) activeKeyword.setAttribute("aria-expanded", "false");
+      activeKeyword = null;
+      window.setTimeout(function () { if (!activeKeyword) info.hidden = true; }, 160);
+    }
+
+    keywords.forEach(function (keyword) {
+      keyword.setAttribute("role", "button");
+      keyword.setAttribute("aria-haspopup", "dialog");
+      keyword.setAttribute("aria-expanded", "false");
+      keyword.addEventListener("mouseenter", function () { if (!infoPinned) showInfo(keyword, false); });
+      keyword.addEventListener("mouseleave", function () { hideInfo(false); });
+      keyword.addEventListener("focus", function () { if (!infoPinned) showInfo(keyword, false); });
+      keyword.addEventListener("blur", function () { hideInfo(false); });
+      keyword.addEventListener("click", function (event) {
+        event.stopPropagation();
+        if (activeKeyword === keyword && infoPinned) hideInfo(true);
+        else showInfo(keyword, true);
+      });
+    });
+    document.addEventListener("click", function () { hideInfo(true); });
+    document.addEventListener("keydown", function (event) { if (event.key === "Escape") hideInfo(true); });
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       els.forEach(function (el) {
         el.classList.add("ale-visible");
@@ -144,6 +200,8 @@ latest_posts:
     }
     window.addEventListener("scroll", requestRender, { passive: true });
     window.addEventListener("resize", requestRender);
+    window.addEventListener("resize", function () { if (activeKeyword) placeInfo(activeKeyword); });
+    window.addEventListener("scroll", function () { if (activeKeyword) placeInfo(activeKeyword); }, { passive: true });
     document.querySelectorAll(".ale-scroll-cue, .ale-section-next").forEach(function (link) {
       link.addEventListener("click", function (event) {
         var target = document.querySelector(link.getAttribute("href"));
