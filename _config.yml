@@ -15,7 +15,7 @@ footer_text: >
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
 keywords: alessandro pecora, agentic ai, virtual humans, cognitive architectures, llm agents, embodied ai, politecnico di torino # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: 🧠 # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: AP # compact personal monogram used as the browser icon
 
 url: https://alessandropec.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root

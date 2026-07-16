@@ -13,12 +13,21 @@
       <a href="{{ '/contact/' | relative_url }}" title="Contact" aria-label="Contact"><i class="fa-solid fa-paper-plane"></i></a>
     </div>
     <div class="ale-footer-copy">
-      &copy; {{ site.time | date: '%Y' }} Alessandro Emmanuel Pecora &mdash; curious since the Amiga days.<br>
-      Handcrafted in Torino with <a href="https://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/alshedivat/al-folio">al-folio</a>, hosted on <a href="https://pages.github.com/">GitHub Pages</a>.
-      {% if site.last_updated %}Last updated: {{ 'now' | date: '%B %d, %Y' }}.{% endif %}
+      <span>&copy; {{ 'now' | date: '%Y' }} Alessandro Emmanuel Pecora</span>
+      <span class="ale-footer-separator" aria-hidden="true">·</span>
+      <span>Built in Torino with <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/alshedivat/al-folio">al-folio</a></span>
+      {% if site.last_updated %}<span>Last updated {{ 'now' | date: '%B %d, %Y' }}</span>{% endif %}
     </div>
   </div>
 {% endcapture %}
+
+<nav class="ale-site-dock" aria-label="Site sections">
+  <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}><span>01</span>Home</a>
+  <a href="{{ '/publications/' | relative_url }}"{% if page.url contains '/publications' %} aria-current="page"{% endif %}><span>02</span>Publications</a>
+  <a class="ale-site-dock-primary" href="{{ '/projects/' | relative_url }}"{% if page.url contains '/projects' %} aria-current="page"{% endif %}><span>03</span>Projects</a>
+  <a href="{{ '/repositories/' | relative_url }}"{% if page.url contains '/repositories' %} aria-current="page"{% endif %}><span>04</span>Code</a>
+  <a href="{{ '/contact/' | relative_url }}"{% if page.url contains '/contact' %} aria-current="page"{% endif %}><span>05</span>Contact</a>
+</nav>
 
 {% if site.footer_fixed %}
   <footer class="fixed-bottom" role="contentinfo">
