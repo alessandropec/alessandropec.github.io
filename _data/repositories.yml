@@ -1,0 +1,9 @@
+github_users:
+  - alessandropec
+
+repo_description_lines_max: 2
+
+# Aggiungere qui i repo dei progetti da mostrare, formato utente/repo, ad esempio:
+# github_repos:
+#   - alessandropec/nome-repo
+github_repos:
