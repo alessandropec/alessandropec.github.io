@@ -232,6 +232,14 @@ header, .navbar { background: rgba(24, 33, 49, .92) !important; }
   .ale-footer .ale-footer-copy { justify-content: flex-start; }
 }
 
+/* One Code control across publications and supervised theses. */
+.ale-publications-page .links .btn.ale-code-action,
+.ale-supervised-theses .ale-thesis-links a.ale-code-action { min-width: 92px !important; min-height: 30px; margin: 0 !important; padding: .42rem .65rem !important; display: inline-flex !important; align-items: center; justify-content: center; gap: .38rem; border: 1px solid #191915 !important; border-radius: 0 !important; background: transparent !important; color: #191915 !important; font: 500 .72rem/1 Roboto, sans-serif !important; text-decoration: none !important; cursor: pointer !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
+.ale-publications-page .links .btn.ale-code-action:hover,
+.ale-publications-page .links .btn.ale-code-action:focus-visible,
+.ale-supervised-theses .ale-thesis-links a.ale-code-action:hover,
+.ale-supervised-theses .ale-thesis-links a.ale-code-action:focus-visible { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
+
 /* Editorial scrollytelling and simplified global navigation */
 header, .navbar { position: sticky !important; top: 0; z-index: 50; }
 .navbar-brand { letter-spacing: -.025em; white-space: nowrap; }
@@ -742,7 +750,9 @@ footer.sticky-bottom > .container { width: 100% !important; max-width: none !imp
 
 /* Navbar stays compact in every scroll state. */
 .navbar,
-.navbar.fixed-top { min-height: 48px !important; height: 48px !important; max-height: 48px !important; padding-block: 0 !important; }
+.navbar.fixed-top,
+.navbar.scrolled,
+.navbar.navbar-shrink { min-height: 48px !important; height: 48px !important; max-height: 48px !important; padding-block: 0 !important; }
 .navbar > .container { min-height: 46px !important; height: 46px !important; }
 .navbar-brand { height: 46px; gap: .5rem; }
 .ale-brand-logo { width: 32px !important; height: 32px !important; }
@@ -813,7 +823,7 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 }
 
 /* Landing composition refinements. */
-.navbar, .navbar.fixed-top { min-height: 44px !important; height: 44px !important; max-height: 44px !important; }
+.navbar, .navbar.fixed-top, .navbar.scrolled, .navbar.navbar-shrink { min-height: 44px !important; height: 44px !important; max-height: 44px !important; }
 .navbar > .container { width: 100% !important; max-width: none !important; min-height: 42px !important; height: 42px !important; padding-inline: clamp(.8rem, 1.5vw, 1.75rem) !important; }
 .navbar-brand { height: 42px !important; }
 .ale-brand-logo { width: 46px !important; height: 31px !important; object-fit: contain; }
@@ -827,7 +837,23 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .ale-hero-roles { grid-column: 1; grid-row: 3; margin: 0; align-self: center; }
 .ale-keywords { grid-template-columns: repeat(7, minmax(0, 1fr)) !important; gap: .55rem !important; }
 .ale-keywords span { min-width: 0; min-height: 34px; padding: .3rem .45rem; transition: color .2s ease, background-color .2s ease, transform .2s ease, box-shadow .2s ease; }
-.ale-keywords span:hover { color: #f3efe5; background: #b64a2f; border-color: #b64a2f; transform: translateY(-3px); box-shadow: 3px 3px 0 #191915; }
+.ale-keywords span { position: relative; cursor: help; outline: none; }
+.ale-keywords span:hover,
+.ale-keywords span:focus-visible { color: #191915; background: #d49a78; border-color: #9b3f2f; transform: translate(-3px, -3px); box-shadow: 4px 4px 0 #191915; }
+.ale-keywords span::after { content: attr(data-note); position: absolute; left: 50%; bottom: calc(100% + .65rem); z-index: 80; width: max-content; max-width: 235px; padding: .65rem .75rem; border-top: 3px solid #b64a2f; background: #191915; color: #f3efe5; box-shadow: 4px 4px 0 rgba(155,63,47,.8); font: 400 .72rem/1.45 Roboto, sans-serif; letter-spacing: 0; text-align: left; text-transform: none; opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, .35rem); transition: opacity .16s ease, transform .16s ease, visibility .16s ease; }
+.ale-keywords span:hover::after,
+.ale-keywords span:focus-visible::after { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.ale-keywords span:nth-child(7n + 1)::after { left: 0; transform: translate(0, .35rem); }
+.ale-keywords span:nth-child(7n + 1):hover::after,
+.ale-keywords span:nth-child(7n + 1):focus-visible::after { transform: translate(0, 0); }
+.ale-keywords span:nth-child(7n)::after { right: 0; left: auto; transform: translate(0, .35rem); }
+.ale-keywords span:nth-child(7n):hover::after,
+.ale-keywords span:nth-child(7n):focus-visible::after { transform: translate(0, 0); }
+.ale-story .ale-kicker::after { content: ""; display: block; width: 2.25rem; height: 2px; margin-top: .55rem; background: #b64a2f; }
+.ale-see-also { border-top: 2px solid #9b3f2f !important; }
+.ale-keywords span { border-radius: 0 !important; }
+.ale-work-links a { border-radius: 0 !important; }
+.ale-story, .ale-scroll-cue, .ale-section-next { border-radius: 0 !important; }
 .ale-scroll-cue { position: absolute !important; bottom: .75rem !important; box-shadow: none !important; }
 .ale-has-scrolled .ale-scroll-cue { opacity: 0 !important; }
 .ale-story-track { padding: 10vh 0 !important; }
@@ -853,6 +879,13 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 @media (max-width: 600px) {
   .ale-intro { width: calc(100vw - 1.25rem); padding-bottom: 4.25rem; }
   .ale-keywords { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .ale-keywords span::after { width: min(220px, calc(100vw - 2rem)); }
+  .ale-keywords span:nth-child(odd)::after { right: auto; left: 0; transform: translate(0, .35rem); }
+  .ale-keywords span:nth-child(odd):hover::after,
+  .ale-keywords span:nth-child(odd):focus-visible::after { transform: translate(0, 0); }
+  .ale-keywords span:nth-child(even)::after { right: 0; left: auto; transform: translate(0, .35rem); }
+  .ale-keywords span:nth-child(even):hover::after,
+  .ale-keywords span:nth-child(even):focus-visible::after { transform: translate(0, 0); }
   .ale-work-links { grid-template-columns: 1fr; }
   .ale-contact-cta { flex-wrap: wrap; }
 }
@@ -861,7 +894,7 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .ale-publications-page .post-header.ale-publications-header { min-height: 88px; margin: 0 0 2.5rem !important; padding: 1.35rem 0 1rem; display: flex !important; align-items: baseline !important; justify-content: flex-start !important; position: static !important; inset: auto !important; transform: none !important; background: transparent !important; box-shadow: none !important; }
 .ale-publications-page .ale-publications-header .post-title { position: static !important; inset: auto !important; transform: none !important; margin: 0 !important; padding: 0 !important; background: transparent !important; }
 .ale-publications-page .ale-publications-header .ale-page-actions { flex: 0 0 auto; margin: 0 0 0 .8rem !important; position: static !important; transform: translateY(-.15rem); }
-.ale-publications-page .ale-publications-header .ale-action { min-height: 28px; padding: .28rem .55rem !important; gap: .35rem; border-radius: 999px !important; font-size: .66rem !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
+.ale-publications-page .ale-publications-header .ale-action { min-height: 24px; padding: .2rem .42rem !important; gap: .3rem; border-radius: 0 !important; font-size: .6rem !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
 .ale-publications-page .publications { clear: both; }
 .ale-publications-page ol.bibliography > li > .row { display: grid !important; grid-template-columns: 170px minmax(0, 1fr); grid-template-rows: repeat(4, auto); column-gap: 1.25rem; align-items: start; }
 .ale-publications-page ol.bibliography > li > .row > .abbr { grid-column: 1; grid-row: 1; width: 100% !important; max-width: none !important; padding: 0 !important; }
@@ -874,13 +907,14 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .ale-publications-page ol.bibliography .links { grid-column: 1; grid-row: 2 / span 3; align-self: start; display: flex; flex-wrap: wrap; gap: .45rem; margin: .55rem 0 0 !important; }
 .ale-publications-page ol.bibliography .bibtex.hidden { grid-column: 1 / -1; grid-row: 5; width: 100%; margin-top: 1rem; }
 .ale-publications-page ol.bibliography div.bibtex:not(.hidden) { grid-column: 1 / -1; grid-row: 5; width: 100%; margin-top: 1rem; }
-.ale-publications-page .abbr abbr { min-height: 34px; display: grid !important; place-items: center; border: 1px solid #191915 !important; border-radius: 999px !important; background: #9fbab4 !important; color: #10201d !important; font-weight: 700 !important; opacity: 1 !important; }
-.ale-publications-page .abbr .ale-pub-status { margin-top: .45rem !important; border-radius: 999px; }
+.ale-publications-page .abbr abbr { min-height: 34px; display: grid !important; place-items: center; border: 1px solid #191915 !important; border-radius: 0 !important; background: #9fbab4 !important; color: #10201d !important; font-weight: 700 !important; opacity: 1 !important; }
+.ale-publications-page .abbr .ale-pub-status { margin-top: .45rem !important; border-radius: 0 !important; }
 .ale-publications-page .links .btn { min-width: 78px; margin: 0 !important; padding: .42rem .65rem !important; display: inline-flex !important; align-items: center; justify-content: center; gap: .38rem; border: 1px solid #191915 !important; border-radius: 0 !important; background: transparent !important; color: #191915 !important; opacity: 1 !important; cursor: pointer !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
 .ale-publications-page .links .btn:hover,
 .ale-publications-page .links .btn:focus-visible,
 .ale-publications-page .ale-publications-header .ale-action:hover,
 .ale-publications-page .ale-publications-header .ale-action:focus-visible { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
+.ale-publications-page .links:has(+ div.bibtex:not(.hidden)) .bibtex.btn { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
 .ale-publications-page div.bibtex figure,
 .ale-publications-page div.bibtex pre,
 .ale-publications-page div.bibtex code { cursor: text; }
@@ -905,11 +939,15 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 
 /* Final chrome dimensions: intentionally compact on every page and scroll state. */
 body > header, header:has(.navbar) { min-height: 0 !important; height: 36px !important; padding: 0 !important; }
+.ale-compact-header { min-height: 0 !important; height: 36px !important; max-height: 36px !important; padding: 0 !important; }
 .navbar,
-.navbar.fixed-top { min-height: 36px !important; height: 36px !important; max-height: 36px !important; padding: 0 !important; }
+.navbar.fixed-top,
+.navbar.scrolled,
+.navbar.navbar-shrink { min-height: 36px !important; height: 36px !important; max-height: 36px !important; padding: 0 !important; }
+.navbar.ale-navbar-compact { min-height: 36px !important; height: 36px !important; max-height: 36px !important; padding: 0 !important; transform: none !important; }
 .navbar > .container { min-height: 36px !important; height: 36px !important; padding-block: 0 !important; }
 .navbar-brand { height: 36px !important; padding: 0 !important; gap: .38rem !important; font-size: .76rem !important; }
-.ale-brand-logo { width: 38px !important; height: 25px !important; }
+.ale-brand-logo { width: 28px !important; height: 28px !important; }
 .navbar .nav-link { padding: .2rem .25rem !important; font-size: .78rem !important; }
 .navbar .nav-link.active::after,
 .navbar .nav-item.active .nav-link::after { left: .25rem !important; right: .25rem !important; bottom: -.1rem !important; }
@@ -926,6 +964,6 @@ footer.sticky-bottom > .container { min-height: 0 !important; }
 .ale-contact-page .post-header { border-bottom: 0 !important; }
 
 @media (max-width: 720px) {
-  body > header, header:has(.navbar), .navbar, .navbar.fixed-top { height: 36px !important; min-height: 36px !important; max-height: 36px !important; }
+  body > header, header:has(.navbar), .navbar, .navbar.fixed-top, .navbar.scrolled, .navbar.navbar-shrink { height: 36px !important; min-height: 36px !important; max-height: 36px !important; }
   .ale-footer { min-height: 38px !important; padding: .2rem 0 !important; gap: .08rem !important; }
 }
