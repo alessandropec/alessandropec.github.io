@@ -504,6 +504,7 @@ footer.sticky-bottom { background: #e9e3d6 !important; border-top: 1px solid #19
 .ale-reveal.ale-visible { opacity: 1; transform: translate3d(0, 0, 0) !important; }
 
 @media (prefers-reduced-motion: reduce) {
+  .ale-story > :not(.ale-section-next) { clip-path: none; }
   .ale-reveal,
   .ale-reveal.ale-visible { opacity: 1; transform: none !important; transition: none !important; }
 }
@@ -593,4 +594,86 @@ html, body { overflow-x: clip; }
 @media (max-width: 720px) {
   .ale-brand-logo { width: 44px; height: 22px; }
   .ale-brand-name { display: none; }
+}
+
+/* Final narrative calibration: one viewport, one card */
+.ale-story-track { padding: 0 !important; }
+.ale-story,
+.ale-story:nth-child(even) {
+  width: min(1120px, calc(100vw - 4rem));
+  min-height: calc(100svh - 50px);
+  margin: 0 auto !important;
+  padding: clamp(4rem, 11vh, 7rem) clamp(2rem, 8vw, 7rem);
+}
+.ale-story > :not(.ale-section-next) {
+  clip-path: inset(0 calc(100% - var(--ale-text-reveal, 0%)) 0 0);
+  transition: none;
+}
+.ale-story p { max-width: 760px; }
+.ale-section-next { bottom: 1rem; }
+
+.ale-hero-logo { width: 58px; height: 58px; margin-bottom: 1.25rem; }
+.ale-hero-name { line-height: .94; }
+.ale-hero-name strong { font-weight: 700; }
+.ale-keywords { max-width: 760px; gap: .5rem .7rem; }
+.ale-keywords span { padding: .25rem .5rem; border: 1px solid rgba(25,25,21,.32); border-radius: 999px; font-size: .63rem; letter-spacing: .045em; }
+.ale-keywords span:not(:last-child)::after { display: none; }
+
+/* More legible identity and active navigation state */
+.navbar { min-height: 56px !important; }
+.navbar > .container { min-height: 48px; }
+.ale-brand-logo { width: 38px; height: 38px; }
+.ale-brand-name { font-size: .9rem; }
+.navbar .nav-link { position: relative; padding: .5rem .7rem !important; font-size: .92rem; }
+.navbar .nav-link.active,
+.navbar .nav-item.active .nav-link { color: #9b3f2f !important; font-weight: 700; }
+.navbar .nav-link.active::after,
+.navbar .nav-item.active .nav-link::after { content: ""; position: absolute; left: .7rem; right: .7rem; bottom: .2rem; height: 2px; background: #9b3f2f; }
+
+/* Publication alignment and stronger editorial status colors */
+.ale-publications-page main .container { width: min(1320px, calc(100vw - 3rem)) !important; max-width: 1320px !important; }
+.ale-publications-page .bibliography > li { padding-block: 1.75rem; }
+.ale-publications-page .abbr { min-width: 170px; }
+.ale-publications-page .links { display: flex; align-items: center; gap: .45rem; margin-top: .65rem; }
+.ale-publications-page .links > * { margin: 0 !important; }
+.ale-unpublished { opacity: .72; }
+.ale-unpublished .links a,
+.ale-unpublished .links .btn,
+.ale-disabled-doi { border-color: #706d65 !important; color: #57544e !important; background: #d8d2c6 !important; opacity: 1 !important; }
+.ale-in-press .ale-pub-status,
+.ale-in-press .abbr abbr { border-color: #a66a16 !important; color: #684006 !important; background: #efd7a9 !important; }
+.ale-under-review .ale-pub-status,
+.ale-under-review .abbr abbr { border-color: #a84b3d !important; color: #6f2118 !important; background: #efc1b7 !important; }
+.ale-pub-status { margin-left: .55rem; font-weight: 700; }
+
+@media (max-width: 720px) {
+  .ale-story, .ale-story:nth-child(even) { width: calc(100vw - 1.25rem); min-height: calc(100svh - 50px); padding: 4.5rem 1.35rem; }
+  .ale-hero-logo { margin-inline: auto; }
+  .ale-keywords { justify-content: center; }
+  .ale-publications-page main .container { width: calc(100vw - 1.25rem) !important; }
+}
+
+/* Projects: replace the inactive Bootstrap row helpers with a native grid */
+.ale-projects-page main .container { width: min(1280px, calc(100vw - 3rem)) !important; max-width: 1280px !important; }
+.ale-projects-page .projects h2.category { margin: 3.5rem 0 1rem !important; padding: 0 0 .55rem; border-bottom: 1px solid #191915; color: #191915; text-align: left !important; }
+.ale-projects-page .projects > a:first-of-type h2.category { margin-top: 1.5rem !important; }
+.ale-projects-page .projects .row { width: 100%; margin: 0 0 1.5rem !important; display: grid !important; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1.25rem; }
+.ale-projects-page .projects .row > * { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
+.ale-projects-page .projects .card { width: 100%; height: 100%; min-height: 220px; border: 1px solid #191915; border-radius: 0; background: transparent; box-shadow: none !important; }
+.ale-projects-page .projects .card-body { padding: 1.4rem; }
+.ale-projects-page .projects .card:hover { transform: translateY(-3px); box-shadow: 6px 6px 0 #191915 !important; }
+
+/* Global footer: equal outer margins and mirrored left/right anchors */
+footer.sticky-bottom > .container { width: 100% !important; max-width: none !important; padding-inline: clamp(1.5rem, 4vw, 5rem) !important; }
+.ale-footer { width: 100%; min-height: 78px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 3rem; padding: .55rem 0; }
+.ale-footer-question, .ale-footer-social { justify-self: start; text-align: left; }
+.ale-footer .ale-footer-copy { justify-self: end; align-self: end; text-align: right; }
+.ale-footer-question { max-width: 520px; }
+
+@media (max-width: 720px) {
+  .ale-projects-page main .container { width: calc(100vw - 1.25rem) !important; }
+  .ale-projects-page .projects .row { grid-template-columns: 1fr; }
+  footer.sticky-bottom > .container { padding-inline: 1rem !important; }
+  .ale-footer { grid-template-columns: 1fr; column-gap: 0; }
+  .ale-footer-question, .ale-footer-social, .ale-footer .ale-footer-copy { justify-self: center; text-align: center; }
 }
