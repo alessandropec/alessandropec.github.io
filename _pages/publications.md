@@ -32,12 +32,13 @@ nav_order: 3
       if (!links || !venue) return;
       var controls = Array.from(links.children);
       var bib = controls.find(function (control) { return /bib/i.test(control.textContent); });
+      var code = controls.find(function (control) { return /code/i.test(control.textContent); });
       var doi = controls.find(function (control) { return /doi/i.test(control.textContent); });
-      if (bib) links.prepend(bib);
-      if (doi) bib ? bib.insertAdjacentElement("afterend", doi) : links.prepend(doi);
+      [bib, code, doi].forEach(function (control) {
+        if (control) links.appendChild(control);
+      });
       var status = entry.querySelector(".ale-pub-status");
       if (status) venue.appendChild(status);
-      venue.appendChild(links);
 
       entry.querySelectorAll(".periodical").forEach(function (periodical) {
         Array.from(periodical.childNodes).forEach(function (node) {

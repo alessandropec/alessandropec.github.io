@@ -640,8 +640,6 @@ html, body { overflow-x: clip; }
 .ale-publications-page .abbr > a:hover { background: #191915 !important; color: #f3efe5 !important; }
 .ale-unpublished .links a,
 .ale-unpublished .links .btn,
-.ale-disabled-doi { border-color: #aaa79e !important; color: #8d8a82 !important; background: transparent !important; box-shadow: none !important; }
-.ale-disabled-doi { display: inline-block; margin-left: .4rem; cursor: not-allowed; opacity: .8; }
 .ale-unpublished .abbr abbr,
 .ale-unpublished .abbr > a { border-color: #8d8a82 !important; color: #77746d !important; }
 
@@ -683,7 +681,6 @@ nav [aria-label*="search"] { display: none !important; }
 .ale-publications-page .abbr abbr { width: 100% !important; min-height: 30px; display: flex !important; align-items: center; justify-content: center; padding: .35rem .6rem !important; border: 1px solid #191915 !important; border-radius: 999px !important; background: transparent !important; color: #191915 !important; font-size: .72rem !important; line-height: 1.15 !important; text-indent: 0 !important; opacity: 1 !important; visibility: visible !important; overflow: visible !important; }
 .ale-publications-page .abbr .links { width: 100%; display: grid !important; grid-template-columns: 1fr 1fr; gap: .4rem; margin-top: .5rem !important; }
 .ale-publications-page .abbr .links > * { width: 100%; min-width: 0; display: block; padding: .3rem .2rem !important; text-align: center; }
-.ale-publications-page .abbr .ale-disabled-doi { margin-left: 0 !important; }
 .ale-publications-page ol.bibliography { border-top: 0 !important; }
 .ale-publications-page h2.bibliography { border: 0 !important; }
 .ale-publications-page .ale-in-press .abbr abbr { border-color: #a66a16 !important; color: #684006 !important; background: #efd7a9 !important; }
@@ -737,7 +734,6 @@ nav [aria-label*="search"] { display: none !important; }
 .ale-unpublished { opacity: .72; }
 .ale-unpublished .links a,
 .ale-unpublished .links .btn,
-.ale-disabled-doi { border-color: #706d65 !important; color: #57544e !important; background: #d8d2c6 !important; opacity: 1 !important; }
 .ale-in-press .ale-pub-status,
 .ale-in-press .abbr abbr { border-color: #a66a16 !important; color: #684006 !important; background: #efd7a9 !important; }
 .ale-under-review .ale-pub-status,
@@ -928,11 +924,12 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
 .navbar, .navbar.fixed-top, .navbar.scrolled, .navbar.navbar-shrink { min-height: 44px !important; height: 44px !important; max-height: 44px !important; }
 .navbar > .container { width: 100% !important; max-width: none !important; min-height: 42px !important; height: 42px !important; padding-inline: clamp(.8rem, 1.5vw, 1.75rem) !important; }
 .navbar-brand { height: 42px !important; }
+.ale-brand-logo { width: 46px !important; height: 31px !important; object-fit: contain; }
 .navbar .navbar-nav { gap: clamp(.35rem, 1vw, .9rem); }
 .navbar .nav-link { padding-inline: .25rem !important; }
 .ale-intro { width: min(1180px, calc(100vw - 2.5rem)); min-height: calc(100svh - 44px); padding-bottom: 4.6rem; grid-template-columns: minmax(0, 1fr) 230px; }
 .ale-intro-copy { position: relative; padding-right: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(270px, .62fr); column-gap: 2rem; align-items: end; }
-.ale-hero-logo, .ale-hero-name { grid-column: 1 / -1; }
+.ale-hero-name { grid-column: 1 / -1; }
 .ale-hero-name { max-width: none; }
 .ale-doctorate { grid-column: 2; grid-row: 3; width: auto; margin: 0; align-self: center; }
 .ale-hero-roles { grid-column: 1; grid-row: 3; margin: 0; align-self: center; }
@@ -968,4 +965,41 @@ footer.sticky-bottom { margin-top: 0 !important; padding: 0 !important; }
   .ale-work-links { grid-template-columns: 1fr; }
   .ale-contact-cta { flex-wrap: wrap; }
   #back-to-top { right: .8rem !important; bottom: 4.2rem !important; }
+}
+
+/* Publication records: preserve al-folio's Bib DOM relationship and lay it out visually. */
+.ale-publications-page .post-header.ale-publications-header { min-height: 88px; margin: 0 0 2.5rem !important; padding: 1.35rem 0 1rem; display: flex !important; align-items: center !important; position: relative; background: transparent !important; }
+.ale-publications-page .ale-publications-header .post-title { margin: 0 !important; padding: 0 !important; background: transparent !important; }
+.ale-publications-page .ale-publications-header .ale-page-actions { flex: 0 0 auto; margin: 0 0 0 auto !important; }
+.ale-publications-page .publications { clear: both; }
+.ale-publications-page ol.bibliography > li > .row { display: grid !important; grid-template-columns: 170px minmax(0, 1fr); grid-template-rows: repeat(4, auto); column-gap: 1.25rem; align-items: start; }
+.ale-publications-page ol.bibliography > li > .row > .abbr { grid-column: 1; grid-row: 1; width: 100% !important; max-width: none !important; padding: 0 !important; }
+.ale-publications-page ol.bibliography > li > .row > .col-sm-8 { display: contents; }
+.ale-publications-page ol.bibliography .title { grid-column: 2; grid-row: 1; }
+.ale-publications-page ol.bibliography .author { grid-column: 2; grid-row: 2; }
+.ale-publications-page ol.bibliography .periodical { grid-column: 2; }
+.ale-publications-page ol.bibliography .periodical:nth-of-type(3) { grid-row: 3; }
+.ale-publications-page ol.bibliography .periodical:nth-of-type(4) { grid-row: 4; }
+.ale-publications-page ol.bibliography .links { grid-column: 1; grid-row: 2 / span 3; align-self: start; display: flex; flex-wrap: wrap; gap: .45rem; margin: .55rem 0 0 !important; }
+.ale-publications-page ol.bibliography .bibtex.hidden { grid-column: 1 / -1; grid-row: 5; width: 100%; margin-top: 1rem; }
+.ale-publications-page ol.bibliography div.bibtex:not(.hidden) { grid-column: 1 / -1; grid-row: 5; width: 100%; margin-top: 1rem; }
+.ale-publications-page .abbr abbr { min-height: 34px; display: grid !important; place-items: center; border: 1px solid #191915 !important; border-radius: 999px !important; background: #c9bda9 !important; color: #191915 !important; font-weight: 700 !important; opacity: 1 !important; }
+.ale-publications-page .abbr .ale-pub-status { margin-top: .45rem !important; border-radius: 999px; }
+.ale-publications-page .links .btn { min-width: 78px; margin: 0 !important; padding: .42rem .65rem !important; border: 1px solid #191915 !important; border-radius: 0 !important; background: transparent !important; color: #191915 !important; opacity: 1 !important; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease; }
+.ale-publications-page .links .btn:hover,
+.ale-publications-page .links .btn:focus-visible { background: #f3efe5 !important; color: #191915 !important; transform: translate(-3px, -3px); box-shadow: 5px 5px 0 #191915 !important; }
+.ale-publications-page .ale-unpublished .links .btn { border-color: #191915 !important; background: transparent !important; color: #191915 !important; }
+.ale-publications-page .ale-in-press .abbr abbr { background: #d7aa55 !important; color: #2d1b00 !important; }
+.ale-publications-page .ale-under-review .abbr abbr { background: #ce796b !important; color: #2d0d08 !important; }
+
+@media (max-width: 700px) {
+  .ale-publications-page .post-header.ale-publications-header { min-height: auto; margin-bottom: 1.5rem !important; align-items: flex-start !important; }
+  .ale-publications-page ol.bibliography > li > .row { grid-template-columns: 1fr; grid-template-rows: auto; row-gap: .45rem; }
+  .ale-publications-page ol.bibliography > li > .row > .abbr,
+  .ale-publications-page ol.bibliography .title,
+  .ale-publications-page ol.bibliography .author,
+  .ale-publications-page ol.bibliography .periodical,
+  .ale-publications-page ol.bibliography .links,
+  .ale-publications-page ol.bibliography .bibtex.hidden { grid-column: 1; grid-row: auto; }
+  .ale-publications-page ol.bibliography .links { margin-top: .35rem !important; }
 }

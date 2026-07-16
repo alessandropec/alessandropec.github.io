@@ -28,7 +28,6 @@ latest_posts:
 
 <div class="ale-intro">
   <div class="ale-intro-copy">
-    <img class="ale-hero-logo" src="{{ '/assets/img/favicon.svg' | relative_url }}" alt="APE monogram">
     <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
     <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
