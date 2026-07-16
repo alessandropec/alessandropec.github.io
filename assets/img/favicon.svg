@@ -1,22 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
-  <title id="title">Alessandro Pecora Emmanuel monogram</title>
-  <desc id="desc">Interlocked APE monogram drawn as a minimal integrated circuit.</desc>
-  <g fill="none" stroke="#191915" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Square chip: quiet frame, evenly spaced contacts. -->
-    <rect x="8" y="8" width="48" height="48" rx="9" fill="#f3efe5" stroke-width="1.8"/>
-    <g stroke-width="1.8">
-      <path d="M18 8V4M27 8V4M37 8V4M46 8V4M18 56v4M27 56v4M37 56v4M46 56v4"/>
-      <path d="M8 18H4M8 27H4M8 37H4M8 46H4M56 18h4M56 27h4M56 37h4M56 46h4"/>
-    </g>
-
-    <!-- One continuous visual system: A diagonal + shared P/E spine. -->
-    <g stroke-width="3.25">
-      <!-- A and the common vertical stem. -->
-      <path d="M14 48 28 16V48M20 34h8"/>
-      <!-- P bowl terminates exactly on the E middle axis. -->
-      <path d="M28 17h9.5c6 0 9.5 2.8 9.5 7.5S43.5 32 37.5 32H28"/>
-      <!-- E uses the same stem and the P baseline as its middle arm. -->
-      <path d="M28 32h16M28 48h20"/>
-    </g>
-  </g>
+  <title id="title">APE continuous-line monogram</title>
+  <desc id="desc">The letters A, P and E drawn as one uninterrupted line inside a square.</desc>
+  <rect x="6" y="6" width="52" height="52" rx="5" fill="#f3efe5" stroke="#191915" stroke-width="2"/>
+  <!-- One path only. Repeated sections sit on the exact same axis, so every junction is clean. -->
+  <path
+    d="M13 49 L27 15 L27 49 L27 34 L19 34 L27 34 L27 17 L38 17 C44 17 48 20 48 24.5 C48 29 44 32 38 32 L27 32 L46 32 L27 32 L27 49 L50 49"
+    fill="none"
+    stroke="#191915"
+    stroke-width="3.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
 </svg>
