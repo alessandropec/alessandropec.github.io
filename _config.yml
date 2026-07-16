@@ -206,6 +206,7 @@ kramdown:
 include: ["_pages"]
 exclude:
   - al-folio-upgrade-report.md
+  - COME_AGGIORNARE.md
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
