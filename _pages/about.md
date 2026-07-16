@@ -28,9 +28,12 @@ latest_posts:
 
 <div class="ale-intro">
   <div class="ale-intro-copy">
-    <p class="ale-eyebrow">Ph.D. Candidate · Politecnico di Torino</p>
-    <h1 class="ale-hero-name"><strong>Alessandro</strong><br>Emmanuel Pecora</h1>
-    <p class="ale-hero-roles">Agentic AI · Cognitive architectures<br>Virtual humans · Embodied AI</p>
+    <h1 class="ale-hero-name">Alessandro Emmanuel Pecora</h1>
+    <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
+    <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
+    <div class="ale-keywords" aria-label="Research areas">
+      <span>Agentic AI</span><span>Cognitive architectures</span><span>Virtual humans</span><span>Embodied AI</span>
+    </div>
   </div>
   <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
     <span class="ale-portrait-monogram">AP</span>
@@ -40,32 +43,36 @@ latest_posts:
 </div>
 
 <div id="story" class="ale-story-track">
-<section class="ale-story ale-reveal" data-step="01">
+<section id="story-1" class="ale-story ale-reveal" data-step="01">
   <span class="ale-kicker">Origins</span>
   <h2>Sicily, an Amiga, and a change of latitude</h2>
   <p>Born in <strong>Caltanissetta</strong> and raised in <strong>Agrigento</strong>, I moved to <strong>Torino</strong> for university. The computing part began earlier, when my brothers brought home an <strong>Amiga</strong>; science followed shortly after. I worked my way through university — web development, STEM teaching and bootcamp instruction — then consulted on <strong>AI and data science</strong> at Cluster Reply, before research won me back to academia.</p>
+  <a class="ale-section-next" href="#story-2" aria-label="Continue to background"><span aria-hidden="true">↓</span></a>
 </section>
 
-<section class="ale-story ale-reveal" data-step="02">
+<section id="story-2" class="ale-story ale-reveal" data-step="02">
   <span class="ale-kicker">Background</span>
   <h2>A multidisciplinary route into AI</h2>
   <p>My path has spanned <strong>computer vision</strong>, <strong>natural language processing</strong>, <strong>speech processing</strong> and <strong>data science</strong> at large, converging into workflow and agentic AI, and embodied AI with virtual humans in interactive environments such as <strong>XR</strong>. Virtual humans are mainly applied to <strong>learning and training</strong>; agentic AI spans further, from <strong>cultural heritage</strong> storytelling to <strong>agriculture</strong>, <strong>insurance</strong> and <strong>enterprise automation</strong>.</p>
+  <a class="ale-section-next" href="#story-3" aria-label="Continue to research direction"><span aria-hidden="true">↓</span></a>
 </section>
 
-<section class="ale-story ale-reveal" data-step="03">
+<section id="story-3" class="ale-story ale-reveal" data-step="03">
   <span class="ale-kicker">Research direction</span>
   <h2>Memory as part of the architecture</h2>
   <p>Integrating these strands into cognitive architectures with <strong>long-term memory</strong> — giving agents what they usually lack, so that perception, reasoning and action can build on experience instead of starting from scratch at every prompt — my goal becomes building <strong>generalist agents</strong> and <strong>believable virtual humans</strong> able to sustain these use cases over the long term, with the ultimate goal of studying <strong>artificial general intelligence</strong>.</p>
+  <a class="ale-section-next" href="#story-4" aria-label="Continue to academic practice"><span aria-hidden="true">↓</span></a>
 </section>
 
-<section class="ale-story ale-reveal" data-step="04">
+<section id="story-4" class="ale-story ale-reveal" data-step="04">
   <span class="ale-kicker">Academic practice</span>
   <h2>Teaching, supervision and prototypes</h2>
   <p>I lecture on <em>AI-powered Virtual Humans — LLM-based Cognitive Architectures</em> and collaborate on <em>Algorithms and Data Structures</em> at Politecnico di Torino, and I co-supervise B.Sc./M.Sc. theses on agents, storytelling and applied deep learning.</p>
+  <a class="ale-section-next" href="#work" aria-label="Continue to projects and publications"><span aria-hidden="true">↓</span></a>
 </section>
 </div>
 
-<div class="ale-see-also ale-reveal">
+<div id="work" class="ale-see-also ale-reveal">
   <span>Continue through the work</span>
   <div class="ale-work-links">
     <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Systems, experiments and applied research</span><i aria-hidden="true">→</i></a>
@@ -77,51 +84,46 @@ latest_posts:
 <script>
   (function () {
     var els = document.querySelectorAll(".ale-reveal");
-    if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       els.forEach(function (el) {
         el.classList.add("ale-visible");
       });
       return;
     }
-    var lastScrollY = window.scrollY;
-    var direction = "down";
-    window.addEventListener(
-      "scroll",
-      function () {
-        var currentY = window.scrollY;
-        if (Math.abs(currentY - lastScrollY) > 2) {
-          direction = currentY > lastScrollY ? "down" : "up";
-          lastScrollY = currentY;
+    var ticking = false;
+    function render() {
+      var viewport = window.innerHeight;
+      var distance = Math.min(window.innerWidth * 0.16, 220);
+      els.forEach(function (el) {
+        var rect = el.getBoundingClientRect();
+        var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
+        var x;
+        var opacity;
+        if (progress < 0.32) {
+          var entering = progress / 0.32;
+          x = -distance * (1 - entering);
+          opacity = entering;
+        } else if (progress <= 0.68) {
+          x = 0;
+          opacity = 1;
+        } else {
+          var leaving = (progress - 0.68) / 0.32;
+          x = distance * leaving;
+          opacity = 1 - leaving;
         }
-      },
-      { passive: true }
-    );
-
-    els.forEach(function (el) {
-      el.classList.add("ale-off-left");
-    });
-
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove("ale-visible", "ale-off-left", "ale-off-right");
-            entry.target.classList.add(direction === "down" ? "ale-off-left" : "ale-off-right");
-            void entry.target.offsetWidth;
-            requestAnimationFrame(function () {
-              entry.target.classList.add("ale-visible");
-              entry.target.classList.remove("ale-off-left", "ale-off-right");
-            });
-          } else {
-            entry.target.classList.remove("ale-visible", "ale-off-left", "ale-off-right");
-            entry.target.classList.add(direction === "down" ? "ale-off-right" : "ale-off-left");
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "-6% 0px -8%" }
-    );
-    els.forEach(function (el) {
-      io.observe(el);
-    });
+        el.style.setProperty("--ale-scroll-x", x.toFixed(2) + "px");
+        el.style.setProperty("--ale-scroll-opacity", opacity.toFixed(3));
+      });
+      ticking = false;
+    }
+    function requestRender() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(render);
+      }
+    }
+    window.addEventListener("scroll", requestRender, { passive: true });
+    window.addEventListener("resize", requestRender);
+    render();
   })();
 </script>

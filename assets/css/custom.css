@@ -555,3 +555,79 @@ footer.sticky-bottom { background: #e9e3d6 !important; border-top: 1px solid #19
   .ale-reveal.ale-off-right,
   .ale-reveal.ale-visible { opacity: 1; transform: none !important; transition: none !important; }
 }
+
+/* Scroll-linked landing: movement follows scroll position continuously */
+html, body { overflow-x: clip; }
+.ale-reveal,
+.ale-reveal:nth-child(even),
+.ale-reveal.ale-visible,
+.ale-reveal.ale-off-left,
+.ale-reveal.ale-off-right {
+  opacity: var(--ale-scroll-opacity, 0);
+  transform: translate3d(var(--ale-scroll-x, -160px), 0, 0) !important;
+  transition: none !important;
+  will-change: transform, opacity;
+}
+.ale-intro { min-height: calc(100svh - 4.5rem); }
+.ale-scroll-cue { bottom: .8rem; z-index: 5; background: #f3efe5; }
+.ale-section-next { position: absolute; left: 50%; bottom: 1.25rem; width: 2.6rem !important; height: 2.6rem; margin: 0 !important; display: grid; place-items: center; border: 1px solid #191915; border-radius: 50%; color: #191915; text-decoration: none !important; transform: translateX(-50%); animation: ale-section-bob 1.8s ease-in-out infinite; }
+.ale-story, .ale-see-also { scroll-margin-top: 5rem; }
+@keyframes ale-section-bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, .35rem); } }
+
+.ale-hero-name { max-width: 650px; margin: 0 0 1.5rem; font: 400 clamp(3rem, 5.4vw, 5.5rem)/.98 "Roboto Slab", Georgia, serif; letter-spacing: -.055em; }
+.ale-hero-name strong { font-weight: inherit; }
+.ale-doctorate { margin: 0 0 .7rem; color: #191915; font: 600 clamp(.9rem, 1.4vw, 1.05rem)/1.45 Roboto, sans-serif; }
+.ale-doctorate span { color: #65645d; font-weight: 400; }
+.ale-hero-roles { margin-bottom: 1.25rem; font-weight: 500; }
+.ale-keywords { display: flex; flex-wrap: wrap; gap: .45rem .8rem; }
+.ale-keywords span { color: #65645d; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
+.ale-keywords span:not(:last-child)::after { content: "·"; margin-left: .8rem; color: #191915; }
+
+.ale-see-also { min-height: 50vh; padding-block: clamp(3rem, 7vh, 5rem); }
+.ale-work-links a { min-height: 205px; }
+
+.ale-footer { min-height: 76px; padding: .5rem 0; gap: .2rem 2rem; }
+.ale-footer-question { font-size: .76rem; }
+.ale-footer-social { gap: .75rem; }
+.ale-footer-social a { font-size: .88rem; }
+.ale-footer .ale-footer-copy { font-size: .68rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ale-reveal,
+  .ale-reveal:nth-child(even),
+  .ale-reveal.ale-visible { opacity: 1; transform: none !important; }
+  .ale-section-next { animation: none; }
+}
+
+@media (max-width: 720px) {
+  .ale-intro { min-height: calc(100svh - 4rem); }
+  .ale-hero-name { font-size: clamp(2.75rem, 14vw, 4.5rem); }
+  .ale-keywords { justify-content: center; }
+  .ale-keywords span:not(:last-child)::after { display: none; }
+  .ale-footer { min-height: auto; }
+}
+
+/* Publications: wider two-column rhythm and inline Scholar action */
+.ale-publications-page main .container { max-width: 1180px !important; }
+.ale-publications-header { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.ale-publications-header .post-title { margin: 0 !important; }
+.ale-publications-header .ale-page-actions { margin: 0; }
+.ale-publications-header .ale-action { padding: .48rem .8rem; font-size: .8rem; background: transparent; }
+.ale-publications-header .ale-action:hover { background: #191915; color: #f3efe5 !important; }
+.ale-publications-page .publications { margin-top: 2rem; }
+.ale-publications-page .bibliography > li { padding-block: 1.5rem; }
+.ale-publications-page .abbr { min-width: 145px; }
+.ale-publications-page .abbr abbr,
+.ale-publications-page .abbr > a { display: block; width: 100%; padding: .34rem .55rem; border: 1px solid #191915; border-radius: 999px; color: #191915 !important; background: transparent !important; font-size: .72rem; line-height: 1.2; text-align: center; text-decoration: none !important; }
+.ale-publications-page .abbr > a:hover { background: #191915 !important; color: #f3efe5 !important; }
+.ale-unpublished .links a,
+.ale-unpublished .links .btn,
+.ale-disabled-doi { border-color: #aaa79e !important; color: #8d8a82 !important; background: transparent !important; box-shadow: none !important; }
+.ale-disabled-doi { display: inline-block; margin-left: .4rem; cursor: not-allowed; opacity: .8; }
+.ale-unpublished .abbr abbr,
+.ale-unpublished .abbr > a { border-color: #8d8a82 !important; color: #77746d !important; }
+
+@media (max-width: 720px) {
+  .ale-publications-header { align-items: flex-start; gap: .7rem; }
+  .ale-publications-page .abbr { min-width: 0; }
+}
