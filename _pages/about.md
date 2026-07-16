@@ -79,7 +79,7 @@ latest_posts:
     <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Systems, experiments and applied research</span><i aria-hidden="true">→</i></a>
     <a href="{{ '/publications/' | relative_url }}"><small>02</small><strong>Publications</strong><span>Peer-reviewed research and scholarly output</span><i aria-hidden="true">→</i></a>
   </div>
-  <p class="ale-contact-cta">Or <a href="{{ '/contact/' | relative_url }}">contact me <span aria-hidden="true">→</span></a></p>
+  <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">→</span></a></p>
 </div>
 
 <script>
@@ -97,23 +97,26 @@ latest_posts:
       document.documentElement.classList.toggle("ale-has-scrolled", window.scrollY > 100);
       els.forEach(function (el) {
         var rect = el.getBoundingClientRect();
-        var distance = Math.min(120, window.innerWidth * 0.1);
+        var enterDistance = Math.min(230, window.innerWidth * 0.16);
+        var exitDistance = Math.min(320, window.innerWidth * 0.21);
         var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
         var x;
         var opacity;
-        if (progress < 0.25) {
-          var entering = progress / 0.25;
-          x = -distance * (1 - entering);
-          opacity = entering;
-        } else if (progress <= 0.5) {
+        if (progress < 0.3) {
+          var entering = progress / 0.3;
+          var enterEase = 1 - Math.pow(1 - entering, 3);
+          x = -enterDistance * (1 - enterEase);
+          opacity = enterEase;
+        } else if (progress <= 0.7) {
           x = 0;
           opacity = 1;
-        } else if (progress <= 0.75) {
-          var leaving = (progress - 0.5) / 0.25;
-          x = distance * leaving;
-          opacity = 1 - leaving;
+        } else if (progress <= 1) {
+          var leaving = (progress - 0.7) / 0.3;
+          var leaveEase = leaving * leaving * (3 - 2 * leaving);
+          x = exitDistance * leaveEase;
+          opacity = 1 - leaveEase;
         } else {
-          x = distance;
+          x = exitDistance;
           opacity = 0;
         }
         el.style.setProperty("--ale-scroll-x", x.toFixed(2) + "px");
@@ -129,6 +132,24 @@ latest_posts:
     }
     window.addEventListener("scroll", requestRender, { passive: true });
     window.addEventListener("resize", requestRender);
+    document.querySelectorAll(".ale-scroll-cue, .ale-section-next").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        var target = document.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        event.preventDefault();
+        var start = window.scrollY;
+        var destination = target.getBoundingClientRect().top + start - 52;
+        var duration = 1050;
+        var started = performance.now();
+        function step(now) {
+          var elapsed = Math.min(1, (now - started) / duration);
+          var eased = elapsed < .5 ? 4 * elapsed * elapsed * elapsed : 1 - Math.pow(-2 * elapsed + 2, 3) / 2;
+          window.scrollTo(0, start + (destination - start) * eased);
+          if (elapsed < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
     render();
   })();
 </script>
