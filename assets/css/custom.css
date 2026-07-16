@@ -631,3 +631,16 @@ html, body { overflow-x: clip; }
   .ale-publications-header { align-items: flex-start; gap: .7rem; }
   .ale-publications-page .abbr { min-width: 0; }
 }
+
+/* Compact navigation and APE monogram */
+.navbar { min-height: 50px !important; padding-block: .2rem !important; }
+.navbar > .container { min-height: 42px; }
+.navbar-brand { gap: .55rem; padding-block: 0 !important; margin-block: 0 !important; }
+.ale-brand-logo { width: 50px; height: 25px; display: block; object-fit: contain; }
+.ale-brand-name { font-size: .78rem; line-height: 1; }
+.navbar .nav-link { padding-top: .42rem !important; padding-bottom: .42rem !important; font-size: .82rem; }
+
+@media (max-width: 720px) {
+  .ale-brand-logo { width: 44px; height: 22px; }
+  .ale-brand-name { display: none; }
+}

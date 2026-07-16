@@ -111,7 +111,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     var brand = document.querySelector(".navbar-brand");
     if (brand) {
-      brand.innerHTML = '<span class="ale-brand-mark" aria-hidden="true">AP</span><span class="ale-brand-name">Alessandro Emmanuel Pecora</span>';
+      brand.innerHTML = '<img class="ale-brand-logo" src="{{ '/assets/img/favicon.svg' | relative_url }}" alt=""><span class="ale-brand-name">Alessandro Emmanuel Pecora</span>';
       brand.setAttribute("aria-label", "Alessandro Emmanuel Pecora — home");
     }
   });
