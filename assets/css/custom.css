@@ -1,0 +1,170 @@
+/* ==========================================================================
+   Tema personalizzato — palette "Midnight Executive" (coordinata col CV)
+   Navy #1E2761 · Ice #CADCFC · caricato dopo main.css (override _includes/head.liquid)
+   ========================================================================== */
+
+:root {
+  --global-theme-color: #1e2761;
+  --global-hover-color: #3a4a8c;
+  --global-hover-text-color: #ffffff;
+  --global-code-bg-color: rgba(30, 39, 97, 0.06);
+  --global-footer-bg-color: #1e2761;
+  --global-footer-text-color: #cadcfc;
+  --global-footer-link-color: #ffffff;
+  --global-back-to-top-bg-color: rgba(30, 39, 97, 0.75);
+  --ale-ice: #cadcfc;
+  --ale-navy: #1e2761;
+}
+
+/* Titoli in serif, come l'header del CV */
+h1,
+h2,
+h3,
+.font-weight-bold.title {
+  font-family: "Roboto Slab", Georgia, serif;
+}
+
+/* ==========================================================================
+   Landing page (about)
+   ========================================================================== */
+
+/* riga di "salti rapidi" sotto la bio-hero */
+.ale-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.ale-jump a {
+  flex: 1 1 10rem;
+  display: block;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(30, 39, 97, 0.25);
+  border-left: 4px solid var(--ale-navy);
+  border-radius: 0.4rem;
+  background: var(--global-card-bg-color, #fff);
+  color: var(--global-text-color, #000);
+  text-decoration: none !important;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.ale-jump a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(30, 39, 97, 0.18);
+  color: var(--ale-navy);
+}
+
+.ale-jump .ale-jump-title {
+  display: block;
+  font-family: "Roboto Slab", Georgia, serif;
+  font-weight: 700;
+  color: var(--ale-navy);
+  margin-bottom: 0.15rem;
+}
+
+.ale-jump .ale-jump-sub {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--global-text-color-light, #828282);
+}
+
+/* sezioni della storia */
+.ale-story {
+  margin: 2.75rem 0;
+}
+
+.ale-story .ale-kicker {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ale-navy);
+  margin-bottom: 0.35rem;
+}
+
+.ale-story h2 {
+  margin-top: 0;
+  border-bottom: none;
+}
+
+/* citazione finale */
+.ale-quote {
+  margin: 3.5rem 0 2rem;
+  padding: 1.6rem 1.8rem;
+  border-left: 4px solid var(--ale-navy);
+  background: rgba(202, 220, 252, 0.25);
+  border-radius: 0 0.4rem 0.4rem 0;
+  font-family: "Roboto Slab", Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--ale-navy);
+}
+
+.ale-quote small {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: Roboto, sans-serif;
+  font-size: 0.85rem;
+  color: var(--global-text-color-light, #828282);
+}
+
+/* reveal on scroll */
+.ale-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.ale-reveal.ale-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ale-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ale-jump a {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Footer personalizzato
+   ========================================================================== */
+
+.ale-footer {
+  text-align: center;
+  padding: 1.4rem 1rem 1.2rem;
+}
+
+.ale-footer .ale-footer-contacts {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.ale-footer .ale-footer-contacts a {
+  color: var(--global-footer-link-color, #fff);
+  margin: 0 0.55rem;
+  text-decoration: none;
+}
+
+.ale-footer .ale-footer-contacts a:hover {
+  color: var(--ale-ice);
+}
+
+.ale-footer .ale-footer-copy {
+  font-size: 0.85rem;
+}
+
+.ale-footer .ale-footer-copy a {
+  color: var(--global-footer-link-color, #fff);
+}

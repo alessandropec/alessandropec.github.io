@@ -15,6 +15,14 @@ Sito basato su [al-folio](https://github.com/alshedivat/al-folio) (Jekyll). **No
 | PDF (CV ecc.)          | `assets/pdf/`                                                 |
 | Config generale        | `_config.yml`                                                 |
 
+## Personalizzazioni locali (non toccare a cuor leggero)
+
+- `assets/css/custom.css` — tema fisso navy (#1E2761, coordinato col CV) + stili della landing (`ale-*`) e del footer. È caricato dopo il CSS del tema, quindi qui si sovrascrive qualsiasi stile.
+- `_includes/head.liquid` e `_includes/footer.liquid` — **override locali** dei file del gem `al_folio_core` (v1.0.11): il primo aggiunge solo la riga che carica `custom.css`, il secondo è il footer personalizzato (contatti + copyright). ⚠ Se in futuro si aggiorna la versione del gem nel `Gemfile`, riallineare questi due file alla nuova versione.
+- Landing narrativa: il contenuto è in `_pages/about.md` (sezioni `ale-story` con reveal allo scroll, salti rapidi `ale-jump`).
+- Toggle light/dark rimosso (`enable_darkmode: false` in `_config.yml`).
+- Gallery di riferimento: `/projects/demo-gallery/` (categoria `demo`, non compare nella griglia projects — è il "manuale visivo" dei layout immagine).
+
 ## Aggiungere un progetto
 
 Crea `_projects/nome-progetto.md` copiando uno esistente. Frontmatter:

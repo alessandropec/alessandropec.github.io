@@ -1,0 +1,43 @@
+{% comment %}
+  Override locale di al_folio_core/_includes/footer.liquid (gem v1.0.11):
+  footer personalizzato con contatti + copyright non standard.
+{% endcomment %}
+{% capture footer_contents %}
+  <div class="ale-footer">
+    <div class="ale-footer-contacts">
+      <a href="mailto:alessandro.pecora@polito.it" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://scholar.google.com/citations?user=KVAZ8pcAAAAJ" title="Google Scholar" aria-label="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      <a href="https://github.com/alessandropec" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/alessandro-pecora-3a5001192" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.polito.it/en/staff?p=105698" title="Politecnico di Torino" aria-label="Politecnico di Torino"><i class="fa-solid fa-building-columns"></i></a>
+      <a href="{{ '/contact/' | relative_url }}" title="Contact" aria-label="Contact"><i class="fa-solid fa-paper-plane"></i></a>
+    </div>
+    <div class="ale-footer-copy">
+      &copy; {{ site.time | date: '%Y' }} Alessandro Emmanuel Pecora &mdash; curious since the Amiga days.<br>
+      Handcrafted in Torino with <a href="https://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/alshedivat/al-folio">al-folio</a>, hosted on <a href="https://pages.github.com/">GitHub Pages</a>.
+      {% if site.last_updated %}Last updated: {{ 'now' | date: '%B %d, %Y' }}.{% endif %}
+    </div>
+  </div>
+{% endcapture %}
+
+{% if site.footer_fixed %}
+  <footer class="fixed-bottom" role="contentinfo">
+    <div class="container mt-0">
+      {{ footer_contents }}
+    </div>
+  </footer>
+{% else %}
+  <footer class="sticky-bottom mt-5" role="contentinfo">
+    {% if site.newsletter.enabled %}
+      {% if site.plugins contains 'al_newsletter' %}
+        {% include plugins/al_newsletter_form_center.liquid %}
+      {% else %}
+        {% include newsletter.liquid %}
+      {% endif %}
+    {% endif %}
+
+    <div class="container">
+      {{ footer_contents }}
+    </div>
+  </footer>
+{% endif %}
