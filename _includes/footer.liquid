@@ -4,14 +4,10 @@
 {% endcomment %}
 {% capture footer_contents %}
   <div class="ale-footer">
-    <p class="ale-footer-question">Who we are, where we come from, where we are going.</p>
-    <div class="ale-footer-links" aria-label="See also">
-      <span>See also</span>
-      <a href="{{ '/projects/' | relative_url }}">Projects</a>
-      <a href="{{ '/publications/' | relative_url }}">Publications</a>
-    </div>
+    <p class="ale-footer-question">Who are we? Where do we come from? Where are we going? <span>…42.</span></p>
     <div class="ale-footer-copy">
       <span>&copy; {{ 'now' | date: '%Y' }} Alessandro Emmanuel Pecora</span>
+      <a href="{{ '/contact/' | relative_url }}">Contact</a>
       {% if site.last_updated %}<span>Last updated {{ 'now' | date: '%B %d, %Y' }}</span>{% endif %}
     </div>
   </div>

@@ -10,7 +10,7 @@ profile:
   image_circular: false # crops the image to make it circular
   more_info:
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
+selected_papers: false # publications have their own dedicated page
 social: false # contacts live on the dedicated contact page
 
 announcements:
@@ -26,26 +26,16 @@ latest_posts:
 
 <div class="ale-intro">
   <div class="ale-intro-copy">
-    <p class="ale-eyebrow">Cognitive architectures · Agentic AI · Virtual humans</p>
-    <p class="ale-lead">Researching how artificial agents can <strong>build on experience</strong> rather than start over at every interaction.</p>
-    <a class="ale-text-action" href="#story">Research, in context <span aria-hidden="true">↓</span></a>
+    <p class="ale-eyebrow">Ph.D. Candidate · Politecnico di Torino</p>
+    <h1 class="ale-hero-name">Alessandro<br>Pecora</h1>
+    <p class="ale-hero-roles">Agentic AI · Cognitive architectures<br>Virtual humans · Embodied AI</p>
   </div>
   <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
     <span class="ale-portrait-monogram">AP</span>
     <span class="ale-portrait-note">Portrait<br>coming soon</span>
   </div>
+  <a class="ale-scroll-cue" href="#story" aria-label="Scroll to the story"><span aria-hidden="true">↓</span></a>
 </div>
-
-<nav class="ale-jump" aria-label="Quick links">
-  <a href="/projects/">
-    <span class="ale-jump-title">Projects</span>
-    <span class="ale-jump-sub">Research systems and applied work</span>
-  </a>
-  <a href="/publications/">
-    <span class="ale-jump-title">Publications</span>
-    <span class="ale-jump-sub">Papers, surveys and BibTeX</span>
-  </a>
-</nav>
 
 <div id="story" class="ale-story-track">
 <section class="ale-story ale-reveal" data-step="01">
@@ -74,9 +64,10 @@ latest_posts:
 </div>
 
 <div class="ale-see-also ale-reveal">
-  <span>Continue with the work</span>
-  <a href="{{ '/projects/' | relative_url }}">Explore projects <span aria-hidden="true">→</span></a>
-  <a href="{{ '/publications/' | relative_url }}">Read publications <span aria-hidden="true">→</span></a>
+  <span>Continue through the work</span>
+  <a href="{{ '/projects/' | relative_url }}"><small>01</small> Projects <span aria-hidden="true">→</span></a>
+  <a href="{{ '/publications/' | relative_url }}"><small>02</small> Publications <span aria-hidden="true">→</span></a>
+  <a href="{{ '/contact/' | relative_url }}"><small>03</small> Contact <span aria-hidden="true">→</span></a>
 </div>
 
 <script>
