@@ -24,6 +24,8 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
+<script>document.documentElement.classList.add("ale-home-page");</script>
+
 <div class="ale-intro">
   <div class="ale-intro-copy">
     <p class="ale-eyebrow">Ph.D. Candidate · Politecnico di Torino</p>
@@ -65,9 +67,10 @@ latest_posts:
 
 <div class="ale-see-also ale-reveal">
   <span>Continue through the work</span>
-  <a href="{{ '/projects/' | relative_url }}"><small>01</small> Projects <span aria-hidden="true">→</span></a>
-  <a href="{{ '/publications/' | relative_url }}"><small>02</small> Publications <span aria-hidden="true">→</span></a>
-  <a href="{{ '/contact/' | relative_url }}"><small>03</small> Contact <span aria-hidden="true">→</span></a>
+  <div class="ale-work-links">
+    <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Research systems, prototypes and applied AI</span><i aria-hidden="true">→</i></a>
+    <a href="{{ '/publications/' | relative_url }}"><small>02</small><strong>Publications</strong><span>Papers, surveys and academic work</span><i aria-hidden="true">→</i></a>
+  </div>
 </div>
 
 <script>

@@ -7,6 +7,9 @@ nav: true
 nav_order: 4
 ---
 
+<script>document.documentElement.classList.add("ale-contact-page");</script>
+
+<section class="ale-contact-content">
 <div class="ale-jump" style="margin-top: 0.5rem">
   <a href="mailto:alessandro.pecora@polito.it">
     <span class="ale-jump-title"><i class="fa-solid fa-envelope"></i>&nbsp; Academic email</span>
@@ -38,3 +41,4 @@ nav_order: 4
 </div>
 
 You can find me at the **Department of Control and Computer Engineering (DAUIN)**, Politecnico di Torino — Corso Duca degli Abruzzi 24, 10129 Torino, Italy.
+</section>

@@ -5,9 +5,15 @@
 {% capture footer_contents %}
   <div class="ale-footer">
     <p class="ale-footer-question">Who are we? Where do we come from? Where are we going? <span>…42.</span></p>
+    <div class="ale-footer-social" aria-label="Contact links">
+      <a href="mailto:alessandro.pecora@polito.it" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://scholar.google.com/citations?user=KVAZ8pcAAAAJ" title="Google Scholar" aria-label="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      <a href="https://github.com/alessandropec" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/alessandro-pecora-3a5001192" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="{{ '/contact/' | relative_url }}" title="Contact page" aria-label="Contact page"><i class="fa-solid fa-paper-plane"></i></a>
+    </div>
     <div class="ale-footer-copy">
       <span>&copy; {{ 'now' | date: '%Y' }} Alessandro Emmanuel Pecora</span>
-      <a href="{{ '/contact/' | relative_url }}">Contact</a>
       {% if site.last_updated %}<span>Last updated {{ 'now' | date: '%B %d, %Y' }}</span>{% endif %}
     </div>
   </div>

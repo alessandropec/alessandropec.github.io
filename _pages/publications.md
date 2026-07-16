@@ -2,7 +2,6 @@
 layout: page
 permalink: /publications/
 title: publications
-description: Peer-reviewed work on cognitive architectures, virtual humans, memory and applied AI.
 nav: true
 nav_order: 2
 ---
@@ -16,10 +15,6 @@ nav_order: 2
     <span aria-hidden="true">↗</span>
   </a>
 </div>
-
-<!-- Bibsearch Feature -->
-
-{% include bib_search.liquid %}
 
 <div class="publications">
 
