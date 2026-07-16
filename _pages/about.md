@@ -37,7 +37,20 @@ latest_posts:
     <span class="ale-portrait-note">Portrait<br>coming soon</span>
   </div>
   <div class="ale-keywords" aria-label="Research areas">
-    <span>Agentic AI</span><span>Cognitive architectures</span><span>Long-term memory</span><span>Virtual humans</span><span>Embodied AI</span><span>Computer vision</span><span>Natural language processing</span><span>Speech processing</span><span>XR</span><span>Data science</span><span>Learning &amp; training</span><span>Cultural heritage</span><span>Applied AI</span><span>Artificial general intelligence</span>
+    <span tabindex="0" data-note="Agents that plan, use tools and act toward goals across my research and applied work.">Agentic AI</span>
+    <span tabindex="0" data-note="The structural layer connecting perception, memory, reasoning and action.">Cognitive architectures</span>
+    <span tabindex="0" data-note="My current focus: enabling agents to accumulate and reuse experience over time.">Long-term memory</span>
+    <span tabindex="0" data-note="Believable digital characters for interaction, learning and simulation.">Virtual humans</span>
+    <span tabindex="0" data-note="Intelligence grounded in a body and an environment, rather than isolated prompts.">Embodied AI</span>
+    <span tabindex="0" data-note="From segmentation and agriculture to multimodal perception in 3D environments.">Computer vision</span>
+    <span tabindex="0" data-note="Language understanding and generation for agents, narratives and enterprise workflows.">Natural language processing</span>
+    <span tabindex="0" data-note="Voice cloning, speech interfaces and verbal interaction with virtual humans.">Speech processing</span>
+    <span tabindex="0" data-note="Interactive environments where agents and virtual humans can be experienced and evaluated.">XR</span>
+    <span tabindex="0" data-note="The engineering foundation behind my academic and industry AI work.">Data science</span>
+    <span tabindex="0" data-note="A primary application for virtual humans, from guided practice to reflective feedback.">Learning &amp; training</span>
+    <span tabindex="0" data-note="Grounded narrative generation from museum and archival knowledge.">Cultural heritage</span>
+    <span tabindex="0" data-note="Turning research methods into systems for agriculture, insurance and enterprise use.">Applied AI</span>
+    <span tabindex="0" data-note="The longer-term question behind my work on memory, generalist agents and cognition.">Artificial general intelligence</span>
   </div>
   <a class="ale-scroll-cue" href="#story" aria-label="Scroll to the story"><span aria-hidden="true">↓</span></a>
 </div>

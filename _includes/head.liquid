@@ -109,6 +109,17 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    var navbar = document.querySelector(".navbar");
+    if (navbar) {
+      navbar.classList.add("scrolled", "navbar-shrink", "ale-navbar-compact");
+      var header = navbar.closest("header");
+      if (header) header.classList.add("ale-compact-header");
+      new MutationObserver(function () {
+        if (!navbar.classList.contains("scrolled")) navbar.classList.add("scrolled");
+        if (!navbar.classList.contains("navbar-shrink")) navbar.classList.add("navbar-shrink");
+        if (!navbar.classList.contains("ale-navbar-compact")) navbar.classList.add("ale-navbar-compact");
+      }).observe(navbar, { attributes: true, attributeFilter: ["class"] });
+    }
     document.querySelectorAll('[id*="search"], [class*="search-toggle"], [data-search-toggle], [aria-label*="Search"], [aria-label*="search"]').forEach(function (control) {
       if (control.closest("nav")) control.remove();
     });
