@@ -3,7 +3,7 @@ layout: page
 permalink: /publications/
 title: publications
 nav: true
-nav_order: 2
+nav_order: 3
 ---
 
 <!-- _pages/publications.md -->
@@ -34,12 +34,16 @@ nav_order: 2
       }
     });
 
-    document.querySelectorAll(".bibliography .links").forEach(function (links) {
+    document.querySelectorAll(".bibliography > li").forEach(function (entry) {
+      var links = entry.querySelector(".links");
+      var venue = entry.querySelector(".abbr");
+      if (!links || !venue) return;
       var controls = Array.from(links.children);
       var bib = controls.find(function (control) { return /bib/i.test(control.textContent); });
       var doi = controls.find(function (control) { return /doi/i.test(control.textContent); });
       if (bib) links.prepend(bib);
       if (doi) bib ? bib.insertAdjacentElement("afterend", doi) : links.prepend(doi);
+      venue.appendChild(links);
     });
   });
 </script>

@@ -109,7 +109,22 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('[id*="search"], [class*="search-toggle"], [data-search-toggle], [aria-label*="Search"], [aria-label*="search"]').forEach(function (control) {
+      if (control.closest("nav")) control.remove();
+    });
+    document.querySelectorAll("nav button, nav a").forEach(function (control) {
+      if (/ctrl\s*k|search/i.test((control.textContent || "") + " " + (control.getAttribute("title") || ""))) control.remove();
+    });
     var brand = document.querySelector(".navbar-brand");
+    if (!brand) {
+      var navContainer = document.querySelector(".navbar .container");
+      if (navContainer) {
+        brand = document.createElement("a");
+        brand.className = "navbar-brand";
+        brand.href = "{{ '/' | relative_url }}";
+        navContainer.prepend(brand);
+      }
+    }
     if (brand) {
       brand.innerHTML = '<img class="ale-brand-logo" src="{{ '/assets/img/favicon.svg' | relative_url }}" alt=""><span class="ale-brand-name">Alessandro Emmanuel Pecora</span>';
       brand.setAttribute("aria-label", "Alessandro Emmanuel Pecora — home");

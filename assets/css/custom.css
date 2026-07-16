@@ -646,6 +646,35 @@ html, body { overflow-x: clip; }
   .ale-brand-name { display: none; }
 }
 
+/* Absolute final navbar edge alignment */
+.navbar > .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+/* Hard-disable every search affordance left by the core theme */
+#search-toggle,
+.search-toggle,
+[data-search-toggle],
+nav [aria-label*="Search"],
+nav [aria-label*="search"] { display: none !important; }
+
+/* Final publications alignment: venue and actions form the left rail */
+.ale-publications-header { align-items: center !important; border-bottom: 0 !important; padding-bottom: 0 !important; }
+.ale-publications-header::after { display: none !important; }
+.ale-publications-header .ale-action { transform: translateY(1px); }
+.ale-publications-page .post-header { border-bottom: 0 !important; }
+.ale-publications-page .post-header + article { border-top: 0 !important; }
+.ale-publications-page .abbr { min-width: 170px; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; }
+.ale-publications-page .abbr abbr { width: 100% !important; min-height: 30px; display: flex !important; align-items: center; justify-content: center; padding: .35rem .6rem !important; border: 1px solid #191915 !important; border-radius: 999px !important; background: transparent !important; color: #191915 !important; font-size: .72rem !important; line-height: 1.15 !important; text-indent: 0 !important; opacity: 1 !important; visibility: visible !important; overflow: visible !important; }
+.ale-publications-page .abbr .links { width: 100%; display: grid !important; grid-template-columns: 1fr 1fr; gap: .4rem; margin-top: .5rem !important; }
+.ale-publications-page .abbr .links > * { width: 100%; min-width: 0; display: block; padding: .3rem .2rem !important; text-align: center; }
+.ale-publications-page .abbr .ale-disabled-doi { margin-left: 0 !important; }
+.ale-publications-page ol.bibliography { border-top: 0 !important; }
+.ale-publications-page h2.bibliography { border: 0 !important; }
+.ale-publications-page .ale-in-press .abbr abbr { border-color: #a66a16 !important; color: #684006 !important; background: #efd7a9 !important; }
+.ale-publications-page .ale-under-review .abbr abbr { border-color: #a84b3d !important; color: #6f2118 !important; background: #efc1b7 !important; }
+
+/* Brand uses the true left edge of the navigation rhythm. */
+.navbar > .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+
 /* Final narrative calibration: one viewport, one card */
 .ale-story-track { padding: 0 !important; }
 .ale-story,
@@ -656,7 +685,7 @@ html, body { overflow-x: clip; }
   padding: clamp(4rem, 11vh, 7rem) clamp(2rem, 8vw, 7rem);
 }
 .ale-story > :not(.ale-section-next) {
-  clip-path: inset(0 calc(100% - var(--ale-text-reveal, 0%)) 0 0);
+  clip-path: none;
   transition: none;
 }
 .ale-story p { max-width: 760px; }
@@ -728,4 +757,74 @@ footer.sticky-bottom > .container { width: 100% !important; max-width: none !imp
   footer.sticky-bottom > .container { padding-inline: 1rem !important; }
   .ale-footer { grid-template-columns: 1fr; column-gap: 0; }
   .ale-footer-question, .ale-footer-social, .ale-footer .ale-footer-copy { justify-self: center; text-align: center; }
+}
+
+/* Landing identity and always-present navigation brand */
+.navbar > .container { width: 100% !important; max-width: none !important; padding-inline: clamp(1rem, 3vw, 3rem) !important; }
+.navbar-brand { flex: 0 0 auto; }
+.ale-brand-logo { width: 42px; height: 42px; }
+.ale-brand-name { font-size: .92rem; }
+
+.ale-intro { width: min(1180px, calc(100vw - 4rem)); grid-template-columns: minmax(0, 1fr) 240px; gap: clamp(2.5rem, 6vw, 6rem); }
+.ale-hero-name { max-width: none; font-size: clamp(3.2rem, 5.5vw, 5.8rem); }
+.ale-hero-name > span { display: block; }
+.ale-name-firstline { white-space: nowrap; }
+.ale-keywords { width: min(820px, 100%); max-width: none; }
+
+.ale-scroll-cue { position: fixed; left: 50%; bottom: 1.25rem; z-index: 45; opacity: 1 !important; visibility: visible !important; background: #f3efe5; box-shadow: 0 0 0 5px rgba(243,239,229,.8); transition: opacity .25s ease; }
+.ale-has-scrolled .ale-scroll-cue { opacity: 0 !important; visibility: hidden !important; pointer-events: none; }
+
+@media (max-width: 720px) {
+  .ale-intro { width: calc(100vw - 1.5rem); grid-template-columns: 1fr; }
+  .ale-name-firstline { white-space: normal; }
+  .ale-brand-name { display: none; }
+}
+
+/* Keep the brand pinned to the same outer gutter on every page. */
+.navbar > .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+/* Contact: use the available canvas instead of stacking generic cards */
+.ale-contact-page main .container { width: min(1280px, calc(100vw - 3rem)) !important; max-width: 1280px !important; }
+.ale-contact-page .ale-contact-content { width: 100%; justify-content: center; padding: 1rem 0 2rem; }
+.ale-contact-main { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); border-top: 1px solid #191915; border-bottom: 1px solid #191915; }
+.ale-contact-label { display: block; margin-bottom: 1.1rem; color: #6a6861; font-size: .7rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.ale-contact-direct { padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem) 0; display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: .8rem; }
+.ale-contact-direct .ale-contact-label { grid-column: 1 / -1; }
+.ale-contact-direct a { min-height: 112px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; padding: 1.2rem; border: 1px solid #191915; color: #191915; text-decoration: none; }
+.ale-contact-direct a:hover { background: #191915; color: #f3efe5; }
+.ale-contact-direct a > i { font-size: 1.1rem; }
+.ale-contact-direct a span, .ale-contact-profiles a span { display: block; min-width: 0; }
+.ale-contact-direct strong, .ale-contact-direct small, .ale-contact-profiles strong, .ale-contact-profiles small { display: block; }
+.ale-contact-direct small, .ale-contact-profiles small { margin-top: .3rem; color: #6a6861; font-size: .76rem; font-weight: 400; }
+.ale-contact-direct a:hover small { color: #d8d1c5; }
+.ale-contact-direct b { font-size: 1.2rem; }
+
+.ale-affiliation { padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3.5rem); border-left: 1px solid #191915; }
+.ale-group-mark { width: max-content; display: flex; align-items: flex-start; gap: .6rem; margin-bottom: 1rem; color: #191915; font: 500 clamp(2.3rem, 4vw, 4rem)/1 "Roboto Slab", Georgia, serif; letter-spacing: -.06em; text-decoration: none; }
+.ale-group-mark span { font: 400 1rem/1 Roboto, sans-serif; letter-spacing: 0; }
+.ale-affiliation p { margin: 0 0 1rem; line-height: 1.55; }
+.ale-affiliation address { margin: 0; color: #5e5c56; font-style: normal; line-height: 1.55; }
+
+.ale-contact-profiles { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid #191915; }
+.ale-contact-profiles a { min-height: 88px; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .8rem; padding: 1rem 1.2rem; border-right: 1px solid #191915; color: #191915; text-decoration: none; }
+.ale-contact-profiles a:last-child { border-right: 0; }
+.ale-contact-profiles a:hover { background: #e9e3d6; }
+.ale-contact-profiles i { font-size: 1rem; }
+
+@media (max-width: 850px) {
+  .ale-contact-page main .container { width: calc(100vw - 1.25rem) !important; }
+  .ale-contact-main { grid-template-columns: 1fr; }
+  .ale-contact-direct { padding-right: 0; }
+  .ale-affiliation { padding-left: 0; border-top: 1px solid #191915; border-left: 0; }
+  .ale-contact-profiles { grid-template-columns: 1fr 1fr; }
+  .ale-contact-profiles a:nth-child(2) { border-right: 0; }
+  .ale-contact-profiles a:nth-child(-n+2) { border-bottom: 1px solid #191915; }
+}
+
+@media (max-width: 560px) {
+  .ale-contact-direct { grid-template-columns: 1fr; }
+  .ale-contact-direct .ale-contact-label { grid-column: 1; }
+  .ale-contact-profiles { grid-template-columns: 1fr; }
+  .ale-contact-profiles a { border-right: 0; border-bottom: 1px solid #191915; }
+  .ale-contact-profiles a:last-child { border-bottom: 0; }
 }

@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: about me
 permalink: /
 subtitle: Ph.D. Candidate — <a href="https://www.polito.it/en/staff?p=105698">Politecnico di Torino</a>, DAUIN · Computer Graphics & Vision Group · Torino, Italy
 
@@ -29,7 +29,7 @@ latest_posts:
 <div class="ale-intro">
   <div class="ale-intro-copy">
     <img class="ale-hero-logo" src="{{ '/assets/img/favicon.svg' | relative_url }}" alt="APE monogram">
-    <h1 class="ale-hero-name"><strong>Alessandro</strong> Emmanuel<br>Pecora</h1>
+    <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
     <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
     <div class="ale-keywords" aria-label="Research areas">
@@ -94,13 +94,13 @@ latest_posts:
     var ticking = false;
     function render() {
       var viewport = window.innerHeight;
-      var distance = Math.min(window.innerWidth * 0.16, 220);
+      document.documentElement.classList.toggle("ale-has-scrolled", window.scrollY > 100);
       els.forEach(function (el) {
         var rect = el.getBoundingClientRect();
+        var distance = (window.innerWidth + rect.width) / 2 + 40;
         var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
         var x;
         var opacity;
-        var textProgress = Math.min(1, progress / 0.5);
         if (progress < 0.25) {
           var entering = progress / 0.25;
           x = -distance * (1 - entering);
@@ -118,7 +118,6 @@ latest_posts:
         }
         el.style.setProperty("--ale-scroll-x", x.toFixed(2) + "px");
         el.style.setProperty("--ale-scroll-opacity", opacity.toFixed(3));
-        el.style.setProperty("--ale-text-reveal", (textProgress * 100).toFixed(2) + "%");
       });
       ticking = false;
     }

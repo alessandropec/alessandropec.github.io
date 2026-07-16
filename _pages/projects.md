@@ -4,7 +4,7 @@ title: projects
 permalink: /projects/
 description: Research and applied projects — from Ph.D. work on agents and virtual humans to industry AI solutions.
 nav: true
-nav_order: 3
+nav_order: 2
 display_categories: [phd-research, applied-research, industry, msc-thesis]
 horizontal: false
 ---
