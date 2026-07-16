@@ -28,11 +28,12 @@ latest_posts:
 
 <div class="ale-intro">
   <div class="ale-intro-copy">
-    <h1 class="ale-hero-name">Alessandro Emmanuel Pecora</h1>
+    <img class="ale-hero-logo" src="{{ '/assets/img/favicon.svg' | relative_url }}" alt="APE monogram">
+    <h1 class="ale-hero-name"><strong>Alessandro</strong> Emmanuel<br>Pecora</h1>
     <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
     <div class="ale-keywords" aria-label="Research areas">
-      <span>Agentic AI</span><span>Cognitive architectures</span><span>Virtual humans</span><span>Embodied AI</span>
+      <span>Agentic AI</span><span>Cognitive architectures</span><span>Long-term memory</span><span>Virtual humans</span><span>Embodied AI</span><span>Computer vision</span><span>Natural language processing</span><span>Speech processing</span><span>XR</span><span>Data science</span><span>Learning &amp; training</span><span>Cultural heritage</span><span>Applied AI</span><span>Artificial general intelligence</span>
     </div>
   </div>
   <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
@@ -99,20 +100,25 @@ latest_posts:
         var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
         var x;
         var opacity;
-        if (progress < 0.32) {
-          var entering = progress / 0.32;
+        var textProgress = Math.min(1, progress / 0.5);
+        if (progress < 0.25) {
+          var entering = progress / 0.25;
           x = -distance * (1 - entering);
           opacity = entering;
-        } else if (progress <= 0.68) {
+        } else if (progress <= 0.5) {
           x = 0;
           opacity = 1;
-        } else {
-          var leaving = (progress - 0.68) / 0.32;
+        } else if (progress <= 0.75) {
+          var leaving = (progress - 0.5) / 0.25;
           x = distance * leaving;
           opacity = 1 - leaving;
+        } else {
+          x = distance;
+          opacity = 0;
         }
         el.style.setProperty("--ale-scroll-x", x.toFixed(2) + "px");
         el.style.setProperty("--ale-scroll-opacity", opacity.toFixed(3));
+        el.style.setProperty("--ale-text-reveal", (textProgress * 100).toFixed(2) + "%");
       });
       ticking = false;
     }

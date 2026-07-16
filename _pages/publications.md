@@ -23,6 +23,7 @@ nav_order: 2
       var entry = status.closest("li");
       if (!entry) return;
       entry.classList.add("ale-unpublished");
+      entry.classList.add(status.textContent.toLowerCase().includes("review") ? "ale-under-review" : "ale-in-press");
       var links = entry.querySelector(".links");
       if (links && !links.querySelector(".ale-disabled-doi")) {
         var doi = document.createElement("span");
@@ -33,17 +34,12 @@ nav_order: 2
       }
     });
 
-    document.querySelectorAll(".bibliography > li").forEach(function (entry) {
-      var doiLink = entry.querySelector('.links a[href*="doi.org"]');
-      var venue = entry.querySelector(".abbr");
-      if (doiLink && venue && !venue.querySelector("a")) {
-        var venueLink = document.createElement("a");
-        venueLink.href = doiLink.href;
-        venueLink.target = "_blank";
-        venueLink.rel = "noopener noreferrer";
-        venueLink.innerHTML = venue.innerHTML;
-        venue.replaceChildren(venueLink);
-      }
+    document.querySelectorAll(".bibliography .links").forEach(function (links) {
+      var controls = Array.from(links.children);
+      var bib = controls.find(function (control) { return /bib/i.test(control.textContent); });
+      var doi = controls.find(function (control) { return /doi/i.test(control.textContent); });
+      if (bib) links.prepend(bib);
+      if (doi) bib ? bib.insertAdjacentElement("afterend", doi) : links.prepend(doi);
     });
   });
 </script>
