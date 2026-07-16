@@ -12,7 +12,7 @@ My M.Sc. thesis on **zero-shot voice cloning**: combining **text-to-speech** mod
 
 The thesis is available as {% cite pecora2023thesis %}.
 
-<p class="ale-project-actions"><a href="https://github.com/alessandropec/data_driven_ai_voice_cloning" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Code</a></p>
+<p class="ale-project-actions"><a href="https://github.com/alessandropec/data_driven_ai_voice_cloning" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Code <span aria-hidden="true">↗</span></a></p>
 
 {% comment %}
 Quando avrai demo audio, aggiungile così (file in assets/audio/):

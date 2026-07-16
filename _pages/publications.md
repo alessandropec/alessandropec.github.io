@@ -34,6 +34,19 @@ nav_order: 3
       var bib = controls.find(function (control) { return /bib/i.test(control.textContent); });
       var code = controls.find(function (control) { return /code/i.test(control.textContent); });
       var doi = controls.find(function (control) { return /doi/i.test(control.textContent); });
+      if (entry.classList.contains("ale-unpublished") && bib) {
+        bib.remove();
+        bib = null;
+      }
+      if (code) {
+        code.innerHTML = '<i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span>';
+        code.setAttribute("aria-label", "Open code repository");
+      }
+      if (doi) {
+        doi.innerHTML = '<span>DOI</span><span aria-hidden="true">↗</span>';
+        doi.setAttribute("aria-label", "Open publication DOI");
+      }
+      if (bib) bib.setAttribute("aria-label", "Show BibTeX citation");
       [bib, code, doi].forEach(function (control) {
         if (control) links.appendChild(control);
       });
@@ -80,7 +93,7 @@ nav_order: 3
   </article>
   <article class="ale-thesis-entry">
     <div class="ale-thesis-meta"><span>2024</span><span>M.Sc.</span></div>
-    <div><h3>DIVINE: Diagnosis of Grapevine Diseases through Neural Networks and Deep Learning</h3><p><strong>Fabrizio Sanino</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer">Thesis ↗</a><a href="https://github.com/fabriziosanino/grape_leaves_detection" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Code</a></div></div>
+    <div><h3>DIVINE: Diagnosis of Grapevine Diseases through Neural Networks and Deep Learning</h3><p><strong>Fabrizio Sanino</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer">Thesis ↗</a><a href="https://github.com/fabriziosanino/grape_leaves_detection" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Code <span aria-hidden="true">↗</span></a></div></div>
   </article>
   <p class="ale-theses-note">Current co-supervision topics include further work within <strong>DIVINE</strong>, <strong>LLM/VLM fine-tuning</strong>, and <strong>agentic fact-checking</strong>. Additional thesis opportunities across different research topics are available on the <a href="https://cgvg.polito.it/thesis.html" target="_blank" rel="noopener noreferrer">CG&amp;VG thesis proposals page ↗</a>.</p>
 </section>
