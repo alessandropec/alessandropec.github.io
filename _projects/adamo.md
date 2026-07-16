@@ -14,6 +14,8 @@ I am currently extending the framework with **long-term spatial memory** for dee
 
 The framework is presented in {% cite pecora2026adamo %}.
 
+<p class="ale-project-actions"><a href="https://github.com/CGVGroup/ADAMO" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Code</a></p>
+
 {% comment %}
 Quando avrai screenshot/GIF/video, aggiungili così (immagini in assets/img/projects/):
 

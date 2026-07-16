@@ -32,13 +32,13 @@ latest_posts:
     <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
     <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
-    <div class="ale-keywords" aria-label="Research areas">
-      <span>Agentic AI</span><span>Cognitive architectures</span><span>Long-term memory</span><span>Virtual humans</span><span>Embodied AI</span><span>Computer vision</span><span>Natural language processing</span><span>Speech processing</span><span>XR</span><span>Data science</span><span>Learning &amp; training</span><span>Cultural heritage</span><span>Applied AI</span><span>Artificial general intelligence</span>
-    </div>
   </div>
   <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
     <span class="ale-portrait-monogram">AP</span>
     <span class="ale-portrait-note">Portrait<br>coming soon</span>
+  </div>
+  <div class="ale-keywords" aria-label="Research areas">
+    <span>Agentic AI</span><span>Cognitive architectures</span><span>Long-term memory</span><span>Virtual humans</span><span>Embodied AI</span><span>Computer vision</span><span>Natural language processing</span><span>Speech processing</span><span>XR</span><span>Data science</span><span>Learning &amp; training</span><span>Cultural heritage</span><span>Applied AI</span><span>Artificial general intelligence</span>
   </div>
   <a class="ale-scroll-cue" href="#story" aria-label="Scroll to the story"><span aria-hidden="true">↓</span></a>
 </div>
@@ -73,7 +73,7 @@ latest_posts:
 </section>
 </div>
 
-<div id="work" class="ale-see-also ale-reveal">
+<div id="work" class="ale-see-also">
   <span>Continue through the work</span>
   <div class="ale-work-links">
     <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Systems, experiments and applied research</span><i aria-hidden="true">→</i></a>
@@ -97,7 +97,7 @@ latest_posts:
       document.documentElement.classList.toggle("ale-has-scrolled", window.scrollY > 100);
       els.forEach(function (el) {
         var rect = el.getBoundingClientRect();
-        var distance = (window.innerWidth + rect.width) / 2 + 40;
+        var distance = Math.min(120, window.innerWidth * 0.1);
         var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
         var x;
         var opacity;
