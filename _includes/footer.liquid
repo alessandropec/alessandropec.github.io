@@ -1,33 +1,21 @@
 {% comment %}
   Override locale di al_folio_core/_includes/footer.liquid (gem v1.0.11):
-  footer personalizzato con contatti + copyright non standard.
+  footer editoriale minimale con rimandi al lavoro principale.
 {% endcomment %}
 {% capture footer_contents %}
   <div class="ale-footer">
-    <div class="ale-footer-contacts">
-      <a href="mailto:alessandro.pecora@polito.it" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-      <a href="https://scholar.google.com/citations?user=KVAZ8pcAAAAJ" title="Google Scholar" aria-label="Google Scholar"><i class="ai ai-google-scholar"></i></a>
-      <a href="https://github.com/alessandropec" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/alessandro-pecora-3a5001192" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="https://www.polito.it/en/staff?p=105698" title="Politecnico di Torino" aria-label="Politecnico di Torino"><i class="fa-solid fa-building-columns"></i></a>
-      <a href="{{ '/contact/' | relative_url }}" title="Contact" aria-label="Contact"><i class="fa-solid fa-paper-plane"></i></a>
+    <p class="ale-footer-question">Who we are, where we come from, where we are going.</p>
+    <div class="ale-footer-links" aria-label="See also">
+      <span>See also</span>
+      <a href="{{ '/projects/' | relative_url }}">Projects</a>
+      <a href="{{ '/publications/' | relative_url }}">Publications</a>
     </div>
     <div class="ale-footer-copy">
       <span>&copy; {{ 'now' | date: '%Y' }} Alessandro Emmanuel Pecora</span>
-      <span class="ale-footer-separator" aria-hidden="true">·</span>
-      <span>Built in Torino with <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/alshedivat/al-folio">al-folio</a></span>
       {% if site.last_updated %}<span>Last updated {{ 'now' | date: '%B %d, %Y' }}</span>{% endif %}
     </div>
   </div>
 {% endcapture %}
-
-<nav class="ale-site-dock" aria-label="Site sections">
-  <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}><span>01</span>Home</a>
-  <a href="{{ '/publications/' | relative_url }}"{% if page.url contains '/publications' %} aria-current="page"{% endif %}><span>02</span>Publications</a>
-  <a class="ale-site-dock-primary" href="{{ '/projects/' | relative_url }}"{% if page.url contains '/projects' %} aria-current="page"{% endif %}><span>03</span>Projects</a>
-  <a href="{{ '/repositories/' | relative_url }}"{% if page.url contains '/repositories' %} aria-current="page"{% endif %}><span>04</span>Code</a>
-  <a href="{{ '/contact/' | relative_url }}"{% if page.url contains '/contact' %} aria-current="page"{% endif %}><span>05</span>Contact</a>
-</nav>
 
 {% if site.footer_fixed %}
   <footer class="fixed-bottom" role="contentinfo">

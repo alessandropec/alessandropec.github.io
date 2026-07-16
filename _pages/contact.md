@@ -4,7 +4,7 @@ permalink: /contact/
 title: contact
 description: The best way to reach me is by email.
 nav: true
-nav_order: 5
+nav_order: 4
 ---
 
 <div class="ale-jump" style="margin-top: 0.5rem">
