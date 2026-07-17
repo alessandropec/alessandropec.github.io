@@ -3772,6 +3772,16 @@ code,
   object-fit: cover;
   border: 1px solid #191915;
 }
+.ale-project-gallery--contain img {
+  aspect-ratio: auto;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  background: #fff;
+}
+.ale-project-gallery--contain figure {
+  min-width: 0;
+}
 .ale-project-feature {
   margin: 2rem 0 2.75rem;
 }
@@ -3840,6 +3850,32 @@ code,
   gap: 0.35rem;
   font-size: 0.78rem;
 }
+.ale-project-related-list {
+  margin: 1.5rem 0 3rem;
+  padding: 0;
+  border-top: 1px solid #191915;
+  list-style: none;
+}
+.ale-project-related-list li {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: minmax(150px, .35fr) minmax(0, 1fr) minmax(120px, .25fr);
+  gap: 1rem;
+  align-items: baseline;
+  border-bottom: 1px solid #191915;
+}
+.ale-project-related-list li > span,
+.ale-project-related-list small {
+  font-size: .72rem;
+  line-height: 1.4;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.ale-project-related-list strong,
+.ale-project-related-list a {
+  font-size: .9rem;
+  line-height: 1.45;
+}
 
 @media (max-width: 720px) {
   .ale-project-gallery,
@@ -3851,5 +3887,9 @@ code,
   .ale-related-work article:nth-child(even) {
     padding: 1.15rem 0;
     border-left: 0;
+  }
+  .ale-project-related-list li {
+    grid-template-columns: 1fr;
+    gap: .35rem;
   }
 }
