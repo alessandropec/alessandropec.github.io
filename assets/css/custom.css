@@ -4663,3 +4663,13 @@ footer.sticky-bottom > .container {
     padding-right: clamp(4.5rem, 9vw, 6.5rem) !important;
   }
 }
+
+/* Same size for paper buttons (bib/doi/abs) and thesis/code links. */
+.ale-publications-page .links a,
+.ale-publications-page .links a.btn,
+.ale-publications-page .links .btn,
+.ale-thesis-links a,
+a.ale-code-action,
+.ale-code-action {
+  font-size: 0.72rem !important;
+}
