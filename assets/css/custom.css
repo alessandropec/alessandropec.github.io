@@ -4400,3 +4400,19 @@ body {
 .ale-contact-profile .ale-contact-cell-body {
   margin: auto 0 !important;
 }
+
+/* Sticky footer, decisive version: the main container grows, the footer's
+   bootstrap .mt-5 margin is beaten with higher specificity, and the
+   theme's trailing hidden helper div can't add height after the footer. */
+body > .container,
+body > main {
+  flex: 1 0 auto !important;
+}
+body > footer.sticky-bottom.mt-5,
+body > footer.sticky-bottom,
+body > footer {
+  margin-top: auto !important;
+}
+body > div.hidden {
+  display: none !important;
+}
