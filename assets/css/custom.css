@@ -2192,26 +2192,6 @@ footer.sticky-bottom > .container {
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
-.ale-group-mark {
-  width: max-content;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  margin-bottom: 1rem;
-  color: #191915;
-  font:
-    500 clamp(2.3rem, 4vw, 4rem)/1 "Roboto Slab",
-    Georgia,
-    serif;
-  letter-spacing: -0.06em;
-  text-decoration: none;
-}
-.ale-group-mark span {
-  font:
-    400 1rem/1 Roboto,
-    sans-serif;
-  letter-spacing: 0;
-}
 
 /* Every cell of the composition shares borders with its neighbors (no gap).
    On hover/focus a cell lifts off the grid and its own border + shadow
@@ -4279,10 +4259,6 @@ a.ale-code-action,
   font-size: 0.76rem;
   font-weight: 400;
 }
-.ale-contact-cell-body--group .ale-group-mark {
-  margin-bottom: 0;
-  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
-}
 
 .ale-contact-profile {
   grid-column: span 3;
@@ -4417,4 +4393,13 @@ body > footer {
 }
 body > div.hidden {
   display: none !important;
+}
+
+/* Contact cells: one typographic pattern for every cell — icon + bold
+   name + small line, no underline ever. */
+.ale-contact-cell,
+.ale-contact-cell *,
+.ale-contact-cell:hover,
+.ale-contact-cell:hover * {
+  text-decoration: none !important;
 }
