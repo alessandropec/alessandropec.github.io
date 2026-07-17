@@ -52,7 +52,7 @@ latest_posts:
     <span tabindex="0" data-note="Turning research methods into systems for agriculture, insurance and enterprise use.">Applied AI</span>
     <span tabindex="0" data-note="The longer-term question behind my work on memory, generalist agents and cognition.">Artificial general intelligence</span>
   </div>
-  <a class="ale-scroll-cue" href="#story" aria-label="Scroll to the story"><span aria-hidden="true">↓</span></a>
+  <a class="ale-scroll-cue" href="#story" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
 </div>
 
 <div id="story" class="ale-story-track">
@@ -60,38 +60,38 @@ latest_posts:
   <span class="ale-kicker">Origins</span>
   <h2>Sicily, an Amiga, and a change of latitude</h2>
   <p>Born in <strong>Caltanissetta</strong> and raised in <strong>Agrigento</strong>, I moved to <strong>Torino</strong> for university. The computing part began earlier, when my brothers brought home an <strong>Amiga</strong>; science followed shortly after. I worked my way through university — web development, STEM teaching and bootcamp instruction — then consulted on <strong>AI and data science</strong> at Cluster Reply, before research won me back to academia.</p>
-  <a class="ale-section-next" href="#story-2" aria-label="Continue to background"><span aria-hidden="true">↓</span></a>
+  <a class="ale-section-next" href="#story-2" aria-label="Continue to background"><span aria-hidden="true">&darr;</span></a>
 </section>
 
 <section id="story-2" class="ale-story ale-reveal" data-step="02">
   <span class="ale-kicker">Background</span>
   <h2>A multidisciplinary route into AI</h2>
   <p>My path has spanned <strong>computer vision</strong>, <strong>natural language processing</strong>, <strong>speech processing</strong> and <strong>data science</strong> at large, converging into workflow and agentic AI, and embodied AI with virtual humans in interactive environments such as <strong>XR</strong>. Virtual humans are mainly applied to <strong>learning and training</strong>; agentic AI spans further, from <strong>cultural heritage</strong> storytelling to <strong>agriculture</strong>, <strong>insurance</strong> and <strong>enterprise automation</strong>.</p>
-  <a class="ale-section-next" href="#story-3" aria-label="Continue to research direction"><span aria-hidden="true">↓</span></a>
+  <a class="ale-section-next" href="#story-3" aria-label="Continue to research direction"><span aria-hidden="true">&darr;</span></a>
 </section>
 
 <section id="story-3" class="ale-story ale-reveal" data-step="03">
   <span class="ale-kicker">Research direction</span>
   <h2>Memory as part of the architecture</h2>
   <p>Integrating these strands into cognitive architectures with <strong>long-term memory</strong> — giving agents what they usually lack, so that perception, reasoning and action can build on experience instead of starting from scratch at every prompt — my goal becomes building <strong>generalist agents</strong> and <strong>believable virtual humans</strong> able to sustain these use cases over the long term, with the ultimate goal of studying <strong>artificial general intelligence</strong>.</p>
-  <a class="ale-section-next" href="#story-4" aria-label="Continue to academic practice"><span aria-hidden="true">↓</span></a>
+  <a class="ale-section-next" href="#story-4" aria-label="Continue to academic practice"><span aria-hidden="true">&darr;</span></a>
 </section>
 
 <section id="story-4" class="ale-story ale-reveal" data-step="04">
   <span class="ale-kicker">Academic practice</span>
   <h2>Teaching, supervision and prototypes</h2>
   <p>I lecture on <em>AI-powered Virtual Humans — LLM-based Cognitive Architectures</em> and collaborate on <em>Algorithms and Data Structures</em> at Politecnico di Torino, and I co-supervise B.Sc./M.Sc. theses on agents, storytelling and applied deep learning.</p>
-  <a class="ale-section-next" href="#work" aria-label="Continue to projects and publications"><span aria-hidden="true">↓</span></a>
+  <a class="ale-section-next" href="#work" aria-label="Continue to projects and publications"><span aria-hidden="true">&darr;</span></a>
 </section>
 </div>
 
 <div id="work" class="ale-see-also">
   <span>Continue through the work</span>
   <div class="ale-work-links">
-    <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Systems, experiments and applied research</span><i aria-hidden="true">→</i></a>
-    <a href="{{ '/publications/' | relative_url }}"><small>02</small><strong>Publications</strong><span>Peer-reviewed research and scholarly output</span><i aria-hidden="true">→</i></a>
+    <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Systems, experiments and applied research</span><i aria-hidden="true">&rarr;</i></a>
+    <a href="{{ '/publications/' | relative_url }}"><small>02</small><strong>Publications</strong><span>Peer-reviewed research and scholarly output</span><i aria-hidden="true">&rarr;</i></a>
   </div>
-  <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">→</span></a></p>
+  <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">&rarr;</span></a></p>
 </div>
 
 <script>

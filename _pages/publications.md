@@ -40,11 +40,11 @@ nav_order: 3
       }
       if (code) {
         code.classList.add("ale-code-action");
-        code.innerHTML = '<i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span>';
+        code.innerHTML = '<i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">&#8599;</span>';
         code.setAttribute("aria-label", "Open code repository");
       }
       if (doi) {
-        doi.innerHTML = '<span>DOI</span><span aria-hidden="true">↗</span>';
+        doi.innerHTML = '<span>DOI</span><span aria-hidden="true">&#8599;</span>';
         doi.setAttribute("aria-label", "Open publication DOI");
       }
       if (bib) bib.setAttribute("aria-label", "Show BibTeX citation");
@@ -98,16 +98,16 @@ nav_order: 3
     <h2 id="supervised-theses-title">supervised theses</h2>
   </div>
   <article class="ale-thesis-entry">
-    <div class="ale-thesis-meta"><span>2026</span><span>M.Sc.</span></div>
-    <div><h3>RAG-based Agentic AI in Document Workflows to Support Digital Administrative Processes</h3><p><strong>Davide Proglio</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/39944/?template=default" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
+    <div class="ale-thesis-meta"><span>2026</span><span>M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/39944/?template=default" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
+    <div><h3>RAG-based Agentic AI in Document Workflows to Support Digital Administrative Processes</h3><p><strong>Davide Proglio</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
   </article>
   <article class="ale-thesis-entry">
-    <div class="ale-thesis-meta"><span>2025</span><span>M.Sc.</span></div>
-    <div><h3>Using Large Language Models to Generate Real-Time Interactive Stories</h3><p><strong>Flavia Fubini</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/38632/" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
+    <div class="ale-thesis-meta"><span>2025</span><span>M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/38632/" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
+    <div><h3>Using Large Language Models to Generate Real-Time Interactive Stories</h3><p><strong>Flavia Fubini</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
   </article>
   <article class="ale-thesis-entry">
-    <div class="ale-thesis-meta"><span>2024</span><span>M.Sc.</span></div>
-    <div><h3>DIVINE: Diagnosis of Grapevine Diseases through Neural Networks and Deep Learning</h3><p><strong>Fabrizio Sanino</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer">Thesis ↗</a><a class="ale-code-action" href="https://github.com/fabriziosanino/grape_leaves_detection" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a></div></div>
+    <div class="ale-thesis-meta"><span>2024</span><span>M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer">Thesis ↗</a><a class="ale-code-action" href="https://github.com/fabriziosanino/grape_leaves_detection" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a></div></div>
+    <div><h3>DIVINE: Diagnosis of Grapevine Diseases through Neural Networks and Deep Learning</h3><p><strong>Fabrizio Sanino</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
   </article>
   <p class="ale-theses-note">Current co-supervision topics include further work within <strong>DIVINE</strong>, <strong>LLM/VLM fine-tuning</strong>, and <strong>agentic fact-checking</strong>. Additional thesis opportunities across different research topics are available on the <a href="https://cgvg.polito.it/thesis.html" target="_blank" rel="noopener noreferrer">CG&amp;VG thesis proposals page ↗</a>.</p>
 </section>
