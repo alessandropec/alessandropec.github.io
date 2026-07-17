@@ -31,23 +31,16 @@ Images are collected in the experimental vineyard in Grugliasco with a mobile pl
 
 ## From images to disease recognition
 
-The images are divided into separate training, validation and test groups. During training, controlled variations of colour and visual detail help the models handle changing field conditions without altering the final test images. The study compares fast models that locate and classify a disease in one step with a more careful two-stage approach that first isolates each leaf and then analyses it separately.
-
-<div class="ale-project-gallery ale-project-gallery--three ale-project-gallery--aligned">
-  <figure><img src="{{ '/assets/img/projects/divine/training-original.jpeg' | relative_url }}" alt="Original vineyard image used for model training" loading="lazy"><figcaption>Original training image.</figcaption></figure>
-  <figure><img src="{{ '/assets/img/projects/divine/training-saturation.jpeg' | relative_url }}" alt="Training image with a controlled colour variation" loading="lazy"><figcaption>Controlled colour variation.</figcaption></figure>
-  <figure><img src="{{ '/assets/img/projects/divine/training-sharpening.jpeg' | relative_url }}" alt="Training image with enhanced local detail" loading="lazy"><figcaption>Enhanced local detail.</figcaption></figure>
-</div>
+The images are divided into separate training, validation and test groups. Several detection and classification models were trained in multiple configurations. Colour, saturation and local-detail transformations were used specifically as **data augmentation**, helping the models encounter a wider range of plausible field conditions during training while leaving validation and test images unchanged.
 
 ## Results
 
 <div class="ale-project-results">
-  <article><strong>0.84</strong><span>F1 score</span><p>for the two-stage pipeline, the most reliable option for detailed offline analysis.</p></article>
-  <article><strong>0.73</strong><span>Precision</span><p>for RT-DETR with image tiling, the strongest one-stage configuration.</p></article>
-  <article><strong>17 ms</strong><span>Inference time</span><p>for RT-DETR, offering the most practical balance for real-time field use.</p></article>
+  <article><strong>0.84</strong><span>Best F1 score</span><p>the strongest balanced disease-recognition result among the tested configurations.</p></article>
+  <article><strong>17 ms</strong><span>Fastest inference</span><p>the lowest measured inference time among the real-time detector configurations.</p></article>
 </div>
 
-The two-stage pipeline achieved the best overall recognition performance, with **0.78 precision**, **0.92 recall** and an **F1 score of 0.84**, but required around 2.2 seconds per image. RT-DETR with tiling was less accurate but much faster, making it more suitable for live monitoring. These results currently refer to a single experimental vineyard; evaluation across different sites and conditions remains necessary.
+The figures above summarize two distinct outcomes of the model search: the best balanced recognition score and the fastest inference configuration. They are not presented as a direct head-to-head comparison. Results currently refer to a single experimental vineyard; evaluation across different sites and conditions remains necessary.
 
 ## Context and collaboration
 

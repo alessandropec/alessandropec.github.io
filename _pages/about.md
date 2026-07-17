@@ -189,10 +189,17 @@ latest_posts:
         var target = document.querySelector(link.getAttribute("href"));
         if (!target) return;
         event.preventDefault();
-        var targetRect = target.getBoundingClientRect();
-        var destination = targetRect.top + window.scrollY + targetRect.height / 2 - window.innerHeight / 2;
         var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        destination = Math.max(0, Math.min(maxScroll, destination));
+        var destination;
+        if (link.getAttribute("href") === "#work") {
+          // Last arrow on the landing: go all the way down so the
+          // see-also section and footer are both in view.
+          destination = maxScroll;
+        } else {
+          var targetRect = target.getBoundingClientRect();
+          destination = targetRect.top + window.scrollY + targetRect.height / 2 - window.innerHeight / 2;
+          destination = Math.max(0, Math.min(maxScroll, destination));
+        }
         window.scrollTo({ top: destination, behavior: "smooth" });
       });
     });

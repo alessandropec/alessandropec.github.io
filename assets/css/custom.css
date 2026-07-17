@@ -87,6 +87,9 @@
   font-weight: 400;
   text-transform: lowercase;
 }
+.ale-pub-section .ale-section-heading h2:only-child {
+  margin-left: auto;
+}
 .ale-thesis-entry {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 190px;
@@ -95,12 +98,17 @@
   border-top: 1px solid #aaa59a;
 }
 .ale-thesis-year {
-  margin: 1.6rem 0 0.45rem;
+  margin: 2.2rem 0 0;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid #191915;
   color: #191915;
   font:
     400 1.45rem/1 "Roboto Slab",
     Georgia,
     serif;
+}
+.ale-thesis-year + .ale-thesis-entry {
+  border-top: 0;
 }
 .ale-thesis-meta {
   order: 2;
@@ -1505,11 +1513,16 @@ header:not(.post-header) {
   background: transparent;
   color: #191915;
   box-shadow: none;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
-.ale-jump a:hover {
-  background: #191915;
-  color: #f3efe5;
-  box-shadow: none;
+.ale-jump a:hover,
+.ale-jump a:focus-visible {
+  background: transparent;
+  color: #191915;
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 #191915;
 }
 .ale-jump .ale-jump-title,
 .ale-jump .ale-jump-sub {
@@ -1867,10 +1880,16 @@ body {
   line-height: 1.2;
   text-align: center;
   text-decoration: none !important;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
-.ale-publications-page .abbr > a:hover {
-  background: #191915 !important;
-  color: #f3efe5 !important;
+.ale-publications-page .abbr > a:hover,
+.ale-publications-page .abbr > a:focus-visible {
+  background: transparent !important;
+  color: #191915 !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 #191915;
 }
 .ale-unpublished .links a,
 .ale-unpublished .links .btn,
@@ -2247,7 +2266,7 @@ nav [aria-label*="search"] {
   padding-top: 3.5rem;
 }
 .ale-projects-page .projects .card:hover {
-  transform: translateY(-3px);
+  transform: translate(-3px, -3px);
   box-shadow: 6px 6px 0 #191915 !important;
 }
 
@@ -2373,7 +2392,8 @@ footer.sticky-bottom > .container {
   padding-right: 1rem !important;
 }
 
-/* Contact: use the available canvas instead of stacking generic cards */
+/* Contact: uniform grid of square cards, all sharing the site's standard
+   "lift off the page" hover (translate + hard shadow, no color inversion). */
 .ale-contact-page main .container {
   width: min(1280px, calc(100vw - 3rem)) !important;
   max-width: 1280px !important;
@@ -2383,13 +2403,7 @@ footer.sticky-bottom > .container {
   justify-content: center;
   padding: 1rem 0 2rem;
 }
-.ale-contact-main {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
-  border-top: 1px solid #191915;
-  border-bottom: 1px solid #191915;
-}
-.ale-contact-label {
+.ale-contact-content > .ale-contact-label {
   display: block;
   margin-bottom: 1.1rem;
   color: #6a6861;
@@ -2398,164 +2412,134 @@ footer.sticky-bottom > .container {
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
-.ale-contact-direct {
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3.5rem)
-    clamp(1.5rem, 3vw, 2.5rem) 0;
+
+.ale-contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-content: center;
-  gap: 0.8rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
 }
-.ale-contact-direct .ale-contact-label {
-  grid-column: 1 / -1;
-}
-.ale-contact-direct a {
-  min-height: 112px;
+
+.ale-contact-card {
+  min-height: 128px;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   gap: 1rem;
   padding: 1.2rem;
   border: 1px solid #191915;
+  background: transparent;
   color: #191915;
   text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
-.ale-contact-direct a:hover {
-  background: #191915;
-  color: #f3efe5;
+.ale-contact-card:hover,
+.ale-contact-card:focus-visible {
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 6px 0 #191915;
 }
-.ale-contact-direct a > i {
-  font-size: 1.1rem;
+.ale-contact-card i {
+  font-size: 1.15rem;
 }
-.ale-contact-direct a span,
-.ale-contact-profiles a span {
+.ale-contact-card span {
   display: block;
   min-width: 0;
 }
-.ale-contact-direct strong,
-.ale-contact-direct small,
-.ale-contact-profiles strong,
-.ale-contact-profiles small {
+.ale-contact-card strong,
+.ale-contact-card small {
   display: block;
 }
-.ale-contact-direct small,
-.ale-contact-profiles small {
+.ale-contact-card small {
   margin-top: 0.3rem;
   color: #6a6861;
   font-size: 0.76rem;
   font-weight: 400;
 }
-.ale-contact-direct a:hover small {
-  color: #d8d1c5;
-}
-.ale-contact-direct b {
-  font-size: 1.2rem;
-}
 
-.ale-affiliation {
-  padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(1.5rem, 3vw, 2.5rem)
-    clamp(1.5rem, 4vw, 3.5rem);
-  border-left: 1px solid #191915;
+.ale-contact-card--wide {
+  grid-column: span 2;
+  grid-template-columns: auto 1fr;
 }
 .ale-group-mark {
-  width: max-content;
   display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  margin-bottom: 1rem;
+  align-items: baseline;
+  gap: 0.4rem;
   color: #191915;
   font:
-    500 clamp(2.3rem, 4vw, 4rem)/1 "Roboto Slab",
+    500 clamp(1.7rem, 3vw, 2.4rem)/1 "Roboto Slab",
     Georgia,
     serif;
-  letter-spacing: -0.06em;
-  text-decoration: none;
+  letter-spacing: -0.04em;
 }
-.ale-group-mark span {
-  font:
-    400 1rem/1 Roboto,
-    sans-serif;
-  letter-spacing: 0;
-}
-.ale-affiliation p {
-  margin: 0 0 1rem;
-  line-height: 1.55;
-}
-.ale-affiliation address {
-  margin: 0;
-  color: #5e5c56;
-  font-style: normal;
-  line-height: 1.55;
+.ale-group-mark b {
+  font-size: 0.85rem;
+  font-weight: 400;
 }
 
-.ale-contact-profiles {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid #191915;
-}
-.ale-contact-profiles a {
-  min-height: 88px;
-  display: grid;
-  grid-template-columns: auto 1fr;
+.ale-contact-card--full {
+  grid-column: 1 / -1;
+  min-height: auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.8rem;
-  padding: 1rem 1.2rem;
-  border-right: 1px solid #191915;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ale-contact-card--static {
+  cursor: default;
+}
+.ale-contact-polito-main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ale-contact-polito-main i {
+  font-size: 1.15rem;
+}
+.ale-contact-polito-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.ale-contact-polito-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   color: #191915;
+  font-weight: 700;
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
 }
-.ale-contact-profiles a:last-child {
-  border-right: 0;
-}
-.ale-contact-profiles a:hover {
-  background: #e9e3d6;
-}
-.ale-contact-profiles i {
-  font-size: 1rem;
+.ale-contact-polito-links a:hover,
+.ale-contact-polito-links a:focus-visible {
+  border-bottom-color: #191915;
 }
 
 @media (max-width: 850px) {
   .ale-contact-page main .container {
     width: calc(100vw - 1.25rem) !important;
   }
-  .ale-contact-main {
-    grid-template-columns: 1fr;
+  .ale-contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .ale-contact-direct {
-    padding-right: 0;
-  }
-  .ale-affiliation {
-    padding-left: 0;
-    border-top: 1px solid #191915;
-    border-left: 0;
-  }
-  .ale-contact-profiles {
-    grid-template-columns: 1fr 1fr;
-  }
-  .ale-contact-profiles a:nth-child(2) {
-    border-right: 0;
-  }
-  .ale-contact-profiles a:nth-child(-n + 2) {
-    border-bottom: 1px solid #191915;
+  .ale-contact-card--wide {
+    grid-column: 1 / -1;
   }
 }
 
 @media (max-width: 560px) {
-  .ale-contact-direct {
+  .ale-contact-grid {
     grid-template-columns: 1fr;
   }
-  .ale-contact-direct .ale-contact-label {
+  .ale-contact-card--wide,
+  .ale-contact-card--full {
     grid-column: 1;
   }
-  .ale-contact-profiles {
-    grid-template-columns: 1fr;
-  }
-  .ale-contact-profiles a {
-    border-right: 0;
-    border-bottom: 1px solid #191915;
-  }
-  .ale-contact-profiles a:last-child {
-    border-bottom: 0;
+  .ale-contact-card--full {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -2776,21 +2760,20 @@ footer.sticky-bottom {
 }
 
 /* Contact uses the project-card shadow language, never a black fill. */
-.ale-contact-direct a,
-.ale-contact-profiles a {
+.ale-contact-card {
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
     background-color 0.18s ease;
 }
-.ale-contact-direct a:hover,
-.ale-contact-profiles a:hover {
+.ale-contact-card:hover,
+.ale-contact-card:focus-visible {
   background: #f3efe5 !important;
   color: #191915 !important;
   transform: translate(-3px, -3px);
   box-shadow: 6px 6px 0 #191915;
 }
-.ale-contact-direct a:hover small {
+.ale-contact-card:hover small {
   color: #6a6861 !important;
 }
 
@@ -3855,6 +3838,53 @@ code,
 }
 
 /* Project case studies */
+.ale-project-detail-page .post-header.ale-project-hero {
+  width: 100%;
+  min-height: clamp(210px, 34vw, 390px);
+  margin: 0 0 clamp(2.5rem, 6vw, 5rem) !important;
+  padding: clamp(2rem, 6vw, 5rem);
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #191915;
+  background: #9fbab4;
+}
+.ale-project-detail-page .post-header.ale-project-hero::before {
+  content: "PROJECT / CASE STUDY";
+  position: absolute;
+  top: clamp(1.2rem, 3vw, 2rem);
+  left: clamp(1.4rem, 6vw, 5rem);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.ale-project-detail-page .post-header.ale-project-hero::after {
+  content: "";
+  width: clamp(120px, 22vw, 290px);
+  aspect-ratio: 1;
+  position: absolute;
+  top: 50%;
+  right: clamp(-70px, -5vw, -20px);
+  z-index: -1;
+  transform: translateY(-50%) rotate(12deg);
+  border: 1px solid rgba(25, 25, 21, 0.45);
+  background: rgba(243, 239, 229, 0.28);
+}
+.ale-project-detail-page .post-header.ale-project-hero .post-title {
+  max-width: 950px;
+  margin: 0 !important;
+  color: #10201d !important;
+  font-size: clamp(2.8rem, 8vw, 6.8rem) !important;
+  font-weight: 500 !important;
+  line-height: 0.94 !important;
+  letter-spacing: -0.055em !important;
+  text-wrap: balance;
+}
+.ale-project-detail-page .ale-back-link {
+  margin-bottom: 0.7rem;
+}
 .ale-project-lead {
   max-width: 780px;
   margin: 0 0 2.6rem;
@@ -4044,7 +4074,7 @@ code,
 .ale-project-results {
   margin: 1.5rem 0 2rem;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   border-top: 1px solid #191915;
   border-bottom: 1px solid #191915;
 }
@@ -4080,6 +4110,13 @@ code,
 }
 
 @media (max-width: 720px) {
+  .ale-project-detail-page .post-header.ale-project-hero {
+    min-height: 230px;
+    padding: 4.5rem 1.4rem 1.6rem;
+  }
+  .ale-project-detail-page .post-header.ale-project-hero::before {
+    left: 1.4rem;
+  }
   .ale-project-gallery,
   .ale-project-gallery--three,
   .ale-project-gallery--four,
@@ -4288,20 +4325,38 @@ footer.sticky-bottom > .container {
 }
 
 /* Scroll-down cue: pinned to the viewport so it's visible on landing,
-   independent of the hero block's own height. */
+   independent of the hero block's own height, with a very light idle
+   bob so it reads as interactive (mirrors #back-to-top). Note: transform
+   is intentionally NOT !important here, so the keyframe animation (which
+   needs to animate transform) isn't blocked by it. */
 .ale-scroll-cue {
   position: fixed !important;
   left: 50% !important;
   bottom: 1.4rem !important;
-  transform: translateX(-50%) !important;
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto !important;
+  transform: translateX(-50%);
+  animation: ale-scroll-cue-bob 3.2s ease-in-out infinite;
 }
 .ale-has-scrolled .ale-scroll-cue {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
+}
+@keyframes ale-scroll-cue-bob {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ale-scroll-cue {
+    animation: none;
+  }
 }
 
 /* Navbar hover underline: available on every item, including the active
@@ -4472,4 +4527,18 @@ footer.sticky-bottom > .container {
 .ale-back-link:focus-visible {
   transform: translate(-3px, -3px);
   box-shadow: 5px 5px 0 #191915;
+}
+
+/* Small page logo above the title on internal pages, injected from
+   head.liquid. On project detail pages it sits below the back-link
+   (DOM order handles that); elsewhere it's simply the first thing in
+   the header. */
+.ale-page-logo {
+  display: block;
+  width: clamp(40px, 4vw, 48px);
+  height: auto;
+  margin: 0 0 0.9rem;
+}
+.ale-project-detail-page .ale-back-link + .ale-page-logo {
+  margin-top: 0;
 }

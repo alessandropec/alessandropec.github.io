@@ -8,4 +8,14 @@ year: 2022–2023
 category: industry
 ---
 
-**LLM-powered solutions** for enterprise clients, built as an IT consultant at **Cluster Reply** for major Italian companies across sectors (energy, banking and more): AI assistants, a **car-sales recommender**, a **multimodal mail analyzer**, **ML + OCR email classification** integrated with Salesforce, and **data-lake modernization** on **Azure / Databricks**.
+<p class="ale-project-lead">Production-oriented AI and data platforms built at Cluster Reply for enterprise clients across energy, banking and other regulated domains.</p>
+
+## Applied AI systems
+
+The work included LLM-powered assistants, a car-sales recommender, multimodal mail analysis and ML/OCR classification workflows integrated with Salesforce. The common challenge was turning heterogeneous business data into traceable outputs that could fit existing operational processes.
+
+## Data engineering foundations
+
+Alongside model development, I worked on data-lake modernisation with **Azure** and **Databricks**: ingestion and transformation pipelines, reusable data products and the infrastructure required to move experimental models into maintainable enterprise workflows.
+
+Client data and interfaces remain confidential, so this case study focuses on responsibilities and technical scope rather than screenshots or proprietary performance figures.

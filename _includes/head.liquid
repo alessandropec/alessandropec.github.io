@@ -141,6 +141,11 @@
       brand.setAttribute("aria-label", "Alessandro Emmanuel Pecora — home");
     }
     var projectMatch = location.pathname.match(/^(.*\/projects)\/.+/);
+    if (projectMatch) {
+      document.documentElement.classList.add("ale-project-detail-page");
+      var projectHeader = document.querySelector(".post .post-header");
+      if (projectHeader) projectHeader.classList.add("ale-project-hero");
+    }
     if (projectMatch && !document.querySelector(".ale-back-link")) {
       var backAnchor = document.querySelector(".post .post-header") || document.querySelector(".post");
       if (backAnchor) {
@@ -149,6 +154,20 @@
         back.href = projectMatch[1] + "/";
         back.innerHTML = '<span aria-hidden="true">&larr;</span> back to projects';
         backAnchor.insertAdjacentElement("beforebegin", back);
+      }
+    }
+    // Small page logo above the title on every internal page (projects,
+    // research outputs, contact, project detail...). On project detail
+    // pages it lands right below the back-link, above the title, because
+    // it's injected after the back-link block above.
+    if (!document.documentElement.classList.contains("ale-home-page")) {
+      var pageHeader = document.querySelector(".post-header");
+      if (pageHeader && !document.querySelector(".ale-page-logo")) {
+        var pageLogo = document.createElement("img");
+        pageLogo.className = "ale-page-logo";
+        pageLogo.src = "{{ '/assets/img/aep-logo-thick.png' | relative_url }}?v=aep-thick-1";
+        pageLogo.alt = "";
+        pageHeader.insertAdjacentElement("beforebegin", pageLogo);
       }
     }
   });
