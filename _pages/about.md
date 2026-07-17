@@ -33,24 +33,37 @@ latest_posts:
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
   </div>
   <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
-    <span class="ale-portrait-monogram">AP</span>
+    <svg class="ale-portrait-monogram" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M33,15 L35,15 L34,18.4 Z" fill="#9b3f2f"/>
+      <g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14,50 L33,15"/>
+        <path d="M35,15 L44,50"/>
+        <path d="M33,15 L35,15"/>
+        <path d="M22,36 L40,36"/>
+        <path d="M26,15 L26,50"/>
+        <path d="M26,15 C37,15 43,18.5 43,23 C43,27.5 37,31 26,31"/>
+        <path d="M26,15 L44,15"/>
+        <path d="M26,32 L40,32"/>
+        <path d="M26,50 L44,50"/>
+      </g>
+    </svg>
     <span class="ale-portrait-note">Portrait<br>coming soon</span>
   </div>
   <div class="ale-keywords" aria-label="Research areas">
-    <span tabindex="0" data-note="Agents that plan, use tools and act toward goals across my research and applied work.">Agentic AI</span>
-    <span tabindex="0" data-note="The structural layer connecting perception, memory, reasoning and action.">Cognitive architectures</span>
-    <span tabindex="0" data-note="My current focus: enabling agents to accumulate and reuse experience over time.">Long-term memory</span>
-    <span tabindex="0" data-note="Believable digital characters for interaction, learning and simulation.">Virtual humans</span>
-    <span tabindex="0" data-note="Intelligence grounded in a body and an environment, rather than isolated prompts.">Embodied AI</span>
-    <span tabindex="0" data-note="From segmentation and agriculture to multimodal perception in 3D environments.">Computer vision</span>
-    <span tabindex="0" data-note="Language understanding and generation for agents, narratives and enterprise workflows.">Natural language processing</span>
-    <span tabindex="0" data-note="Voice cloning, speech interfaces and verbal interaction with virtual humans.">Speech processing</span>
-    <span tabindex="0" data-note="Interactive environments where agents and virtual humans can be experienced and evaluated.">XR</span>
-    <span tabindex="0" data-note="The engineering foundation behind my academic and industry AI work.">Data science</span>
-    <span tabindex="0" data-note="A primary application for virtual humans, from guided practice to reflective feedback.">Learning &amp; training</span>
-    <span tabindex="0" data-note="Grounded narrative generation from museum and archival knowledge.">Cultural heritage</span>
-    <span tabindex="0" data-note="Turning research methods into systems for agriculture, insurance and enterprise use.">Applied AI</span>
-    <span tabindex="0" data-note="The longer-term question behind my work on memory, generalist agents and cognition.">Artificial general intelligence</span>
+    <span tabindex="0" data-note="Agents that plan, use tools and act toward goals.">Agentic AI</span>
+    <span tabindex="0" data-note="The structural layer linking perception, memory, reasoning and action.">Cognitive architectures</span>
+    <span tabindex="0" data-note="My current focus: agents that accumulate and reuse experience over time.">Long-term memory</span>
+    <span tabindex="0" data-note="Believable digital characters for interaction and simulation.">Virtual humans</span>
+    <span tabindex="0" data-note="Intelligence grounded in a body and an environment, not just prompts.">Embodied AI</span>
+    <span tabindex="0" data-note="From segmentation to multimodal perception in 3D environments.">Computer vision</span>
+    <span tabindex="0" data-note="Language understanding and generation for agents and narratives.">Natural language processing</span>
+    <span tabindex="0" data-note="Voice cloning and speech interfaces for virtual humans.">Speech processing</span>
+    <span tabindex="0" data-note="Interactive environments to build and evaluate agents.">XR</span>
+    <span tabindex="0" data-note="The engineering foundation behind my AI work.">Data science</span>
+    <span tabindex="0" data-note="Virtual humans applied to guided practice and reflective feedback.">Learning &amp; training</span>
+    <span tabindex="0" data-note="Grounded storytelling from museum and archival knowledge.">Cultural heritage</span>
+    <span tabindex="0" data-note="Research methods turned into systems for real-world use.">Applied AI</span>
+    <span tabindex="0" data-note="The longer-term question behind memory, agents and cognition.">Artificial general intelligence</span>
   </div>
   <a class="ale-scroll-cue" href="#story" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
 </div>
@@ -100,10 +113,8 @@ latest_posts:
     var keywords = document.querySelectorAll(".ale-keywords [data-note]");
     var info = document.createElement("div");
     var activeKeyword = null;
-    var infoPinned = false;
     info.className = "ale-keyword-popover";
-    info.setAttribute("role", "dialog");
-    info.setAttribute("aria-label", "Research area context");
+    info.setAttribute("role", "tooltip");
     info.hidden = true;
     document.body.appendChild(info);
 
@@ -118,41 +129,26 @@ latest_posts:
       info.style.top = Math.round(top) + "px";
     }
 
-    function showInfo(keyword, pinned) {
-      if (activeKeyword && activeKeyword !== keyword) activeKeyword.setAttribute("aria-expanded", "false");
+    function showInfo(keyword) {
       activeKeyword = keyword;
-      infoPinned = Boolean(pinned);
       info.textContent = keyword.getAttribute("data-note");
       info.hidden = false;
-      keyword.setAttribute("aria-expanded", "true");
       requestAnimationFrame(function () { placeInfo(keyword); info.classList.add("ale-open"); });
     }
 
-    function hideInfo(force) {
-      if (infoPinned && !force) return;
-      infoPinned = false;
+    function hideInfo() {
       info.classList.remove("ale-open");
-      if (activeKeyword) activeKeyword.setAttribute("aria-expanded", "false");
       activeKeyword = null;
-      window.setTimeout(function () { if (!activeKeyword) info.hidden = true; }, 160);
+      window.setTimeout(function () { if (!activeKeyword) info.hidden = true; }, 120);
     }
 
     keywords.forEach(function (keyword) {
-      keyword.setAttribute("role", "button");
-      keyword.setAttribute("aria-haspopup", "dialog");
-      keyword.setAttribute("aria-expanded", "false");
-      keyword.addEventListener("mouseenter", function () { if (!infoPinned) showInfo(keyword, false); });
-      keyword.addEventListener("mouseleave", function () { hideInfo(false); });
-      keyword.addEventListener("focus", function () { if (!infoPinned) showInfo(keyword, false); });
-      keyword.addEventListener("blur", function () { hideInfo(false); });
-      keyword.addEventListener("click", function (event) {
-        event.stopPropagation();
-        if (activeKeyword === keyword && infoPinned) hideInfo(true);
-        else showInfo(keyword, true);
-      });
+      keyword.addEventListener("mouseenter", function () { showInfo(keyword); });
+      keyword.addEventListener("mouseleave", hideInfo);
+      keyword.addEventListener("focus", function () { showInfo(keyword); });
+      keyword.addEventListener("blur", hideInfo);
     });
-    document.addEventListener("click", function () { hideInfo(true); });
-    document.addEventListener("keydown", function (event) { if (event.key === "Escape") hideInfo(true); });
+    window.addEventListener("scroll", hideInfo, { passive: true });
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       els.forEach(function (el) {
         el.classList.add("ale-visible");
@@ -208,13 +204,15 @@ latest_posts:
         if (!target) return;
         event.preventDefault();
         var start = window.scrollY;
-        var destination = target.getBoundingClientRect().top + start - 52;
-        var duration = 1050;
+        var targetRect = target.getBoundingClientRect();
+        var destination = targetRect.top + start + targetRect.height / 2 - window.innerHeight / 2;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        destination = Math.max(0, Math.min(maxScroll, destination));
+        var duration = 900;
         var started = performance.now();
         function step(now) {
           var elapsed = Math.min(1, (now - started) / duration);
-          var eased = elapsed < .5 ? 4 * elapsed * elapsed * elapsed : 1 - Math.pow(-2 * elapsed + 2, 3) / 2;
-          window.scrollTo(0, start + (destination - start) * eased);
+          window.scrollTo(0, start + (destination - start) * elapsed);
           if (elapsed < 1) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);

@@ -1,41 +1,53 @@
 ---
 layout: page
 title: DIVINE
-description: Computer vision for recognising grapevine diseases directly in the field.
+card_description: Computer vision for recognising grapevine diseases directly in the field.
 img: assets/img/projects/divine/field-rover.jpeg
-importance: 2
+importance: 3
+year: 2024–2026
 category: applied-research
 ---
 
-<p class="ale-project-lead">DIVINE is a precision-agriculture project that uses cameras and artificial intelligence to recognise visible signs of disease on grapevine leaves. Its goal is to support faster and more targeted monitoring directly in the vineyard.</p>
+<p class="ale-project-lead"><strong>DIVINE</strong>—<strong>DI</strong>agnosis of grape<strong>VI</strong>ne diseases through <strong>NE</strong>ural networks and deep learning—is a precision-agriculture project that uses cameras and artificial intelligence to recognise visible signs of disease on grapevine leaves.</p>
 
-Vineyard diseases are often monitored manually, while treatments may be applied broadly because detailed information about each area is unavailable. Computer-vision systems could support more selective interventions, but real vineyards are much less predictable than controlled image datasets: leaves overlap, symptoms can be small, lighting changes and healthy samples greatly outnumber diseased ones. DIVINE focuses on these practical limitations.
+Vineyard monitoring still relies heavily on manual inspection, while treatments may be applied broadly because detailed information about each area is unavailable. Automatic recognition could support earlier and more targeted interventions, but real vineyards are difficult visual environments: leaves overlap, symptoms can be small, lighting changes continuously and healthy leaves greatly outnumber diseased ones. DIVINE studies how a computer-vision system can operate under these practical conditions.
 
-<div class="ale-project-gallery ale-project-gallery--three ale-project-gallery--contain">
-  <figure>
-    <img src="{{ '/assets/img/projects/divine/field-rover.jpeg' | relative_url }}" alt="Autonomous acquisition rover between rows of grapevines" loading="eager">
-    <figcaption>The acquisition platform operating in the experimental vineyard.</figcaption>
-  </figure>
-  <figure>
-    <img src="{{ '/assets/img/projects/divine/ai-assisted-detection.jpeg' | relative_url }}" alt="Vine leaves with automatically proposed detection boxes" loading="lazy">
-    <figcaption>AI-assisted localisation of leaves in a high-resolution image.</figcaption>
-  </figure>
-  <figure>
-    <img src="{{ '/assets/img/projects/divine/expert-annotation.jpeg' | relative_url }}" alt="Expert-reviewed leaf boxes with disease labels" loading="lazy">
-    <figcaption>Disease labels reviewed by an agronomy expert.</figcaption>
-  </figure>
+## Building the DIVINE dataset
+
+Images are collected in the experimental vineyard in Grugliasco with a mobile platform equipped with a high-resolution camera, controlled lighting and precise positioning. The current field campaign produced **1,832 images**. An AI-assisted tool proposes the position of individual leaves; an agronomy expert then reviews them and assigns the disease labels. The resulting dataset includes more than **36,000 annotated leaves** across healthy samples, downy mildew, black rot and mixed infections.
+
+<div class="ale-project-gallery ale-project-gallery--four ale-project-gallery--leaves">
+  <figure><img src="{{ '/assets/img/projects/divine/leaf-healthy.jpeg' | relative_url }}" alt="Healthy grapevine leaf from the DIVINE dataset" loading="lazy"><figcaption>Healthy</figcaption></figure>
+  <figure><img src="{{ '/assets/img/projects/divine/leaf-downy-mildew.jpeg' | relative_url }}" alt="Grapevine leaf affected by downy mildew" loading="lazy"><figcaption>Downy mildew</figcaption></figure>
+  <figure><img src="{{ '/assets/img/projects/divine/leaf-black-rot.jpeg' | relative_url }}" alt="Grapevine leaf affected by black rot" loading="lazy"><figcaption>Black rot</figcaption></figure>
+  <figure><img src="{{ '/assets/img/projects/divine/leaf-coinfection.jpeg' | relative_url }}" alt="Grapevine leaf showing a mixed infection" loading="lazy"><figcaption>Mixed infection</figcaption></figure>
 </div>
 
-## How it works
+<div class="ale-project-gallery ale-project-gallery--three ale-project-gallery--aligned">
+  <figure><img src="{{ '/assets/img/projects/divine/field-rover.jpeg' | relative_url }}" alt="Mobile acquisition platform between rows of grapevines" loading="lazy"><figcaption>Field acquisition platform.</figcaption></figure>
+  <figure><img src="{{ '/assets/img/projects/divine/ai-assisted-detection.jpeg' | relative_url }}" alt="Automatically proposed leaf bounding boxes" loading="lazy"><figcaption>AI-assisted leaf localisation.</figcaption></figure>
+  <figure><img src="{{ '/assets/img/projects/divine/expert-annotation.jpeg' | relative_url }}" alt="Disease annotations reviewed by an expert" loading="lazy"><figcaption>Expert-reviewed disease labels.</figcaption></figure>
+</div>
 
-Images are collected in the experimental vineyard with a mobile platform equipped with a high-resolution camera, controlled lighting and precise positioning. An AI-assisted tool proposes the location of individual leaves; an agronomy expert then reviews them and assigns the correct disease labels. This combines faster annotation with specialist supervision.
+## From images to disease recognition
 
-The resulting data are used to compare two approaches. A direct model finds and classifies diseased leaves in one step. A two-stage pipeline first isolates each leaf and then analyses it separately. The first approach is better suited to faster field use, while the second can provide a more careful analysis when processing time is less important.
+The images are divided into separate training, validation and test groups. During training, controlled variations of colour and visual detail help the models handle changing field conditions without altering the final test images. The study compares fast models that locate and classify a disease in one step with a more careful two-stage approach that first isolates each leaf and then analyses it separately.
 
-<figure class="ale-project-feature">
-  <img src="{{ '/assets/img/projects/divine/two-stage-pipeline.png' | relative_url }}" alt="DIVINE pipeline in which leaves are detected, cropped and then classified" loading="lazy">
-  <figcaption>The two-stage approach separates leaf detection from disease recognition.</figcaption>
-</figure>
+<div class="ale-project-gallery ale-project-gallery--three ale-project-gallery--aligned">
+  <figure><img src="{{ '/assets/img/projects/divine/training-original.jpeg' | relative_url }}" alt="Original vineyard image used for model training" loading="lazy"><figcaption>Original training image.</figcaption></figure>
+  <figure><img src="{{ '/assets/img/projects/divine/training-saturation.jpeg' | relative_url }}" alt="Training image with a controlled colour variation" loading="lazy"><figcaption>Controlled colour variation.</figcaption></figure>
+  <figure><img src="{{ '/assets/img/projects/divine/training-sharpening.jpeg' | relative_url }}" alt="Training image with enhanced local detail" loading="lazy"><figcaption>Enhanced local detail.</figcaption></figure>
+</div>
+
+## Results
+
+<div class="ale-project-results">
+  <article><strong>0.84</strong><span>F1 score</span><p>for the two-stage pipeline, the most reliable option for detailed offline analysis.</p></article>
+  <article><strong>0.73</strong><span>Precision</span><p>for RT-DETR with image tiling, the strongest one-stage configuration.</p></article>
+  <article><strong>17 ms</strong><span>Inference time</span><p>for RT-DETR, offering the most practical balance for real-time field use.</p></article>
+</div>
+
+The two-stage pipeline achieved the best overall recognition performance, with **0.78 precision**, **0.92 recall** and an **F1 score of 0.84**, but required around 2.2 seconds per image. RT-DETR with tiling was less accurate but much faster, making it more suitable for live monitoring. These results currently refer to a single experimental vineyard; evaluation across different sites and conditions remains necessary.
 
 ## Context and collaboration
 
@@ -46,12 +58,11 @@ DIVINE is developed at **Politecnico di Torino** through collaboration between c
 <ul class="ale-project-related-list">
   <li>
     <span>Master's thesis · 2024</span>
-    <a href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer">DIVINE: DIagnosis of grapeVIne diseases through NEural networks and deep learning <span aria-hidden="true">↗</span></a>
-    <small>Fabrizio Sanino</small>
+    <div><strong>DIVINE: DIagnosis of grapeVIne diseases through NEural networks and deep learning</strong><small>Fabrizio Sanino</small></div>
+    <a class="ale-project-reference-action" href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Thesis <span aria-hidden="true">↗</span></a>
   </li>
   <li>
     <span>Master's thesis · 2025–2026 · forthcoming</span>
-    <strong>DIVINE: Imaging Diagnosis of Vine diseases using Neural networks and deep learning</strong>
-    <small>Matteo Giardino</small>
+    <div><strong>DIVINE: Imaging Diagnosis of Vine diseases using Neural networks and deep learning</strong><small>Matteo Giardino</small></div>
   </li>
 </ul>

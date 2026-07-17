@@ -1,9 +1,10 @@
 ---
 layout: page
 title: From a True Story
-description: LLM-driven narrative generation from museum catalogue data (Museo Egizio, Torino), evaluated with LLM-as-a-judge protocols.
-img: # copertina card: caricare un'immagine in assets/img/projects/ e mettere qui il percorso
-importance: 4
+card_description: LLM-driven narrative generation from museum catalogue data (Museo Egizio, Torino), evaluated with LLM-as-a-judge protocols.
+img:
+importance: 5
+year: 2026
 category: phd-research
 related_publications: true
 ---

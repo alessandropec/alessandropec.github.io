@@ -1,0 +1,29 @@
+<div class="col">
+  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
+    <article class="card h-100 hoverable ale-project-card">
+      <div class="ale-project-card__chips" aria-label="Project metadata">
+        {% case project.category %}
+          {% when "phd-research" %}
+            {% assign project_tag = "Ph.D. research" %}
+          {% when "applied-research" %}
+            {% assign project_tag = "Applied research" %}
+          {% when "industry" %}
+            {% assign project_tag = "Industry" %}
+          {% when "msc-thesis" %}
+            {% assign project_tag = "M.Sc. thesis" %}
+          {% else %}
+            {% assign project_tag = project.category %}
+        {% endcase %}
+        <span>{{ project_tag }}</span>
+        {% if project.year %}<span>{{ project.year }}</span>{% endif %}
+      </div>
+      {% if project.img %}
+        {% include figure.liquid loading="lazy" path=project.img alt=project.title class="card-img-top" %}
+      {% endif %}
+      <div class="card-body">
+        <h2 class="card-title">{{ project.title }}</h2>
+        <p class="card-text">{{ project.card_description | default: project.description }}</p>
+      </div>
+    </article>
+  </a>
+</div>

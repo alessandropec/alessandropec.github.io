@@ -86,28 +86,38 @@ nav_order: 3
   </a>
 </div>
 
-<div class="publications">
+<section class="ale-papers-section ale-pub-section" aria-labelledby="papers-title">
+  <div class="ale-section-heading">
+    <p class="ale-kicker">Peer-reviewed research</p>
+    <h2 id="papers-title">papers</h2>
+  </div>
+  <div class="publications">
 
 {% bibliography %}
 
-</div>
+  </div>
+</section>
 
-<section class="ale-supervised-theses" aria-labelledby="supervised-theses-title">
+<section class="ale-supervised-theses ale-pub-section" aria-labelledby="theses-title">
   <div class="ale-section-heading">
-    <p class="ale-kicker">Academic mentoring</p>
-    <h2 id="supervised-theses-title">supervised theses</h2>
+    <p class="ale-kicker">Mentoring &amp; academic training</p>
+    <h2 id="theses-title">theses</h2>
   </div>
   <article class="ale-thesis-entry">
-    <div class="ale-thesis-meta"><span>2026</span><span>M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/39944/?template=default" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
-    <div><h3>RAG-based Agentic AI in Document Workflows to Support Digital Administrative Processes</h3><p><strong>Davide Proglio</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
+    <div><h3>RAG-based Agentic AI in Document Workflows to Support Digital Administrative Processes</h3><p><strong>Davide Proglio</strong> · A. E. Pecora — Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
+    <div class="ale-thesis-meta"><span>2026</span><span class="ale-degree-chip">M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/39944/?template=default" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
   </article>
   <article class="ale-thesis-entry">
-    <div class="ale-thesis-meta"><span>2025</span><span>M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/38632/" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
-    <div><h3>Using Large Language Models to Generate Real-Time Interactive Stories</h3><p><strong>Flavia Fubini</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
+    <div><h3>Using Large Language Models to Generate Real-Time Interactive Stories</h3><p><strong>Flavia Fubini</strong> · A. E. Pecora — Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
+    <div class="ale-thesis-meta"><span>2025</span><span class="ale-degree-chip">M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/38632/" target="_blank" rel="noopener noreferrer">Thesis ↗</a></div></div>
   </article>
   <article class="ale-thesis-entry">
-    <div class="ale-thesis-meta"><span>2024</span><span>M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer">Thesis ↗</a><a class="ale-code-action" href="https://github.com/fabriziosanino/grape_leaves_detection" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a></div></div>
-    <div><h3>DIVINE: Diagnosis of Grapevine Diseases through Neural Networks and Deep Learning</h3><p><strong>Fabrizio Sanino</strong> · Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
+    <div><h3>DIVINE: Diagnosis of Grapevine Diseases through Neural Networks and Deep Learning</h3><p><strong>Fabrizio Sanino</strong> · A. E. Pecora — Co-supervisor · Computer Engineering · Politecnico di Torino</p></div>
+    <div class="ale-thesis-meta"><span>2024</span><span class="ale-degree-chip">M.Sc.</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer">Thesis ↗</a><a class="ale-code-action" href="https://github.com/fabriziosanino/grape_leaves_detection" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a></div></div>
+  </article>
+  <article class="ale-thesis-entry">
+    <div><h3>Data Driven: AI Voice Cloning</h3><p><strong>A. E. Pecora</strong> — Author · Supervisors: L. Cagliero, M. La Quatra, L. Vaiani · Politecnico di Torino</p></div>
+    <div class="ale-thesis-meta"><span>2023</span><span class="ale-degree-chip">M.Sc.</span><div class="ale-thesis-links"><a class="ale-code-action" href="https://github.com/alessandropec/data_driven_ai_voice_cloning" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a></div></div>
   </article>
   <p class="ale-theses-note">Current co-supervision topics include further work within <strong>DIVINE</strong>, <strong>LLM/VLM fine-tuning</strong>, and <strong>agentic fact-checking</strong>. Additional thesis opportunities across different research topics are available on the <a href="https://cgvg.polito.it/thesis.html" target="_blank" rel="noopener noreferrer">CG&amp;VG thesis proposals page ↗</a>.</p>
 </section>

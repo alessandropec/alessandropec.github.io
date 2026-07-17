@@ -1,9 +1,10 @@
 ---
 layout: page
 title: Project Lazarus
-description: An immersive virtual patient for healthcare communication training.
+card_description: An immersive virtual patient for healthcare communication training.
 img: assets/img/projects/lazarus/video-poster.jpg
 importance: 2
+year: 2026
 category: phd-research
 ---
 

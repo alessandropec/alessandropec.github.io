@@ -26,9 +26,12 @@
 .ale-thesis-links a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
-  padding: 0.42rem 0.72rem;
+  min-width: 78px;
+  padding: 0.42rem 0.65rem;
   border: 1px solid #191915;
+  border-radius: 0;
   color: #191915;
   font-size: 0.78rem;
   line-height: 1;
@@ -57,25 +60,28 @@
   transform: translate(-3px, -3px);
   box-shadow: 5px 5px 0 #191915;
 }
-.ale-supervised-theses {
+.ale-pub-section {
   margin-top: clamp(3rem, 6vw, 5rem);
   border-top: 0;
 }
-.ale-supervised-theses .ale-section-heading {
+.ale-pub-section:first-of-type {
+  margin-top: 0;
+}
+.ale-pub-section .ale-section-heading {
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 2rem;
   padding: 1.2rem 0 1rem;
 }
-.ale-supervised-theses .ale-kicker {
+.ale-pub-section .ale-kicker {
   margin: 0;
   color: #666158;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.ale-supervised-theses h2 {
+.ale-pub-section h2 {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.25rem);
   font-weight: 400;
@@ -83,15 +89,17 @@
 }
 .ale-thesis-entry {
   display: grid;
-  grid-template-columns: 190px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 190px;
   gap: 1.25rem;
   padding: clamp(1.6rem, 3vw, 2.4rem) 0;
   border-top: 1px solid #aaa59a;
 }
 .ale-thesis-meta {
+  order: 2;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
+  text-align: right;
   gap: 0.45rem;
   color: #5f5b53;
   font-size: 0.75rem;
@@ -106,6 +114,19 @@
     serif;
   letter-spacing: 0;
 }
+.ale-degree-chip {
+  min-height: 34px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.55rem;
+  border: 1px solid #191915;
+  background: #9fbab4;
+  color: #10201d;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .ale-thesis-entry h3 {
   max-width: 900px;
   margin: 0 0 0.55rem;
@@ -119,6 +140,7 @@
 .ale-thesis-links {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: flex-end;
   gap: 0.45rem;
   margin-top: 0.55rem;
 }
@@ -138,10 +160,10 @@
   text-underline-offset: 0.18em;
 }
 @media (max-width: 600px) {
-  .ale-supervised-theses .ale-section-heading {
+  .ale-pub-section .ale-section-heading {
     display: block;
   }
-  .ale-supervised-theses .ale-kicker {
+  .ale-pub-section .ale-kicker {
     margin-bottom: 0.5rem;
   }
   .ale-thesis-entry {
@@ -149,8 +171,13 @@
     gap: 0.8rem;
   }
   .ale-thesis-meta {
+    order: 0;
     flex-direction: row;
     align-items: center;
+    text-align: left;
+  }
+  .ale-thesis-links {
+    justify-content: flex-start;
   }
 }
 
@@ -421,14 +448,12 @@ a,
 }
 .ale-portrait-monogram {
   position: absolute;
-  top: 12%;
-  left: 12%;
+  top: 14%;
+  left: 14%;
+  width: clamp(2.6rem, 24%, 5.2rem);
+  height: auto;
   color: rgba(244, 248, 255, 0.8);
-  font:
-    500 clamp(2rem, 5vw, 4rem)/1 "Roboto Slab",
-    Georgia,
-    serif;
-  letter-spacing: -0.08em;
+  opacity: 0.9;
 }
 .ale-portrait-note {
   position: absolute;
@@ -2165,6 +2190,42 @@ nav [aria-label*="search"] {
 .ale-projects-page .projects .card-body {
   padding: 1.4rem;
 }
+.ale-projects-page .ale-project-card {
+  position: relative;
+  overflow: hidden;
+}
+.ale-projects-page .ale-project-card__chips {
+  position: absolute;
+  z-index: 2;
+  top: .7rem;
+  right: .7rem;
+  max-width: calc(100% - 1.4rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .35rem;
+}
+.ale-projects-page .ale-project-card__chips span {
+  padding: .3rem .5rem;
+  border: 1px solid #191915;
+  background: rgba(243, 239, 229, .94);
+  color: #191915;
+  font-size: .62rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+.ale-projects-page .ale-project-card .card-img-top {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 1px solid #191915;
+}
+.ale-projects-page .ale-project-card:not(:has(.card-img-top)) .card-body {
+  padding-top: 3.5rem;
+}
 .ale-projects-page .projects .card:hover {
   transform: translateY(-3px);
   box-shadow: 6px 6px 0 #191915 !important;
@@ -3319,22 +3380,69 @@ header:has(.navbar) {
   height: 36px !important;
   padding: 0 !important;
   gap: 0.38rem !important;
-  font-size: 0.76rem !important;
+  font-size: 0.8rem !important;
 }
 .ale-brand-logo {
   width: 32px !important;
   height: 32px !important;
 }
 .navbar .nav-link {
-  padding: 0.2rem 0.25rem !important;
-  font-size: 0.78rem !important;
+  position: relative;
+  padding: 0.2rem 0.3rem !important;
+  font-size: 0.84rem !important;
 }
 .navbar .nav-link.active::after,
 .navbar .nav-link[aria-current="page"]::after,
 .navbar .nav-item.active .nav-link::after {
-  left: 0.25rem !important;
-  right: 0.25rem !important;
+  left: 0.3rem !important;
+  right: 0.3rem !important;
   bottom: -0.1rem !important;
+}
+/* Hover underline: grows from the center outward, red accent; the active
+   item keeps its own permanent underline above and is excluded here. */
+.navbar .nav-link:not(.active):not([aria-current="page"])::after {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  right: 0.3rem;
+  bottom: -0.1rem;
+  height: 2px;
+  background: #9b3f2f;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+.navbar .nav-item:not(.active) .nav-link:hover::after,
+.navbar .nav-item:not(.active) .nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .navbar .nav-link:not(.active):not([aria-current="page"])::after {
+    transition: none;
+  }
+}
+
+/* Back-to-top: visible on landing (not only after scrolling), with a very
+   light idle bob so it reads as interactive. */
+#back-to-top {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  animation: ale-back-to-top-bob 3.2s ease-in-out infinite;
+}
+@keyframes ale-back-to-top-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #back-to-top {
+    animation: none;
+  }
 }
 
 footer.sticky-bottom {
@@ -3762,6 +3870,24 @@ code,
 .ale-project-gallery--three {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.ale-project-gallery--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.ale-project-gallery--aligned figure {
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.ale-project-gallery--aligned img {
+  height: 100%;
+  min-height: 210px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.ale-project-gallery--leaves img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
 .ale-project-gallery figure,
 .ale-project-feature {
   margin: 0;
@@ -3794,6 +3920,17 @@ code,
 }
 .ale-project-feature--diagram img {
   padding: clamp(0.75rem, 3vw, 2rem);
+}
+.ale-project-feature--teaser img {
+  max-height: none;
+  padding: 0;
+}
+.ale-project-feature--perception {
+  max-width: 720px;
+  margin-inline: auto;
+}
+.ale-project-feature--perception img {
+  max-height: 680px;
 }
 .ale-project-gallery figcaption,
 .ale-project-feature figcaption,
@@ -3876,10 +4013,74 @@ code,
   font-size: .9rem;
   line-height: 1.45;
 }
+.ale-project-related-list li > div small {
+  display: block;
+  margin-top: .35rem;
+}
+.ale-project-related-list .ale-project-reference-action {
+  width: max-content;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .42rem .65rem;
+  border: 1px solid #191915;
+  color: #191915;
+  font-size: .72rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.ale-project-related-list .ale-project-reference-action:hover,
+.ale-project-related-list .ale-project-reference-action:focus-visible {
+  background: #f3efe5;
+  color: #191915;
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 #191915;
+}
+.ale-project-results {
+  margin: 1.5rem 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid #191915;
+  border-bottom: 1px solid #191915;
+}
+.ale-project-results article {
+  padding: 1.25rem;
+  border-right: 1px solid #191915;
+}
+.ale-project-results article:first-child {
+  padding-left: 0;
+}
+.ale-project-results article:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+.ale-project-results strong,
+.ale-project-results span {
+  display: block;
+}
+.ale-project-results strong {
+  font: 400 clamp(1.8rem, 4vw, 2.8rem)/1 "Roboto Slab", Georgia, serif;
+}
+.ale-project-results span {
+  margin-top: .35rem;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.ale-project-results p {
+  margin: .75rem 0 0;
+  font-size: .82rem;
+  line-height: 1.5;
+}
 
 @media (max-width: 720px) {
   .ale-project-gallery,
   .ale-project-gallery--three,
+  .ale-project-gallery--four,
+  .ale-project-results,
   .ale-related-work {
     grid-template-columns: 1fr;
   }
@@ -3892,4 +4093,178 @@ code,
     grid-template-columns: 1fr;
     gap: .35rem;
   }
+  .ale-project-related-list .ale-project-reference-action {
+    justify-self: start;
+  }
+  .ale-project-results article,
+  .ale-project-results article:first-child,
+  .ale-project-results article:last-child {
+    padding: 1rem 0;
+    border-right: 0;
+    border-bottom: 1px solid #aaa59a;
+  }
+  .ale-project-results article:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* ==========================================================================
+   Footer — final layout pass (kept last so it wins the cascade above).
+   Single row on desktop: question + social + copyright all inline,
+   copyright pushed to the right. Wraps cleanly on mobile. Reserves a
+   keep-clear zone on the right/bottom so #back-to-top never overlaps text.
+   Also re-asserts the sticky-footer flex contract on every page (incl.
+   contact, which had gotten its own competing rules).
+   ========================================================================== */
+html,
+body {
+  height: 100%;
+}
+body {
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column !important;
+}
+body > main {
+  flex: 1 0 auto !important;
+}
+body > footer,
+footer.sticky-bottom {
+  flex: 0 0 auto !important;
+}
+
+footer.sticky-bottom {
+  margin-top: 0 !important;
+  padding: 0 !important;
+}
+footer.sticky-bottom > .container {
+  padding-right: clamp(4.5rem, 9vw, 6.5rem) !important;
+}
+.ale-footer {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  column-gap: 1.5rem !important;
+  row-gap: 0.3rem !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0.7rem 0 !important;
+  text-align: left !important;
+}
+.ale-footer-question {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  justify-self: auto !important;
+  text-align: left !important;
+  white-space: normal !important;
+}
+.ale-footer-social {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+}
+.ale-footer .ale-footer-copy {
+  flex: 0 0 auto !important;
+  margin-left: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  justify-self: auto !important;
+  align-self: auto !important;
+  text-align: right !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 720px) {
+  footer.sticky-bottom > .container {
+    padding-right: 1rem !important;
+    padding-bottom: 4rem !important;
+  }
+  .ale-footer {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    row-gap: 0.45rem !important;
+    padding: 0.9rem 0 !important;
+  }
+  .ale-footer-question,
+  .ale-footer-social,
+  .ale-footer .ale-footer-copy {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+  }
+  #back-to-top {
+    bottom: 4.5rem !important;
+    right: 0.9rem !important;
+  }
+}
+
+/* ==========================================================================
+   Hero — symmetry pass (kept last so it wins the cascade above).
+   Single centered column: name / subtitle / PhD box / keyword grid share
+   the same width and are vertically centered in the viewport. The portrait
+   placeholder becomes a small centered accent above the name instead of an
+   asymmetric right-hand column.
+   ========================================================================== */
+.ale-intro {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(1.1rem, 2.2vh, 1.6rem) !important;
+  text-align: center !important;
+}
+.ale-intro-copy {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  text-align: center !important;
+}
+.ale-hero-name {
+  max-width: 100%;
+  text-align: center;
+}
+.ale-hero-name::after {
+  margin-inline: auto;
+}
+.ale-doctorate {
+  display: inline-block;
+  margin-inline: auto;
+  border-left: none !important;
+  border-top: 3px solid #9b3f2f;
+  padding-left: 0 !important;
+  padding-top: 0.6rem;
+  text-align: center;
+}
+.ale-hero-roles {
+  text-align: center;
+}
+.ale-portrait-placeholder {
+  order: -1;
+  width: min(120px, 22vw) !important;
+  margin: 0 auto 0.4rem !important;
+}
+.ale-portrait-note {
+  display: none;
+}
+.ale-keywords {
+  order: 3;
+  width: min(900px, 100%) !important;
+  justify-content: center !important;
+  margin-inline: auto;
+}
+.ale-scroll-cue {
+  left: 50% !important;
+  transform: translateX(-50%);
 }

@@ -1,9 +1,10 @@
 ---
 layout: page
-title: "Data Driven: AI Voice Cloning"
-description: M.Sc. thesis on zero-shot voice cloning — text-to-speech models combined with speaker embeddings.
-img: # copertina card: caricare un'immagine in assets/img/projects/ e mettere qui il percorso
-importance: 1
+title: AI Voice Cloning
+card_description: M.Sc. thesis on zero-shot voice cloning — text-to-speech models combined with speaker embeddings.
+img:
+importance: 8
+year: 2023
 category: msc-thesis
 related_publications: true
 ---

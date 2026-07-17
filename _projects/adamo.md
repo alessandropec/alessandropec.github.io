@@ -1,43 +1,47 @@
 ---
 layout: page
 title: A.D.A.M.O.
-description: A virtual human that understands instructions and acts inside a 3D environment.
-img: assets/img/projects/adamo/video-poster.jpg
+card_description: A language-driven virtual human that perceives, reasons and acts inside interactive 3D environments.
+img: assets/img/projects/adamo/framework-teaser.jpg
 importance: 1
+year: 2026
 category: phd-research
 related_publications: true
 ---
 
-<p class="ale-project-lead">A.D.A.M.O. is an intelligent virtual human that can receive a natural-language instruction, observe a 3D environment and act inside it to complete the requested task.</p>
+<p class="ale-project-lead"><strong>A.D.A.M.O.</strong>—<strong>A</strong>gent for language-<strong>D</strong>riven <strong>A</strong>ctions with <strong>M</strong>ultimodal <strong>O</strong>bservations—is a virtual human that can receive a natural-language instruction, observe a 3D environment and act inside it to complete the requested task.</p>
 
-Virtual characters are usually good at only one side of the interaction. Conversational agents can speak but often have little awareness of their surroundings, while game characters can move and manipulate objects but depend on predefined scripts. A.D.A.M.O. brings language, visual perception and action into the same system, allowing a character to respond to new instructions without requiring a separate scripted sequence for each task.
+Virtual characters are usually strong on only one side of the interaction. Conversational agents can speak but often have little awareness of their surroundings, while game characters can move and manipulate objects but depend on predefined scripts. A.D.A.M.O. connects language, perception, reasoning and action in a single control loop, allowing the character to address new spatial tasks without a dedicated scripted sequence.
+
+<figure class="ale-project-feature ale-project-feature--teaser">
+  <img src="{{ '/assets/img/projects/adamo/framework-teaser.jpg' | relative_url }}" alt="A.D.A.M.O. framework connecting observation, multimodal memory, reasoning and actions in a virtual environment" loading="eager">
+  <figcaption>A.D.A.M.O. follows a perceive–reason–act loop. Observations combine visual input, symbolic information and action feedback; a Vision–Language Model uses short-term memory to select the next action.</figcaption>
+</figure>
 
 <div class="ale-project-video">
   <video controls preload="metadata" poster="{{ '/assets/img/projects/adamo/video-poster.jpg' | relative_url }}">
     <source src="{{ '/assets/video/adamo-demo.mp4' | relative_url }}" type="video/mp4">
     Your browser does not support embedded video.
   </video>
-  <p>A.D.A.M.O. interprets the request, observes the room and moves objects to complete a spatial task.</p>
+  <p>The edited demonstration keeps the assigned task visible while A.D.A.M.O. observes the room, walks towards the relevant objects and completes the requested spatial relation.</p>
 </div>
 
-## How it works
+## Perceiving and acting in the same world
 
-The virtual human works in a continuous loop: it looks at the environment, decides what to do next and performs an action. Its available actions are intentionally simple—looking, walking, picking up an object and placing it somewhere else—but they can be combined to solve more complex instructions.
+The character works continuously: it observes the environment, decides what to do next and performs an action. Looking, walking, picking up an object and placing it elsewhere are simple operations, but they can be combined to solve instructions involving several objects and spatial relations.
 
-To understand the scene, A.D.A.M.O. combines the character's visual point of view with structured spatial information about visible objects. This visual-symbolic representation helps the AI connect phrases such as “the plate near the cup” with specific elements and positions in the virtual world. A short-term memory keeps the task and recent observations available while the character works through each step.
+A.D.A.M.O. maintains a dual view of the environment. The visual view provides the character's egocentric observation, enriched with labels and reference points. A synchronized symbolic state adds structured information such as object positions, dimensions and the character's location. Shared identifiers connect what appears in the image with the corresponding element in the 3D world, helping the model ground expressions such as “the glass near the plate”.
 
-<div class="ale-project-gallery ale-project-gallery--contain">
-  <figure>
-    <img src="{{ '/assets/img/projects/adamo/virtual-environment.png' | relative_url }}" alt="A.D.A.M.O. virtual human inside a furnished 3D room" loading="lazy">
-    <figcaption>The virtual human operates inside an interactive 3D environment.</figcaption>
-  </figure>
-  <figure>
-    <img src="{{ '/assets/img/projects/adamo/infrastructure.png' | relative_url }}" alt="Connection between the virtual environment, cognitive server and AI model" loading="lazy">
-    <figcaption>The simulation, actions and AI reasoning remain separate and can evolve independently.</figcaption>
-  </figure>
-</div>
+<figure class="ale-project-feature ale-project-feature--perception">
+  <img src="{{ '/assets/img/projects/adamo/visual-symbolic-perception.png' | relative_url }}" alt="A.D.A.M.O. visual perception with labelled objects and spatial reference points" loading="lazy">
+  <figcaption>The visual observation identifies interactable objects and spatial reference points. The same identifiers appear in the symbolic state used for the next decision.</figcaption>
+</figure>
 
-The current prototype was evaluated on everyday spatial tasks in two controlled scenes. The experiments show that clear semantic information about objects improves task completion, while visual perception remains the main source of difficulty in larger scenes. Current development is extending the agent with longer-term spatial memory so that it can retain and reuse knowledge about environments over time.
+A multimodal short-term memory keeps the instruction, recent observations, action feedback and relevant world state available across the different steps. The Vision–Language Model can then either call the next action or signal that the task has been completed.
+
+## Evaluation
+
+The prototype was evaluated on fifteen natural-language spatial tasks across a tabletop scene and a more complex living room. The experiments show that semantic object labels substantially improve task completion by reducing ambiguity. Performance decreases as scenes and instructions become more complex, with visual perception remaining the main source of error; reasoning errors were comparatively rare.
 
 ## Context and collaboration
 
@@ -48,12 +52,15 @@ A.D.A.M.O. was developed within the **Computer Graphics and Vision Group at Poli
 <ul class="ale-project-related-list">
   <li>
     <span>Conference paper · CASA XR 2026 · in press</span>
-    <strong>A.D.A.M.O. (Agent for language-Driven Actions with Multimodal Observations): A Visual-Symbolic Framework for Virtual Humans</strong>
-    <small>A. E. Pecora, S. Calzolari, F. Strada and A. Bottino</small>
+    <div><strong>A.D.A.M.O. (Agent for language-Driven Actions with Multimodal Observations): A Visual-Symbolic Framework for Virtual Humans</strong><small>A. E. Pecora, S. Calzolari, F. Strada and A. Bottino</small></div>
   </li>
   <li>
     <span>Open-source software</span>
-    <a href="https://github.com/CGVGroup/ADAMO" target="_blank" rel="noopener noreferrer">A.D.A.M.O. project repository <span aria-hidden="true">↗</span></a>
-    <small>Code and project resources</small>
+    <div><strong>A.D.A.M.O. project repository</strong><small>Code and project resources</small></div>
+    <a class="ale-project-reference-action" href="https://github.com/CGVGroup/ADAMO" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Code <span aria-hidden="true">↗</span></a>
   </li>
 </ul>
+
+## Ongoing work
+
+We are extending A.D.A.M.O. to explore more complex environments, interact with a broader range of objects and build long-term spatial memory that can be reused over time.

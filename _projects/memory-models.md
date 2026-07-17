@@ -1,9 +1,10 @@
 ---
 layout: page
 title: Memory Models for Virtual Humans
-description: Survey of memory models for virtual agents and humans, from psychological foundations to computational architectures.
-img: # copertina card: caricare un'immagine in assets/img/projects/ e mettere qui il percorso
-importance: 3
+card_description: Survey of memory models for virtual agents and humans, from psychological foundations to computational architectures.
+img:
+importance: 6
+year: 2025
 category: phd-research
 related_publications: true
 ---

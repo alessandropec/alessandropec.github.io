@@ -1,9 +1,10 @@
 ---
 layout: page
 title: DARE
-description: AI for insurance risk management — computer vision and machine learning on complex home-related claims.
-img: # copertina card: caricare un'immagine in assets/img/projects/ e mettere qui il percorso
-importance: 1
+card_description: AI for insurance risk management — computer vision and machine learning on complex home-related claims.
+img:
+importance: 4
+year: 2026
 category: applied-research
 related_publications: true
 ---
