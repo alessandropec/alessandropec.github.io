@@ -824,11 +824,19 @@ header,
 }
 
 /* Editorial scrollytelling and simplified global navigation */
-header,
-.navbar {
-  position: sticky !important;
+header {
+  position: fixed !important;
   top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+}
+.navbar {
+  position: relative !important;
   z-index: 50;
+}
+body {
+  padding-top: 36px !important;
 }
 .navbar-brand {
   letter-spacing: -0.025em;
@@ -4344,9 +4352,9 @@ footer.sticky-bottom > .container {
 /* "See also" closing section: heading/cards/contact line centered as one
    block in the viewport, no more oversized top margin pushing it down. */
 .ale-see-also {
-  width: 100% !important;
+  width: 100vw !important;
   min-height: 100svh !important;
-  margin: 0 !important;
+  margin: 0 calc(50% - 50vw) !important;
   padding: clamp(3rem, 7vh, 5rem) max(calc((100vw - 930px) / 2), 1.5rem) !important;
   box-sizing: border-box !important;
   display: flex !important;
@@ -4388,4 +4396,36 @@ footer.sticky-bottom > .container {
   .ale-work-links a {
     transition: none;
   }
+}
+
+/* Reading progress bar disabled: it rendered as a stray native <progress>
+   strip at the top of the page. */
+#progress {
+  display: none !important;
+}
+
+/* Hero monogram: the arch placeholder now hosts the AEP logo image —
+   drop the photo-frame styling and let the logo breathe. */
+.ale-portrait-logo,
+.ale-portrait-logo::before,
+.ale-portrait-logo::after {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.ale-portrait-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+.ale-hero-logo {
+  width: clamp(96px, 12vw, 170px);
+  height: auto;
+  display: block;
 }

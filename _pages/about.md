@@ -32,9 +32,8 @@ latest_posts:
     <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
   </div>
-  <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
-    <span class="ale-portrait-monogram">AP</span>
-    <span class="ale-portrait-note">Portrait<br>coming soon</span>
+  <div class="ale-portrait-placeholder ale-portrait-logo" role="img" aria-label="AEP monogram — Alessandro Emmanuel Pecora">
+    <img class="ale-hero-logo" src="{{ '/assets/img/aep-logo-thick-3000.png' | relative_url }}?v=aep-thick-1" alt="">
   </div>
   <div class="ale-keywords" aria-label="Research areas">
     <span tabindex="0" data-note="Agents that plan, use tools and act toward goals.">Agentic AI</span>

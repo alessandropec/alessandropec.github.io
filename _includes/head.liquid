@@ -124,7 +124,7 @@
       if (control.closest("nav")) control.remove();
     });
     document.querySelectorAll("nav button, nav a").forEach(function (control) {
-      if (/ctrl\s*k|search/i.test((control.textContent || "") + " " + (control.getAttribute("title") || ""))) control.remove();
+      if (/^\s*(ctrl\s*k|search)\s*$/i.test(control.textContent || "") || /^\s*(ctrl\s*k|search)\s*$/i.test(control.getAttribute("title") || "")) control.remove();
     });
     var brand = document.querySelector(".navbar-brand");
     if (!brand) {
@@ -137,7 +137,7 @@
       }
     }
     if (brand) {
-      brand.innerHTML = '<img class="ale-brand-logo" src="{{ '/assets/img/aep-logo.png' | relative_url }}?v=aep-png-1" alt=""><span class="ale-brand-name"><strong>Alessandro</strong> Emmanuel Pecora</span>';
+      brand.innerHTML = '<img class="ale-brand-logo" src="{{ '/assets/img/aep-logo-thick.png' | relative_url }}?v=aep-thick-1" alt=""><span class="ale-brand-name"><strong>Alessandro</strong> Emmanuel Pecora</span>';
       brand.setAttribute("aria-label", "Alessandro Emmanuel Pecora — home");
     }
   });
