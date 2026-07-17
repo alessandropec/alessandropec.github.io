@@ -12,7 +12,7 @@ nav_order: 4
 <div class="ale-contact-grid">
 
   <a class="ale-contact-cell" href="mailto:alessandro.pecora@polito.it">
-    <span class="ale-contact-label">Write to me</span>
+    <span class="ale-contact-label">The best way to contact me</span>
     <span class="ale-contact-cell-body">
       <i class="fa-solid fa-envelope" aria-hidden="true"></i>
       <span><strong>Academic email</strong><small>alessandro.pecora@polito.it</small></span>

@@ -4885,3 +4885,67 @@ a.ale-code-action,
   line-height: 1.5 !important;
   max-width: 62ch;
 }
+
+/* Project card chips: bottom-right of the card, off the image. The body
+   reserves room so text never runs under them. */
+.ale-projects-page .ale-project-card__chips {
+  top: auto !important;
+  bottom: 0.6rem !important;
+  right: 0.6rem !important;
+}
+.ale-projects-page .ale-project-card .card-body {
+  padding-bottom: 2.4rem !important;
+}
+
+/* Footer: symmetric three-zone row — question left, social centered,
+   copyright right. */
+.ale-footer {
+  display: flex !important;
+  align-items: center !important;
+}
+.ale-footer-question {
+  flex: 1 1 0 !important;
+  text-align: left !important;
+}
+.ale-footer-social {
+  flex: 0 0 auto !important;
+  justify-content: center !important;
+}
+.ale-footer .ale-footer-copy {
+  flex: 1 1 0 !important;
+  margin-left: 0 !important;
+  text-align: right !important;
+  justify-content: flex-end !important;
+  display: flex !important;
+}
+
+/* No dead space below the footer: it always hugs the bottom edge. */
+body > footer,
+footer.sticky-bottom {
+  margin-top: auto !important;
+  margin-bottom: 0 !important;
+}
+html,
+body {
+  background: #f3efe5;
+}
+
+/* Contact grid: a bit taller, kickers pinned at the same height in every
+   cell with the content centered in the remaining space. */
+.ale-contact-cell {
+  min-height: 216px !important;
+  justify-content: flex-start !important;
+}
+.ale-contact-cell .ale-contact-label {
+  margin-bottom: 0 !important;
+}
+.ale-contact-cell .ale-contact-cell-body {
+  margin: auto 0 !important;
+}
+.ale-contact-profile {
+  min-height: 104px !important;
+  justify-content: flex-start !important;
+}
+.ale-contact-profile .ale-contact-cell-body {
+  margin: auto 0 !important;
+}
