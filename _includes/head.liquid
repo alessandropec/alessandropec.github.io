@@ -156,18 +156,16 @@
         backAnchor.insertAdjacentElement("beforebegin", back);
       }
     }
-    // Small page logo above the title on every internal page (projects,
-    // research outputs, contact, project detail...). On project detail
-    // pages it lands right below the back-link, above the title, because
-    // it's injected after the back-link block above.
+    // Small page logo inline with the title on every internal page
+    // (projects, research outputs, contact, project detail...).
     if (!document.documentElement.classList.contains("ale-home-page")) {
-      var pageHeader = document.querySelector(".post-header");
-      if (pageHeader && !document.querySelector(".ale-page-logo")) {
+      var pageTitle = document.querySelector(".post-header .post-title, .post-title");
+      if (pageTitle && !document.querySelector(".ale-page-logo")) {
         var pageLogo = document.createElement("img");
         pageLogo.className = "ale-page-logo";
         pageLogo.src = "{{ '/assets/img/aep-logo-thick.png' | relative_url }}?v=aep-thick-1";
         pageLogo.alt = "";
-        pageHeader.insertAdjacentElement("beforebegin", pageLogo);
+        pageTitle.insertAdjacentElement("afterbegin", pageLogo);
       }
     }
   });

@@ -120,7 +120,7 @@ nav_order: 3
   <p class="ale-thesis-year">2023</p>
   <article class="ale-thesis-entry">
     <div><h3>Data Driven: AI Voice Cloning</h3><p><strong><u>A. E. Pecora</u></strong> — Author · Supervisors: L. Cagliero, M. La Quatra, L. Vaiani · Politecnico di Torino</p></div>
-    <div class="ale-thesis-meta"><span class="ale-degree-chip">M.Sc. · Author</span><div class="ale-thesis-links"><a class="ale-code-action" href="https://github.com/alessandropec/data_driven_ai_voice_cloning" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a></div></div>
+    <div class="ale-thesis-meta"><span class="ale-degree-chip">M.Sc. · Author</span><div class="ale-thesis-links"><a href="https://webthesis.biblio.polito.it/27738/" target="_blank" rel="noopener noreferrer">Thesis ↗</a><a class="ale-code-action" href="https://github.com/alessandropec/data_driven_ai_voice_cloning" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a></div></div>
   </article>
   <p class="ale-theses-note">Current co-supervision topics include further work within <strong>DIVINE</strong>, <strong>LLM/VLM fine-tuning</strong>, and <strong>agentic fact-checking</strong>. Additional thesis opportunities across different research topics are available on the <a href="https://cgvg.polito.it/thesis.html" target="_blank" rel="noopener noreferrer">CG&amp;VG thesis proposals page ↗</a>.</p>
 </section>
