@@ -824,7 +824,7 @@ header,
 }
 
 /* Editorial scrollytelling and simplified global navigation */
-header {
+header:not(.post-header) {
   position: fixed !important;
   top: 0;
   left: 0;
@@ -1372,8 +1372,11 @@ header,
 }
 /* Single divider line: on the outer header only — .navbar sits flush
    inside it, so giving both a border-bottom drew two adjacent lines. */
-header {
-  border-bottom: 1px solid #191915;
+header:not(.post-header) {
+  border-bottom: 2px solid #191915;
+}
+.post-header {
+  border-bottom: 0 !important;
 }
 .navbar {
   border-bottom: 0 !important;
@@ -4353,7 +4356,7 @@ footer.sticky-bottom > .container {
    block in the viewport, no more oversized top margin pushing it down. */
 .ale-see-also {
   width: 100vw !important;
-  min-height: 100svh !important;
+  min-height: calc(100svh - 9rem) !important;
   margin: 0 calc(50% - 50vw) !important;
   padding: clamp(3rem, 7vh, 5rem) max(calc((100vw - 930px) / 2), 1.5rem) !important;
   box-sizing: border-box !important;
@@ -4428,4 +4431,45 @@ footer.sticky-bottom > .container {
   width: clamp(96px, 12vw, 170px);
   height: auto;
   display: block;
+}
+
+/* See-also cards: explicit clickable affordance — arrow in the top-right
+   corner that nudges outward on hover. */
+.ale-work-links a {
+  position: relative !important;
+}
+.ale-work-links a::after {
+  content: "\2192";
+  position: absolute;
+  top: 1.1rem;
+  right: 1.3rem;
+  font: 400 1.35rem/1 "Roboto Slab", Georgia, serif;
+  color: #191915;
+  transition: transform 0.15s ease;
+}
+.ale-work-links a:hover::after,
+.ale-work-links a:focus-visible::after {
+  transform: translate(3px, -3px);
+}
+
+/* Back link on project detail pages, injected from head.liquid. */
+.ale-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 1.1rem;
+  border: 1px solid #191915;
+  padding: 0.4rem 0.75rem;
+  background: transparent;
+  color: #191915 !important;
+  font: 500 0.8rem/1 Roboto, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  text-decoration: none !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.ale-back-link:hover,
+.ale-back-link:focus-visible {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 #191915;
 }
