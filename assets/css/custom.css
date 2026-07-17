@@ -4403,3 +4403,32 @@ body > div.hidden {
 .ale-contact-cell:hover * {
   text-decoration: none !important;
 }
+
+/* Contact: vertical composition that fills the page — primary cells
+   stacked in the left column, profiles stacked in the right one — and a
+   hover underline on the cell title so it reads as a link. */
+@media (min-width: 851px) {
+  .ale-contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    min-height: calc(100svh - 300px);
+  }
+  .ale-contact-cell {
+    grid-column: 1 !important;
+    min-height: 140px !important;
+  }
+  .ale-contact-cell:first-child {
+    grid-row: 1 / 3;
+  }
+  .ale-contact-cell.ale-contact-profile {
+    grid-column: 2 !important;
+    grid-row: auto;
+    min-height: 0 !important;
+  }
+}
+.ale-contact-cell:hover strong,
+.ale-contact-cell:focus-visible strong {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
