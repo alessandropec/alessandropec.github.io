@@ -2,7 +2,7 @@
   :root {
     --max-content-width: 930px;
   }
-</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/aep-favicon.png?v=88c5f70ff30da577be2db57157486729"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="stylesheet" href="/assets/css/custom.css?v=cb062f3aa647abc4273f28fe5e61f878"> <link rel="canonical" href="https://alessandropec.github.io/projects/divine/"> <script>
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/aep-logo-thick.png?v=4070fb50328f6f6b9907c9abb75ae198"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="stylesheet" href="/assets/css/custom.css?v=ec61841b085b89820ec85c8e2d0e0034"> <link rel="canonical" href="https://alessandropec.github.io/projects/divine/"> <script>
   document.addEventListener("DOMContentLoaded", function () {
     var navbar = document.querySelector(".navbar");
     if (navbar) {
@@ -19,7 +19,7 @@
       if (control.closest("nav")) control.remove();
     });
     document.querySelectorAll("nav button, nav a").forEach(function (control) {
-      if (/ctrl\s*k|search/i.test((control.textContent || "") + " " + (control.getAttribute("title") || ""))) control.remove();
+      if (/^\s*(ctrl\s*k|search)\s*$/i.test(control.textContent || "") || /^\s*(ctrl\s*k|search)\s*$/i.test(control.getAttribute("title") || "")) control.remove();
     });
     var brand = document.querySelector(".navbar-brand");
     if (!brand) {
@@ -32,7 +32,7 @@
       }
     }
     if (brand) {
-      brand.innerHTML = '<img class="ale-brand-logo" src="/assets/img/aep-logo.png?v=aep-png-1" alt=""><span class="ale-brand-name"><strong>Alessandro</strong> Emmanuel Pecora</span>';
+      brand.innerHTML = '<img class="ale-brand-logo" src="/assets/img/aep-logo-thick.png?v=aep-thick-1" alt=""><span class="ale-brand-name"><strong>Alessandro</strong> Emmanuel Pecora</span>';
       brand.setAttribute("aria-label", "Alessandro Emmanuel Pecora — home");
     }
   });

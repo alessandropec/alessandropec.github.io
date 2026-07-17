@@ -347,29 +347,6 @@ a,
   border-radius: 50% 50% 0 0;
   background: rgba(142, 197, 255, 0.08);
 }
-.ale-portrait-monogram {
-  position: absolute;
-  top: 12%;
-  left: 12%;
-  color: rgba(244, 248, 255, 0.8);
-  font:
-    500 clamp(2rem, 5vw, 4rem)/1 "Roboto Slab",
-    Georgia,
-    serif;
-  letter-spacing: -0.08em;
-}
-.ale-portrait-note {
-  position: absolute;
-  z-index: 1;
-  right: 10%;
-  bottom: 9%;
-  color: #91a2ba;
-  font-size: 0.65rem;
-  line-height: 1.35;
-  letter-spacing: 0.12em;
-  text-align: right;
-  text-transform: uppercase;
-}
 
 .ale-story-track {
   margin: 3rem calc(50% - 50vw);
@@ -703,11 +680,19 @@ header,
 }
 
 /* Editorial scrollytelling and simplified global navigation */
-header,
-.navbar {
-  position: sticky !important;
+header {
+  position: fixed !important;
   top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+}
+.navbar {
+  position: relative !important;
   z-index: 50;
+}
+body {
+  padding-top: 36px !important;
 }
 .navbar-brand {
   letter-spacing: -0.025em;
@@ -1285,9 +1270,6 @@ header {
 .ale-portrait-placeholder::after {
   background: rgba(25, 25, 21, 0.08);
 }
-.ale-portrait-monogram {
-  color: #191915;
-}
 .ale-scroll-cue {
   border-color: #191915;
   color: #191915;
@@ -1847,6 +1829,12 @@ nav [aria-label*="search"] {
 .ale-section-next {
   bottom: 1rem;
 }
+
+.ale-hero-logo {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 1.25rem;
+}
 .ale-hero-name {
   line-height: 0.94;
 }
@@ -1951,6 +1939,9 @@ nav [aria-label*="search"] {
     width: calc(100vw - 1.25rem);
     min-height: calc(100svh - 50px);
     padding: 4.5rem 1.35rem;
+  }
+  .ale-hero-logo {
+    margin-inline: auto;
   }
   .ale-keywords {
     justify-content: center;
@@ -3940,9 +3931,6 @@ footer.sticky-bottom > .container {
   width: min(120px, 22vw) !important;
   margin: 0 auto 0.4rem !important;
 }
-.ale-portrait-note {
-  display: none;
-}
 .ale-keywords {
   order: 3;
   width: 100% !important;
@@ -4028,9 +4016,9 @@ footer.sticky-bottom > .container {
 /* "See also" closing section: heading/cards/contact line centered as one
    block in the viewport, no more oversized top margin pushing it down. */
 .ale-see-also {
-  width: 100% !important;
+  width: 100vw !important;
   min-height: 100svh !important;
-  margin: 0 !important;
+  margin: 0 calc(50% - 50vw) !important;
   padding: clamp(3rem, 7vh, 5rem) max(calc((100vw - 930px) / 2), 1.5rem) !important;
   box-sizing: border-box !important;
   display: flex !important;
@@ -4072,4 +4060,36 @@ footer.sticky-bottom > .container {
   .ale-work-links a {
     transition: none;
   }
+}
+
+/* Reading progress bar disabled: it rendered as a stray native <progress>
+   strip at the top of the page. */
+#progress {
+  display: none !important;
+}
+
+/* Hero monogram: the arch placeholder now hosts the AEP logo image —
+   drop the photo-frame styling and let the logo breathe. */
+.ale-portrait-logo,
+.ale-portrait-logo::before,
+.ale-portrait-logo::after {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.ale-portrait-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+.ale-hero-logo {
+  width: clamp(96px, 12vw, 170px);
+  height: auto;
+  display: block;
 }
