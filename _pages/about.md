@@ -33,20 +33,7 @@ latest_posts:
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
   </div>
   <div class="ale-portrait-placeholder" role="img" aria-label="Portrait of Alessandro Pecora — photograph coming soon">
-    <svg class="ale-portrait-monogram" viewBox="0 0 64 64" aria-hidden="true">
-      <path d="M33,15 L35,15 L34,18.4 Z" fill="#9b3f2f"/>
-      <g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14,50 L33,15"/>
-        <path d="M35,15 L44,50"/>
-        <path d="M33,15 L35,15"/>
-        <path d="M22,36 L40,36"/>
-        <path d="M26,15 L26,50"/>
-        <path d="M26,15 C37,15 43,18.5 43,23 C43,27.5 37,31 26,31"/>
-        <path d="M26,15 L44,15"/>
-        <path d="M26,32 L40,32"/>
-        <path d="M26,50 L44,50"/>
-      </g>
-    </svg>
+    <span class="ale-portrait-monogram">AP</span>
     <span class="ale-portrait-note">Portrait<br>coming soon</span>
   </div>
   <div class="ale-keywords" aria-label="Research areas">
@@ -65,7 +52,7 @@ latest_posts:
     <span tabindex="0" data-note="Research methods turned into systems for real-world use.">Applied AI</span>
     <span tabindex="0" data-note="The longer-term question behind memory, agents and cognition.">Artificial general intelligence</span>
   </div>
-  <a class="ale-scroll-cue" href="#story" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
+  <a class="ale-scroll-cue" href="#story-1" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
 </div>
 
 <div id="story" class="ale-story-track">
@@ -94,15 +81,15 @@ latest_posts:
   <span class="ale-kicker">Academic practice</span>
   <h2>Teaching, supervision and prototypes</h2>
   <p>I lecture on <em>AI-powered Virtual Humans — LLM-based Cognitive Architectures</em> and collaborate on <em>Algorithms and Data Structures</em> at Politecnico di Torino, and I co-supervise B.Sc./M.Sc. theses on agents, storytelling and applied deep learning.</p>
-  <a class="ale-section-next" href="#work" aria-label="Continue to projects and publications"><span aria-hidden="true">&darr;</span></a>
+  <a class="ale-section-next" href="#work" aria-label="Continue to projects and research outputs"><span aria-hidden="true">&darr;</span></a>
 </section>
 </div>
 
 <div id="work" class="ale-see-also">
-  <span>Continue through the work</span>
+  <span>see also...</span>
   <div class="ale-work-links">
-    <a href="{{ '/projects/' | relative_url }}"><small>01</small><strong>Projects</strong><span>Systems, experiments and applied research</span><i aria-hidden="true">&rarr;</i></a>
-    <a href="{{ '/publications/' | relative_url }}"><small>02</small><strong>Publications</strong><span>Peer-reviewed research and scholarly output</span><i aria-hidden="true">&rarr;</i></a>
+    <a href="{{ '/projects/' | relative_url }}"><strong>Projects</strong></a>
+    <a href="{{ '/publications/' | relative_url }}"><strong>Research Outputs</strong></a>
   </div>
   <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">&rarr;</span></a></p>
 </div>
@@ -208,11 +195,14 @@ latest_posts:
         var destination = targetRect.top + start + targetRect.height / 2 - window.innerHeight / 2;
         var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         destination = Math.max(0, Math.min(maxScroll, destination));
-        var duration = 900;
+        var duration = 800;
         var started = performance.now();
+        function easeInOutQuad(t) {
+          return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        }
         function step(now) {
           var elapsed = Math.min(1, (now - started) / duration);
-          window.scrollTo(0, start + (destination - start) * elapsed);
+          window.scrollTo(0, start + (destination - start) * easeInOutQuad(elapsed));
           if (elapsed < 1) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
