@@ -4967,3 +4967,12 @@ body > footer {
 body > div.hidden {
   display: none !important;
 }
+
+/* Contact cells: one typographic pattern for every cell — icon + bold
+   name + small line, no underline ever. */
+.ale-contact-cell,
+.ale-contact-cell *,
+.ale-contact-cell:hover,
+.ale-contact-cell:hover * {
+  text-decoration: none !important;
+}

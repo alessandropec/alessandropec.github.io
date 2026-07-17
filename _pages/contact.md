@@ -21,9 +21,9 @@ nav_order: 4
 
   <a class="ale-contact-cell" href="https://cgvg.polito.it" target="_blank" rel="noopener noreferrer">
     <span class="ale-contact-label">Working with</span>
-    <span class="ale-contact-cell-body ale-contact-cell-body--group">
-      <span class="ale-group-mark">CG&amp;VG <span>↗</span></span>
-      <span><strong>Computer Graphics &amp; Vision Group</strong><small>DAUIN</small></span>
+    <span class="ale-contact-cell-body">
+      <i class="fa-solid fa-cubes" aria-hidden="true"></i>
+      <span><strong>CG&amp;VG</strong><small>Computer Graphics &amp; Vision Group · DAUIN</small></span>
     </span>
   </a>
 
@@ -31,7 +31,7 @@ nav_order: 4
     <span class="ale-contact-label">Based at</span>
     <span class="ale-contact-cell-body">
       <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
-      <address>Politecnico di Torino<br>Corso Duca degli Abruzzi 24<br>10129 Torino, Italy</address>
+      <span><strong>Politecnico di Torino</strong><small>Corso Duca degli Abruzzi 24 · 10129 Torino, Italy</small></span>
     </span>
   </a>
 
