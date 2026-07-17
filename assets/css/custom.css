@@ -5018,3 +5018,62 @@ body > div.hidden {
   .ale-contact-cell:nth-child(6) { grid-column: 2 !important; grid-row: 3 !important; }
   .ale-contact-cell:nth-child(7) { grid-column: 2 !important; grid-row: 4 !important; }
 }
+
+/* Footer, one identical arrangement on every page: slightly taller,
+   centered stack — question / social icons / copyright. */
+.ale-footer {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.45rem !important;
+  padding: 1.05rem 0 !important;
+  text-align: center !important;
+}
+.ale-footer-question,
+.ale-footer .ale-footer-copy {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  text-align: center !important;
+  justify-content: center !important;
+}
+.ale-footer-social {
+  margin: 0 !important;
+  justify-content: center !important;
+}
+footer.sticky-bottom > .container {
+  padding-inline: 1.5rem !important;
+}
+
+/* Contact composition: vertical but no page scroll — natural row heights,
+   narrower and centered. */
+@media (min-width: 851px) {
+  .ale-contact-grid {
+    min-height: 0 !important;
+    grid-template-rows: repeat(4, auto) !important;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .ale-contact-cell {
+    min-height: 118px !important;
+  }
+  .ale-contact-cell.ale-contact-profile {
+    min-height: 96px !important;
+  }
+}
+
+/* Research outputs: close the dead gap between the page header and the
+   "papers" section heading. */
+.post-header {
+  margin-bottom: 1rem !important;
+}
+.ale-pub-section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+.ale-pub-section .ale-section-heading {
+  padding-top: 0.2rem !important;
+  margin-top: 0 !important;
+}
+.ale-pub-section .ale-section-heading h2 {
+  margin-top: 0 !important;
+}
