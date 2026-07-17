@@ -2,7 +2,7 @@
   :root {
     --max-content-width: 930px;
   }
-</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/aep-favicon-white.png?v=240fd333914ebebc3c6eea0f98d5d2c0"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="stylesheet" href="/assets/css/custom.css?v=cfec1832c3d365f9fe90d9f575f9b4d5"> <link rel="canonical" href="https://alessandropec.github.io/"> <script>
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/aep-favicon-white.png?v=240fd333914ebebc3c6eea0f98d5d2c0"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="stylesheet" href="/assets/css/custom.css?v=0bf816611bc3858c6b7991c0b2106ff3"> <link rel="canonical" href="https://alessandropec.github.io/"> <script>
   document.addEventListener("DOMContentLoaded", function () {
     var navbar = document.querySelector(".navbar");
     if (navbar) {
@@ -51,18 +51,16 @@
         backAnchor.insertAdjacentElement("beforebegin", back);
       }
     }
-    // Small page logo above the title on every internal page (projects,
-    // research outputs, contact, project detail...). On project detail
-    // pages it lands right below the back-link, above the title, because
-    // it's injected after the back-link block above.
+    // Small page logo inline with the title on every internal page
+    // (projects, research outputs, contact, project detail...).
     if (!document.documentElement.classList.contains("ale-home-page")) {
-      var pageHeader = document.querySelector(".post-header");
-      if (pageHeader && !document.querySelector(".ale-page-logo")) {
+      var pageTitle = document.querySelector(".post-header .post-title, .post-title");
+      if (pageTitle && !document.querySelector(".ale-page-logo")) {
         var pageLogo = document.createElement("img");
         pageLogo.className = "ale-page-logo";
         pageLogo.src = "/assets/img/aep-logo-thick.png?v=aep-thick-1";
         pageLogo.alt = "";
-        pageHeader.insertAdjacentElement("beforebegin", pageLogo);
+        pageTitle.insertAdjacentElement("afterbegin", pageLogo);
       }
     }
   });

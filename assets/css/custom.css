@@ -2153,8 +2153,10 @@ footer.sticky-bottom > .container {
   padding-right: 1rem !important;
 }
 
-/* Contact: uniform grid of square cards, all sharing the site's standard
-   "lift off the page" hover (translate + hard shadow, no color inversion). */
+/* Contact: one editorial composition of shared/collapsed borders — every
+   cell touches its neighbors (gap: 0). On hover a single cell detaches
+   from the grid (translate + hard shadow, raised z-index so it visually
+   covers the neighbors' shared edges), never an inverted fill. */
 .ale-contact-page main .container {
   width: min(1280px, calc(100vw - 3rem)) !important;
   max-width: 1280px !important;
@@ -2164,7 +2166,13 @@ footer.sticky-bottom > .container {
   justify-content: center;
   padding: 1rem 0 2rem;
 }
-.ale-contact-content > .ale-contact-label {
+.ale-contact-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  border-top: 1px solid #191915;
+  border-bottom: 1px solid #191915;
+}
+.ale-contact-label {
   display: block;
   margin-bottom: 1.1rem;
   color: #6a6861;
@@ -2173,134 +2181,206 @@ footer.sticky-bottom > .container {
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
-
-.ale-contact-grid {
+.ale-contact-direct {
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3.5rem)
+    clamp(1.5rem, 3vw, 2.5rem) 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  gap: 0.8rem;
 }
-
-.ale-contact-card {
-  min-height: 128px;
+.ale-contact-direct .ale-contact-label {
+  grid-column: 1 / -1;
+}
+.ale-contact-direct a {
+  position: relative;
+  z-index: 1;
+  min-height: 112px;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 1rem;
   padding: 1.2rem;
   border: 1px solid #191915;
-  background: transparent;
+  background: #f3efe5;
   color: #191915;
   text-decoration: none;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
 }
-.ale-contact-card:hover,
-.ale-contact-card:focus-visible {
-  transform: translate(-4px, -4px);
-  box-shadow: 6px 6px 0 #191915;
+.ale-contact-direct a > i {
+  font-size: 1.1rem;
 }
-.ale-contact-card i {
-  font-size: 1.15rem;
-}
-.ale-contact-card span {
+.ale-contact-direct a span,
+.ale-contact-profiles a span {
   display: block;
   min-width: 0;
 }
-.ale-contact-card strong,
-.ale-contact-card small {
+.ale-contact-direct strong,
+.ale-contact-direct small,
+.ale-contact-profiles strong,
+.ale-contact-profiles small {
   display: block;
 }
-.ale-contact-card small {
+.ale-contact-direct small,
+.ale-contact-profiles small {
   margin-top: 0.3rem;
   color: #6a6861;
   font-size: 0.76rem;
   font-weight: 400;
 }
+.ale-contact-direct b {
+  font-size: 1.2rem;
+}
 
-.ale-contact-card--wide {
-  grid-column: span 2;
-  grid-template-columns: auto 1fr;
+.ale-affiliation {
+  position: relative;
+  z-index: 1;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(1.5rem, 3vw, 2.5rem)
+    clamp(1.5rem, 4vw, 3.5rem);
+  border-left: 1px solid #191915;
+  background: #f3efe5;
 }
 .ale-group-mark {
+  width: max-content;
   display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
   color: #191915;
   font:
-    500 clamp(1.7rem, 3vw, 2.4rem)/1 "Roboto Slab",
+    500 clamp(2.3rem, 4vw, 4rem)/1 "Roboto Slab",
     Georgia,
     serif;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.06em;
+  text-decoration: none;
 }
-.ale-group-mark b {
-  font-size: 0.85rem;
-  font-weight: 400;
+.ale-group-mark span {
+  font:
+    400 1rem/1 Roboto,
+    sans-serif;
+  letter-spacing: 0;
 }
-
-.ale-contact-card--full {
-  grid-column: 1 / -1;
-  min-height: auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+.ale-affiliation p {
+  margin: 0 0 1rem;
+  line-height: 1.55;
 }
-.ale-contact-card--static {
-  cursor: default;
+.ale-affiliation-address {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
-.ale-contact-polito-main {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.ale-affiliation address {
+  margin: 0;
+  color: #5e5c56;
+  font-style: normal;
+  line-height: 1.55;
 }
-.ale-contact-polito-main i {
-  font-size: 1.15rem;
-}
-.ale-contact-polito-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-.ale-contact-polito-links a {
+.ale-affiliation-maps {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
   color: #191915;
+  font-size: 0.76rem;
   font-weight: 700;
-  text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.15s ease;
 }
-.ale-contact-polito-links a:hover,
-.ale-contact-polito-links a:focus-visible {
+.ale-affiliation-address:hover .ale-affiliation-maps,
+.ale-affiliation-address:focus-visible .ale-affiliation-maps {
   border-bottom-color: #191915;
+}
+
+.ale-contact-profiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid #191915;
+}
+.ale-contact-profiles a {
+  position: relative;
+  z-index: 1;
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.2rem;
+  border-right: 1px solid #191915;
+  background: #f3efe5;
+  color: #191915;
+  text-decoration: none;
+}
+.ale-contact-profiles a:last-child {
+  border-right: 0;
+}
+.ale-contact-profiles i {
+  font-size: 1rem;
+}
+
+/* Every cell of the composition shares borders with its neighbors (no gap).
+   On hover/focus a cell lifts off the grid and its own border + shadow
+   cover the shared edges it used to sit flush against. */
+.ale-contact-direct a,
+.ale-affiliation,
+.ale-contact-profiles a {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.ale-contact-direct a:hover,
+.ale-contact-direct a:focus-visible,
+.ale-affiliation:hover,
+.ale-affiliation:focus-within,
+.ale-contact-profiles a:hover,
+.ale-contact-profiles a:focus-visible {
+  z-index: 2;
+  background: #f3efe5;
+  color: #191915;
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 6px 0 #191915;
 }
 
 @media (max-width: 850px) {
   .ale-contact-page main .container {
     width: calc(100vw - 1.25rem) !important;
   }
-  .ale-contact-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .ale-contact-main {
+    grid-template-columns: 1fr;
   }
-  .ale-contact-card--wide {
-    grid-column: 1 / -1;
+  .ale-contact-direct {
+    padding-right: 0;
+  }
+  .ale-affiliation {
+    padding-left: 0;
+    border-top: 1px solid #191915;
+    border-left: 0;
+  }
+  .ale-contact-profiles {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ale-contact-profiles a:nth-child(2) {
+    border-right: 0;
+  }
+  .ale-contact-profiles a:nth-child(-n + 2) {
+    border-bottom: 1px solid #191915;
   }
 }
 
 @media (max-width: 560px) {
-  .ale-contact-grid {
+  .ale-contact-direct {
     grid-template-columns: 1fr;
   }
-  .ale-contact-card--wide,
-  .ale-contact-card--full {
+  .ale-contact-direct .ale-contact-label {
     grid-column: 1;
   }
-  .ale-contact-card--full {
-    flex-direction: column;
-    align-items: flex-start;
+  .ale-contact-profiles {
+    grid-template-columns: 1fr;
+  }
+  .ale-contact-profiles a {
+    border-right: 0;
+    border-bottom: 1px solid #191915;
+  }
+  .ale-contact-profiles a:last-child {
+    border-bottom: 0;
   }
 }
 
@@ -2509,20 +2589,26 @@ footer.sticky-bottom {
 }
 
 /* Contact uses the project-card shadow language, never a black fill. */
-.ale-contact-card {
+.ale-contact-direct a,
+.ale-affiliation,
+.ale-contact-profiles a {
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
     background-color 0.18s ease;
 }
-.ale-contact-card:hover,
-.ale-contact-card:focus-visible {
+.ale-contact-direct a:hover,
+.ale-contact-direct a:focus-visible,
+.ale-affiliation:hover,
+.ale-affiliation:focus-within,
+.ale-contact-profiles a:hover,
+.ale-contact-profiles a:focus-visible {
   background: #f3efe5 !important;
   color: #191915 !important;
   transform: translate(-3px, -3px);
   box-shadow: 6px 6px 0 #191915;
 }
-.ale-contact-card:hover small {
+.ale-contact-direct a:hover small {
   color: #6a6861 !important;
 }
 
@@ -4041,14 +4127,14 @@ footer.sticky-bottom > .container {
   display: flex !important;
   align-items: center !important;
   gap: 0.42rem !important;
-  font-size: 0.94rem !important;
+  font-size: 1.05rem !important;
   line-height: 1 !important;
 }
 .navbar-brand img,
 .navbar-brand svg,
 .ale-brand-logo {
-  width: 23px !important;
-  height: 23px !important;
+  width: 28px !important;
+  height: 28px !important;
   vertical-align: middle;
 }
 .navbar .nav-link {
@@ -4180,16 +4266,51 @@ footer.sticky-bottom > .container {
   box-shadow: 5px 5px 0 #191915;
 }
 
-/* Small page logo above the title on internal pages, injected from
-   head.liquid. On project detail pages it sits below the back-link
-   (DOM order handles that); elsewhere it's simply the first thing in
-   the header. */
+/* Small page logo inline with the title on internal pages, injected
+   from head.liquid as the first child of .post-title. */
 .ale-page-logo {
-  display: block;
-  width: clamp(40px, 4vw, 48px);
+  display: inline-block;
+  width: clamp(38px, 3.2vw, 46px);
   height: auto;
-  margin: 0 0 0.9rem;
+  margin: 0 0.55em 0 0;
+  vertical-align: -0.12em;
 }
-.ale-project-detail-page .ale-back-link + .ale-page-logo {
-  margin-top: 0;
+
+/* Publication link buttons (bib/doi/abs...) and thesis links: one voice —
+   same font, all uppercase, never underlined (also on hover). */
+.ale-publications-page .links a,
+.ale-publications-page .links .btn,
+.ale-thesis-links a,
+.ale-code-action {
+  font-family: Roboto, sans-serif !important;
+  font-size: 0.66rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+}
+.ale-publications-page .links a:hover,
+.ale-publications-page .links a:focus-visible,
+.ale-publications-page .links .btn:hover,
+.ale-publications-page .links .btn:focus-visible,
+.ale-thesis-links a:hover,
+.ale-thesis-links a:focus-visible,
+.ale-code-action:hover,
+.ale-code-action:focus-visible {
+  text-decoration: none !important;
+}
+
+/* Footer aligned with the centered content column (it was full-bleed,
+   hugging the viewport edges). Right padding is reserved for the
+   back-to-top button only when the viewport is too narrow to keep the
+   button clear of the centered column. */
+footer.sticky-bottom > .container {
+  max-width: 930px !important;
+  margin-inline: auto !important;
+  padding-inline: 1.5rem !important;
+}
+@media (max-width: 1150px) {
+  footer.sticky-bottom > .container {
+    padding-right: clamp(4.5rem, 9vw, 6.5rem) !important;
+  }
 }
