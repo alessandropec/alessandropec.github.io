@@ -4870,3 +4870,18 @@ a.ale-code-action,
     grid-column: 1 / -1;
   }
 }
+
+/* Page description always renders as its own full-width line BELOW the
+   title (the theme's class is .post-description; the flex header was
+   floating it above the title). */
+.post-header {
+  flex-wrap: wrap !important;
+}
+.post-header .post-description {
+  flex: 1 0 100% !important;
+  order: 10 !important;
+  margin: 0.65rem 0 0 !important;
+  font-size: 0.92rem !important;
+  line-height: 1.5 !important;
+  max-width: 62ch;
+}
