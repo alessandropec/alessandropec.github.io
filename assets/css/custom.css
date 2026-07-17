@@ -3541,6 +3541,16 @@ code,
   object-fit: cover;
   border: 1px solid #191915;
 }
+.ale-project-gallery--contain img {
+  aspect-ratio: auto;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  background: #fff;
+}
+.ale-project-gallery--contain figure {
+  min-width: 0;
+}
 .ale-project-feature {
   margin: 2rem 0 2.75rem;
 }
@@ -3571,54 +3581,40 @@ code,
   border: 1px solid #191915;
   background: #191915;
 }
-.ale-related-work {
+.ale-project-related-list {
   margin: 1.5rem 0 3rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
   border-top: 1px solid #191915;
+  list-style: none;
 }
-.ale-related-work article {
-  padding: 1.25rem 1.25rem 1.4rem 0;
+.ale-project-related-list li {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: minmax(150px, .35fr) minmax(0, 1fr) minmax(120px, .25fr);
+  gap: 1rem;
+  align-items: baseline;
   border-bottom: 1px solid #191915;
 }
-.ale-related-work article:nth-child(even) {
-  padding-left: 1.25rem;
-  border-left: 1px solid #191915;
-}
-.ale-related-work__status {
-  display: block;
-  margin-bottom: 0.7rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+.ale-project-related-list li > span,
+.ale-project-related-list small {
+  font-size: .72rem;
+  line-height: 1.4;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
-.ale-related-work h3 {
-  margin: 0 0 0.7rem;
-  font-size: 1.05rem;
-  line-height: 1.35;
-}
-.ale-related-work p {
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-.ale-related-work a {
-  margin: 0.35rem 0.65rem 0.1rem 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
+.ale-project-related-list strong,
+.ale-project-related-list a {
+  font-size: .9rem;
+  line-height: 1.45;
 }
 
 @media (max-width: 720px) {
   .ale-project-gallery,
-  .ale-project-gallery--three,
-  .ale-related-work {
+  .ale-project-gallery--three {
     grid-template-columns: 1fr;
   }
-  .ale-related-work article,
-  .ale-related-work article:nth-child(even) {
-    padding: 1.15rem 0;
-    border-left: 0;
+  .ale-project-related-list li {
+    grid-template-columns: 1fr;
+    gap: .35rem;
   }
 }
