@@ -190,22 +190,11 @@ latest_posts:
         var target = document.querySelector(link.getAttribute("href"));
         if (!target) return;
         event.preventDefault();
-        var start = window.scrollY;
         var targetRect = target.getBoundingClientRect();
-        var destination = targetRect.top + start + targetRect.height / 2 - window.innerHeight / 2;
+        var destination = targetRect.top + window.scrollY + targetRect.height / 2 - window.innerHeight / 2;
         var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         destination = Math.max(0, Math.min(maxScroll, destination));
-        var duration = 800;
-        var started = performance.now();
-        function easeInOutQuad(t) {
-          return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        }
-        function step(now) {
-          var elapsed = Math.min(1, (now - started) / duration);
-          window.scrollTo(0, start + (destination - start) * easeInOutQuad(elapsed));
-          if (elapsed < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
+        window.scrollTo({ top: destination, behavior: "smooth" });
       });
     });
     render();
