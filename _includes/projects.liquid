@@ -22,6 +22,7 @@
       {% endif %}
       <div class="card-body">
         <h2 class="card-title">{{ project.title }}</h2>
+        <hr class="ale-project-card__rule" aria-hidden="true">
         <p class="card-text">{{ project.card_description | default: project.description }}</p>
       </div>
     </article>

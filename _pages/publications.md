@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: research outputs
-description: Publications and theses.
+description: Peer-reviewed papers spanning agentic AI, virtual humans and computer vision, alongside the B.Sc./M.Sc. theses I co-supervise on related topics.
 nav: true
 nav_order: 3
 ---
