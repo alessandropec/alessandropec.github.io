@@ -5696,3 +5696,475 @@ footer.sticky-bottom > .container {
     box-shadow: 5px 5px 0 #191915;
   }
 }
+
+/* ==========================================================================
+   v0.8.1 — Design pass: composition, chrome glyphs, page furniture
+
+   Second mobile pass, visual design focused: hamburger icon geometry,
+   landing composition per screen class, publications header/chips on
+   phone, contact recomposition on phone. Desktop >=851px untouched.
+   ========================================================================== */
+
+/* == Design layer core: hamburger icon, landing composition, story rhythm ==
+   Coordinator-owned part of the v0.8.1 design pass. Same conventions as the
+   v0.8.0 layer above: phone <=575.98px, tablet 576-850.98px, desktop >=851px
+   untouched. */
+
+/* --------------------------------------------------------------------
+   Hamburger icon: the toggler's display:grid (custom.css:3647) spreads
+   the three .icon-bar spans across three 14.7px grid rows, so the
+   open-state rotation from the gem's main.css (transform-origin 10%,
+   designed for a 6px bar pitch) draws a broken chevron instead of an X.
+   Restore a tight, centered 22x16 glyph and give it a symmetric morph:
+   the outer bars translate onto the middle line and rotate +/-45deg
+   around their center, the middle bar fades (main.css already sets its
+   opacity states; the transforms below override main.css's 10%-origin
+   rotations at equal specificity by load order). */
+@media (max-width: 850.98px) {
+  .navbar-toggler {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar-toggler .icon-bar {
+    margin-bottom: 0;
+  }
+  .navbar-toggler .icon-bar + .icon-bar {
+    margin-top: 5px; /* 2px bar + 5px gap = 7px pitch, 16px total glyph */
+  }
+  .navbar-toggler .top-bar {
+    transform: translateY(7px) rotate(45deg);
+    transform-origin: center;
+  }
+  .navbar-toggler .middle-bar {
+    opacity: 0;
+  }
+  .navbar-toggler .bottom-bar {
+    transform: translateY(-7px) rotate(-45deg);
+    transform-origin: center;
+  }
+  .navbar-toggler.collapsed .top-bar,
+  .navbar-toggler.collapsed .bottom-bar {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------
+   Landing hero, phone: fit the whole identity block — logo, name,
+   credentials, all 14 keyword chips and the scroll cue — inside the
+   first 844px-class viewport. Gains come from a 64px logo (was 96),
+   a tighter flex gap, and pulling the hero up into the container's
+   mt-5 gutter (the .mt-5 utility lives in tailwind's @layer with
+   !important, so it cannot be overridden directly — the negative
+   margin on .ale-intro achieves the same 38px lift; !important needed
+   because custom.css:4368 sets margin with !important). */
+@media (max-width: 575.98px) {
+  .ale-home-page .ale-intro {
+    margin-top: -2.4rem !important;
+  }
+  .ale-intro {
+    gap: 0.85rem;
+    padding-bottom: 2.6rem;
+  }
+  .ale-portrait-placeholder,
+  .ale-portrait-logo {
+    margin-bottom: 0;
+  }
+  .ale-portrait-placeholder {
+    min-height: 0;
+  }
+  .ale-hero-logo {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  .ale-hero-name {
+    margin-bottom: 0.7rem;
+  }
+  .ale-doctorate {
+    margin-bottom: 0.15rem;
+  }
+  /* Story sections: tighter vertical rhythm on phones (was 40/72 pad,
+     20px margins) so section borders don't float in empty ivory. */
+  .ale-story {
+    padding: 1.75rem 1.15rem 2.75rem;
+    margin: 0.75rem 0;
+  }
+  /* Kicker-to-headline distance: ~3rem inherited from the desktop scale
+     reads as a hole at phone sizes; ~19px keeps the label attached to
+     its headline. */
+  .ale-story .ale-kicker {
+    margin-bottom: 1.2rem;
+  }
+}
+
+/* --------------------------------------------------------------------
+   Landing hero, tablet: the centered 100svh hero left a huge void above
+   the logo at 768x1024. Start the composition near the top instead, and
+   cap the 3-column chip grid so it stops stretching edge-to-edge. */
+@media (min-width: 576px) and (max-width: 850.98px) {
+  .ale-intro {
+    justify-content: flex-start !important; /* beats custom.css:4372 justify-content:center!important */
+    padding-top: clamp(2.5rem, 9svh, 5.5rem);
+  }
+  .ale-keywords {
+    max-width: 620px;
+    margin-inline: auto;
+  }
+}
+
+/* == Design layer D1: page header actions & pub chips (phone) ==
+   Workstream D1 of design pass v0.8.1. Scope: max-width 575.98px only,
+   zero effect at >=576px. Meant to be appended by the coordinator AFTER
+   assets/css/custom.css in full, including its final
+   "v0.8.0 — Mobile optimization layer" section, so every rule below wins
+   the cascade at equal specificity by source order alone; !important is
+   used only where the specific custom.css declaration being beaten
+   already carries !important (each documented inline with file:line).
+   Markup only exists on /publications/ (verified: `.ale-page-actions` /
+   `.ale-action` and `abbr.badge`/`.ale-pub-status` are not used on any
+   other page — _pages/publications.md is their only source). */
+
+@media (max-width: 575.98px) {
+
+  /* ------------------------------------------------------------------
+     1) Page header: Scholar button moves from "same row as the title"
+     to its own line AFTER the description, left-aligned, auto-width.
+
+     Actual current layout (corrects the audit's "probabilmente
+     absolute" guess — it is not absolute):
+       - custom.css:3249-3261 (unscoped to width) makes
+         `.post-header.ale-publications-header` a flex ROW
+         (display:flex!important; align-items:baseline!important).
+       - custom.css:3831-3836 (<=700px, encloses our 575.98px range)
+         swaps that to `display:grid!important;
+         grid-template-columns:minmax(0,1fr) auto;` — title in the 1fr
+         column, .ale-page-actions in the auto column, SAME grid row.
+       - custom.css:4755-4757 gives both `.post-title` and
+         `.ale-page-actions` `order:1` (no !important); the inline
+         script in _pages/publications.md:17-21 inserts
+         `.ale-page-actions` right after the title via
+         `insertAdjacentElement("afterend")`, so in DOM order it already
+         sits between title and description.
+       - custom.css:4880-4889 gives `.post-description` `order:10
+         !important`, which is why it already renders last/below (the
+         "fix v0.8.0" the audit confirmed working).
+     Net effect on phone: title + button share the top row (button
+     pinned top-right of a possibly 2-line title), description forced
+     onto a new grid row that — because no grid-row/column spans it —
+     lands under the 1fr column only. That's the "sbilanciato" bug.
+
+     Fix: force a single-column flex layout for this range and reorder
+     with `order` (DOM order can't be changed — .ale-page-actions is
+     genuinely before .post-description in the DOM, per the script
+     above — so `order` is the only lever). This matches option 1 from
+     the brief (flex column + order) over "position:static + margin",
+     because margin-only reordering cannot flip DOM order; only
+     flex/grid `order` can. */
+  .ale-publications-page .post-header.ale-publications-header {
+    /* Both !important below are mandatory: custom.css:3832 sets
+       display:grid !important and custom.css:3254 align-items:baseline
+       !important — an important declaration always beats a normal one
+       regardless of specificity, so matching importance (then winning
+       on specificity/order) is the only way to flip these.
+       (Coordinator note: caught in browser testing — without !important
+       the header stayed a 2-column grid and crushed the title.) */
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap; /* beats custom.css:1844/4752-4753 flex-wrap:wrap (no !important) — a column must not spawn extra columns if content ever overflows height */
+    align-items: flex-start !important;
+    gap: 0; /* beats custom.css:3834 gap:0.75rem (no !important) — spacing between the three rows is handled by each child's own margin-top below, so a container gap would double it up */
+  }
+
+  /* Visual order: title (1) -> description (2) -> button (3). */
+  .ale-publications-page .ale-publications-header .post-title {
+    order: 1; /* restates custom.css:4756 order:1 for a self-contained rule; not fighting anything */
+    width: 100%; /* explicit, so shrink-to-fit sizing under align-items:flex-start can't accidentally clip the wrapping h1 */
+  }
+  .ale-publications-page .ale-publications-header .post-description {
+    order: 2 !important; /* beats custom.css:4882 order:10!important (higher specificity: 3 classes vs 2) */
+    flex: 0 1 auto !important; /* beats custom.css:4881 flex:1 0 100%!important — a 100% flex-basis along the (now vertical) main axis is meaningless/risky once the header is a column; content-based sizing is what we want */
+    width: 100%;
+    /* margin-top stays at custom.css:4883's 0.65rem !important — not overridden, gives the title->description gap */
+  }
+  .ale-publications-page .ale-publications-header .ale-page-actions {
+    order: 3;
+    margin: 0.9rem 0 0 !important; /* beats custom.css:3272 (0 0 0 0.8rem!important) and custom.css:3838 (0!important, the one currently winning under the enclosing 700px query) — top-only spacing under the description, no left offset */
+    transform: none; /* neutralizes custom.css:3274 translateY(-0.15rem), an optical nudge sized for the old "inline next to the title baseline" position; meaningless now that the button is a standalone block */
+    /* No width/align-self set here: align-items:flex-start on the
+       column parent already keeps this div (and the inline-flex
+       .ale-action button inside it, custom.css:546) shrink-to-fit
+       instead of stretching to the header's full width. */
+  }
+
+  /* Dead-after-this-change, left alone deliberately (documented, not
+     removed, since it's owned by the coordinator's file):
+     custom.css:3916-3918 `grid-template-columns:1fr` and
+     custom.css:3919-3921 `justify-self:start` inside the <=380px query
+     are grid-only properties; once display is flex here they simply
+     have no effect. No conflict, nothing to beat. */
+
+  /* The 40px touch target and hover/active states for `.ale-action`
+     are already handled by the live v0.8.0 layer
+     (custom.css:5560-5576 min-height:40px + box-sizing:border-box, and
+     custom.css:5664-5675 for the touch hover/active swap) — not
+     duplicated here. */
+
+
+  /* ------------------------------------------------------------------
+     2) Venue/status chips: `.abbr` becomes a compact, wrappable chip
+     row instead of two stacked full-width bars.
+
+     Markup (design-audit.md, confirmed against the JS in
+     _pages/publications.md:68-69 which appends `.ale-pub-status` as a
+     child of `.abbr`):
+       div.col.col-sm-2.abbr
+         abbr.badge.rounded.w-100   ("CASA XR" venue chip)
+         span.ale-pub-status        ("In press" / "Under review")
+     `.abbr abbr` currently gets `display:grid!important`
+     (custom.css:3348) and `.ale-pub-status` gets `display:block`
+     (custom.css:2824-2831) — both are effectively block-level, so they
+     stack vertically as two full-width bars once `.abbr` itself is
+     stacked full-width by the <=700px rules
+     (custom.css:3298-3304 width:100%!important on `.abbr`, and
+     custom.css:3440-3448 grid-column:1/grid-row:auto). This rule only
+     touches what's INSIDE `.abbr` — its own width/grid placement (i.e.
+     the row>col layout) is untouched, so the record layout doesn't
+     change shape. */
+  .ale-publications-page .abbr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* --- venue chip: abbr.badge.rounded.w-100 ---
+     The only `width` ever declared for `.ale-publications-page .abbr
+     abbr` is custom.css:1993 `width:100% !important` — plain,
+     unlayered custom.css, trivially beaten by an equal-or-higher-
+     specificity declaration appended later (no cascade-layer risk on
+     that specific declaration).
+     The HTML also carries Bootstrap-compat's own `.w-100` utility
+     class directly. That utility is NOT authored in this repo — it is
+     compiled at Jekyll build time into assets/css/tailwind.css and/or
+     assets/css/bootstrap-compat.css by the al_folio_core /
+     al_folio_bootstrap_compat gems (both files are build output, not
+     checked into git; _site/, vendor/, node_modules/ are all
+     gitignored and were not present on disk to inspect). Per
+     mobile-audit.md, the ONE case from that pipeline that was actually
+     confirmed via Playwright (`.navbar-expand-sm .navbar-collapse`,
+     custom.css comment at 5094-5103) turned out to be a genuinely
+     LAYERED (native CSS @layer) !important declaration — and per the
+     CSS Cascade Layers spec, a layered !important always beats an
+     unlayered !important regardless of specificity or source order, so
+     re-declaring `width` here (even with !important) is not guaranteed
+     to win if `.w-100` follows the same pattern. This could not be
+     verified directly for `.w-100` itself (no browser/build access in
+     this task) — see report.
+     Fix used to route around the uncertainty entirely: make the badge
+     a flex item of the row above and give it a non-`auto` flex-basis.
+     Per the flexbox sizing algorithm, once flex-basis is anything
+     other than `auto`/`content`, THAT determines the item's
+     hypothetical main size and the `width` property is not consulted
+     at all — so the `.w-100` fight is sidestepped rather than fought
+     on cascade terms, and this wins regardless of how `.w-100` turns
+     out to be authored. `width: auto !important` is kept alongside as
+     a harmless second line of defense for the more likely case that
+     `.w-100` is plain/unlayered. */
+  .ale-publications-page .abbr abbr {
+    flex: 0 0 max-content; /* sidesteps custom.css:1993 + the .w-100 utility entirely (see note above) */
+    width: auto !important; /* secondary defense: beats custom.css:1993 width:100%!important outright if `.w-100` is not layered+important */
+    min-height: 26px; /* beats custom.css:1994/2818/3347 min-height:34px (no !important anywhere on this property) */
+    padding: 0.28rem 0.7rem !important; /* beats custom.css:1998 padding:0.35rem 0.6rem!important — the only padding ever declared for this selector; ~0.7rem horizontal per spec */
+    box-sizing: border-box; /* explicit (matches the convention already used at custom.css:5570), so min-height/padding above combine to ~26px total rather than 26px content + padding on top */
+    /* display:grid!important (custom.css:3348) and place-items:center
+       (custom.css:3349) are untouched: this element keeps its own
+       grid formatting context for centering its text content — being
+       a flex ITEM of `.abbr` (its parent) is independent of its own
+       `display` for its children. font-size (custom.css:2003,
+       0.72rem!important), border/border-radius/background/color/
+       font-weight/opacity (custom.css:3350-3355, plus the in-press /
+       under-review overrides at custom.css:3420-3427) are all
+       untouched — palette and font stay exactly as-is. */
+  }
+
+  /* --- status chip: span.ale-pub-status --- */
+  .ale-publications-page .abbr .ale-pub-status {
+    display: inline-flex; /* beats custom.css:2824 display:block (no !important) */
+    align-items: center;
+    justify-content: center;
+    width: auto; /* beats custom.css:2826 width:100% (no !important) — no `w-100` class on this element per the audited markup, so no layer risk here */
+    min-height: 26px; /* match the venue chip's height; no min-height was set on this selector before */
+    box-sizing: border-box;
+    padding: 0.2rem 0.7rem; /* beats custom.css:2828 padding:0.3rem 0.4rem (no !important); ~0.7rem horizontal per spec */
+    margin: 0 !important; /* beats custom.css:3358 margin-top:0.45rem!important and custom.css:2827 margin:0.5rem 0 0!important — row spacing now comes from `.abbr`'s own `gap` above, not per-child margin */
+    white-space: nowrap; /* beats custom.css:2830 white-space:normal (no !important) — keeps "In press"/"Under review" as a single-line pill; the ROW itself still wraps via flex-wrap on `.abbr` above if space runs out */
+    /* font-size (custom.css:1202, 0.68rem, untouched — no later rule
+       overrides it) and border/border-radius/color/background,
+       including the in-press/under-review palette
+       (custom.css:2157-2168), are all untouched. */
+  }
+}
+
+/* ------------------------------------------------------------------
+   4) Theses badges (bottom of /publications/): different pattern,
+   intentionally NOT touched here.
+   _pages/publications.md:106-124 uses `.ale-thesis-meta` >
+   `.ale-degree-chip` ("M.Sc. · Co-supervised thesis") and
+   `.ale-thesis-links`, not `abbr.badge`/`.ale-pub-status`.
+   `.ale-degree-chip` (custom.css:125-137) is already
+   `display: inline-flex !important` with `padding: 0 0.55rem` and
+   `min-height: 34px` — i.e. already an auto-width compact chip, not a
+   full-width bar — and stays inline-flex through the existing
+   <=600px query (custom.css:170-186 keeps `.ale-thesis-meta` as a row).
+   No bug reproduced here; no rule added. See report. */
+
+/* == Design layer D2: contact recomposition (phone) == */
+/* Workstream D2 — /contact/ cell recomposition, scoped to max-width:
+   575.98px only (canonical phone breakpoint). This file is appended
+   after the whole of assets/css/custom.css, including the v0.8.0 mobile
+   layer (which currently ends at custom.css:5699), so an equal-
+   specificity rule appended here already wins by source order alone.
+   Even so, every selector below is deliberately qualified with the
+   `.ale-contact-grid` ancestor (or `:not(.ale-contact-profile)`) to buy
+   extra specificity over the base rules in custom.css — this way the
+   override is robust even if a sibling workstream file ends up appended
+   between this one and custom.css. `!important` is added only on the
+   handful of declarations that must beat an existing `!important` rule
+   (documented at each one); every other declaration wins on specificity
+   alone, per the mobile-audit "golden rules".
+   Markup (unchanged, from _pages/contact.md):
+     .ale-contact-grid > .ale-contact-cell × 3 (email / CG&VG / PoliTO
+       office) — label kicker + .ale-contact-cell-body (icon + strong +
+       small)
+     .ale-contact-grid > .ale-contact-cell.ale-contact-profile × 4
+       (Scholar / GitHub / LinkedIn / PoliTO staff) — icon + span(strong
+       + small), no label, no .ale-contact-cell-body wrapper. */
+
+@media (max-width: 575.98px) {
+
+  /* -----------------------------------------------------------------
+     1) Profile cells → 2×2
+     Today every cell (tall + profile) is forced to full width below
+     560px by custom.css:4867-4872:
+       @media (max-width: 560px) {
+         .ale-contact-cell, .ale-contact-profile { grid-column: 1/-1; }
+       }
+     which stacks the 4 profile cells as 4 separate full-width rows.
+     Restoring `span 6` on the shared 12-col track (custom.css:4774-4779
+     `.ale-contact-grid { grid-template-columns: repeat(12, ...) }`)
+     re-pairs them: two span-6 items per row = 2 rows × 2 cols, with no
+     explicit grid-row needed (default auto-flow: row). The 3 non-profile
+     `.ale-contact-cell` are intentionally NOT touched here — they keep
+     grid-column: 1/-1 from the 560px rule, staying full width.
+     Specificity: `.ale-contact-grid .ale-contact-profile` (0,2,0) beats
+     both comma branches of the 560px rule (0,1,0 each) outright; no
+     !important needed. */
+  .ale-contact-grid .ale-contact-profile {
+    grid-column: span 6;
+  }
+
+  /* -----------------------------------------------------------------
+     2) Profile cells — interior layout: icon on top, title, subtitle,
+     all centered (was icon-left row layout, custom.css:4836-4842:
+     `.ale-contact-profile { flex-direction: row; align-items: center;
+     gap: 0.8rem; padding: 1rem 1.2rem; }`, base min-height 88px).
+     flex-direction / align-items / gap / padding / text-align beat that
+     base rule on specificity alone (no !important: base is (0,1,0),
+     mine is (0,2,0)). */
+  .ale-contact-grid .ale-contact-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem; /* matches the tall cells' gap below, one rhythm */
+    padding: 14px;
+  }
+  /* justify-content and min-height DO need !important: both are set
+     unconditionally (no media query, so active at every width) at
+     custom.css:4947-4950 with !important:
+       .ale-contact-profile { min-height: 104px !important;
+                               justify-content: flex-start !important; }
+     Center the column instead of top-aligning it, and open the box up
+     slightly (104 -> 112px) now that the icon sits above the text
+     instead of beside it. */
+  .ale-contact-grid .ale-contact-profile {
+    justify-content: center !important;
+    min-height: 112px !important;
+  }
+
+  /* -----------------------------------------------------------------
+     3) Icon normalization: font-size, not a fixed width, so glyphs keep
+     their natural aspect ratio (academicons' Google Scholar glyph is
+     narrower than the fa-brands GitHub/LinkedIn glyphs at the same
+     font-size — that's expected, not a deformation). Beats
+     custom.css:4844-4846 (`.ale-contact-profile i { font-size: 1rem }`,
+     specificity 0,1,1) on specificity: mine is 0,2,1. */
+  .ale-contact-grid .ale-contact-profile i {
+    font-size: 1.25rem; /* ~20px */
+  }
+
+  /* Title/subtitle typography + overflow guard. "Google Scholar" is the
+     longest title at ~140px (span-6 at 320px) of inner width once icon,
+     padding (14px) and gap are accounted for; a slightly smaller title
+     size plus an explicit width cap keeps it wrapping to two lines
+     in the box instead of pushing the card wider than its grid track
+     (align-items: center on a column flex container sizes each item to
+     its own content width unless capped, which is the actual overflow
+     risk here — shrink-to-fit is bounded by available space, so this is
+     a belt-and-suspenders guard, not a fix for an active bug). */
+  .ale-contact-grid .ale-contact-profile span {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .ale-contact-grid .ale-contact-profile span strong {
+    font-size: 0.95rem;
+    line-height: 1.25;
+  }
+  /* Beats custom.css:4851-4855 (`.ale-contact-profile span small {
+     margin-top: 0.3rem; ... }`, specificity 0,1,2) on specificity
+     (mine: 0,2,2) — tighter now that title/subtitle stack under a
+     centered icon instead of sitting beside it. */
+  .ale-contact-grid .ale-contact-profile span small {
+    margin-top: 0.15rem;
+  }
+
+  /* -----------------------------------------------------------------
+     4) Tall cells (Academic email / CG&VG / Politecnico) — content sits
+     right under the label kicker, no centered void.
+     Two rules fight for min-height here, both !important:
+       custom.css:4937-4940 (unconditional): min-height: 216px !important
+       custom.css:5605-5607 (v0.8.0, <=850.98px):
+         .ale-contact-cell:not(.ale-contact-profile) { min-height: 144px
+         !important; }
+     `.ale-contact-grid .ale-contact-cell:not(.ale-contact-profile)` is
+     (0,3,0), higher than both (0,1,0 and 0,2,0), so !important +
+     specificity wins outright regardless of source order. `auto` lets
+     the label + gap + body dictate height instead of an imposed floor —
+     this is the actual fix for "big empty gap", not a cosmetic tweak. */
+  .ale-contact-grid .ale-contact-cell:not(.ale-contact-profile) {
+    min-height: auto !important;
+    padding: 18px;
+    gap: 0.5rem;
+  }
+  /* The remaining void wasn't only the min-height floor: with min-height
+     now `auto`, custom.css:4944-4946 (unconditional, !important) still
+     vertically centers the body in whatever leftover space exists:
+       .ale-contact-cell .ale-contact-cell-body { margin: auto 0
+       !important; }
+     That must go too, or the body would stay glued to `margin:auto`
+     centering logic even in an auto-height box. Specificity: mine
+     (0,4,0) > theirs (0,2,0); !important required to beat their
+     !important. */
+  .ale-contact-grid .ale-contact-cell:not(.ale-contact-profile) .ale-contact-cell-body {
+    margin: 0 !important;
+  }
+
+  /* Icon normalization for the tall cells too (was 1.1rem, ~17.6px, at
+     custom.css:4812-4814 `.ale-contact-cell-body i { font-size: 1.1rem
+     }`) — brings the whole grid to one shared icon weight at phone.
+     Specificity: mine (0,4,1) > theirs (0,1,1), no !important needed. */
+  .ale-contact-grid .ale-contact-cell:not(.ale-contact-profile) .ale-contact-cell-body i {
+    font-size: 1.25rem;
+  }
+}

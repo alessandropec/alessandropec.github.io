@@ -23,5 +23,9 @@ module.exports = {
     // and page chrome (scroll-progress bar, ToC) bleeds through a zoomed image.
     "medium-zoom-overlay",
     "medium-zoom-image--opened",
+    // vanilla-back-to-top creates #back-to-top at runtime, so every custom.css
+    // rule for it (mobile sizing, safe-area offset, bob animation) gets purged
+    // and only the library's own injected defaults survive.
+    "back-to-top",
   ],
 };
