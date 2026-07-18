@@ -128,12 +128,34 @@ latest_posts:
       window.setTimeout(function () { if (!activeKeyword) info.hidden = true; }, 120);
     }
 
-    keywords.forEach(function (keyword) {
-      keyword.addEventListener("mouseenter", function () { showInfo(keyword); });
-      keyword.addEventListener("mouseleave", hideInfo);
-      keyword.addEventListener("focus", function () { showInfo(keyword); });
-      keyword.addEventListener("blur", hideInfo);
-    });
+    // Touch devices get an explicit tap-to-toggle interaction instead of
+    // hover/focus, so a single tap never double-triggers show+hide.
+    var isTouch = window.matchMedia("(hover: none)").matches;
+
+    if (isTouch) {
+      keywords.forEach(function (keyword) {
+        keyword.addEventListener("click", function (event) {
+          event.stopPropagation();
+          if (activeKeyword === keyword) {
+            hideInfo();
+          } else {
+            showInfo(keyword);
+          }
+        });
+      });
+      document.addEventListener("click", function (event) {
+        if (activeKeyword && event.target !== activeKeyword && !info.contains(event.target)) {
+          hideInfo();
+        }
+      });
+    } else {
+      keywords.forEach(function (keyword) {
+        keyword.addEventListener("mouseenter", function () { showInfo(keyword); });
+        keyword.addEventListener("mouseleave", hideInfo);
+        keyword.addEventListener("focus", function () { showInfo(keyword); });
+        keyword.addEventListener("blur", hideInfo);
+      });
+    }
     window.addEventListener("scroll", hideInfo, { passive: true });
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       els.forEach(function (el) {
@@ -145,10 +167,13 @@ latest_posts:
     function render() {
       var viewport = window.innerHeight;
       document.documentElement.classList.toggle("ale-has-scrolled", window.scrollY > 100);
+      // Touch/phone: halve the horizontal travel so the reveal doesn't read
+      // as an oversized swipe on small, close screens.
+      var motionScale = isTouch || window.innerWidth <= 575.98 ? 0.5 : 1;
       els.forEach(function (el) {
         var rect = el.getBoundingClientRect();
-        var enterDistance = Math.min(230, window.innerWidth * 0.16);
-        var exitDistance = Math.min(320, window.innerWidth * 0.21);
+        var enterDistance = Math.min(230, window.innerWidth * 0.16) * motionScale;
+        var exitDistance = Math.min(320, window.innerWidth * 0.21) * motionScale;
         var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
         var x;
         var opacity;

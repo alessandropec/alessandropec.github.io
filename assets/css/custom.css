@@ -5077,3 +5077,622 @@ footer.sticky-bottom > .container {
 .ale-pub-section .ale-section-heading h2 {
   margin-top: 0 !important;
 }
+
+/* ==========================================================================
+   v0.8.0 — Mobile optimization layer
+
+   Comprehensive mobile/touch pass, appended as three self-contained
+   sub-layers (A: navigation & chrome, B: hero/keywords/cues,
+   C: pages/footer/touch states). Desktop >=851px is intentionally
+   untouched by every rule in this section.
+   ========================================================================== */
+
+/* == Mobile layer A: navigation & chrome ==
+   Canonical breakpoints (mobile-audit.md): mobile nav <=850.98px,
+   desktop nav >=851px, phone extras <=575.98px.
+
+   Cascade note that shapes this whole block: the theme's tailwind.css
+   declares its navbar rules inside @layer components, and
+   `.navbar-expand-sm .navbar-collapse { display: flex !important }`
+   (>=576px) is a LAYERED important declaration. Per CSS Cascade 5,
+   layered !important beats unlayered !important regardless of
+   specificity, so custom.css can never win the `display` fight in the
+   576-850.98px window. The closed menu is therefore hidden via
+   visibility/opacity/pointer-events (tailwind only touches those with
+   normal declarations, which unlayered rules here always beat), and the
+   open menu accepts display:flex and is laid out as a column. */
+
+/* 1. Tablet window (576-850.98px): keep the hamburger pattern.
+      Closed state: the collapse stays display:flex (tailwind wins) but
+      is fully hidden and inert. It is position:absolute here
+      (custom.css:3659), so it takes no layout space either way. */
+@media (min-width: 576px) and (max-width: 850.98px) {
+  .navbar-collapse:not(.show) {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .navbar-collapse.show {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  /* Open state renders as flex (tailwind >=576 forces it): stack the
+     dropdown vertically like the <576px menu. Beats the layered normal
+     `.navbar-expand-sm .navbar-nav { flex-direction: row }`. */
+  .navbar-collapse {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .navbar .navbar-nav {
+    flex-direction: column;
+  }
+}
+
+/* 2. Mobile/tablet nav (<=850.98px): bigger touch targets.
+      Toggler 32x32 -> 44x44; the 19px icon stays centered via the
+      existing display:grid/place-items (custom.css:3647). margin-left:auto
+      (custom.css:3645) keeps the right edge anchored, so the extra size
+      grows leftward only. */
+@media (max-width: 850.98px) {
+  .navbar-toggler {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  /* Open-menu items: 38px -> >=44px rows, slightly larger type.
+     font-size must carry !important to beat custom.css:3695. */
+  .navbar .nav-link {
+    min-height: 44px;
+    font-size: 0.95rem !important;
+  }
+  /* In the dropdown the links are full-width rows, so the active-item
+     underline (an absolutely inset ::after, custom.css:2120-2130) turns
+     into a stray full-width rule across the panel. Color + weight
+     already mark the active item there; drop the bar. */
+  .navbar .nav-link.active::after,
+  .navbar .nav-link[aria-current="page"]::after,
+  .navbar .nav-item.active .nav-link::after {
+    content: none;
+  }
+}
+
+/* 3. Desktop nav (>=851px): pure inline menu, no hamburger. The old
+      mobile-nav block in custom.css was written against a 991.98px
+      cutoff; this section reclaims the 851-991.98px slice for the
+      desktop layout. Above 991.98px every declaration is a no-op that
+      matches what is already live. */
+@media (min-width: 851px) {
+  .navbar-toggler {
+    display: none; /* unlayered normal beats tailwind's layered grid/none mix and custom.css:3647 display:grid (earlier in file) */
+  }
+  /* Undo the absolute-overlay dropdown styling from custom.css:3659-3668
+     for this range. display itself resolves to flex via tailwind's
+     layered !important rule — exactly what we want inline. */
+  .navbar-collapse,
+  .navbar-collapse:not(.show),
+  .navbar-collapse.show {
+    position: static;
+    z-index: auto;
+    top: auto;
+    right: auto;
+    left: auto;
+    padding: 0;
+    border-bottom: 0;
+    background: transparent;
+    box-shadow: none;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    flex-direction: row;
+    align-items: center;
+  }
+  /* Lock the bar back to the 36px it has at true desktop, beating the
+     height:auto/max-height:none the old mobile block sets here
+     (custom.css:3632-3634, !important). */
+  .navbar,
+  .navbar.fixed-top,
+  .navbar.scrolled,
+  .navbar.navbar-shrink,
+  .navbar.ale-navbar-compact {
+    height: 36px !important;
+    max-height: 36px !important;
+  }
+  .navbar .navbar-nav {
+    width: auto;
+    flex-direction: row;
+    align-items: center !important; /* beats custom.css:3683 align-items:stretch!important */
+  }
+  .navbar .nav-item {
+    width: auto;
+  }
+  .navbar .nav-link {
+    width: auto;
+    min-height: 0;
+    justify-content: flex-start;
+    /* Both beat !important rules scoped to the old 991.98px cutoff
+       (custom.css:3694-3695); values mirror the true-desktop rule at
+       custom.css:3498-3502 (verified against the live >=992px computed
+       style: 0.2rem 0.3rem / 0.98rem). */
+    padding: 0.2rem 0.3rem !important;
+    font-size: 0.98rem !important;
+  }
+}
+
+/* 4. Back-to-top on phones (<=575.98px): smaller circle, tighter
+      margins, safe-area clearance. The base rule (custom.css:3184-3189)
+      uses !important on these properties. */
+@media (max-width: 575.98px) {
+  #back-to-top {
+    width: 42px !important;
+    height: 42px !important;
+    right: 12px !important;
+    bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* No hover-only affordances on touch: defensive reset for the
+   gem-provided button. */
+@media (hover: none) {
+  #back-to-top:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* == Mobile layer B: hero, keywords, cues == */
+/* Workstream B — hero, keyword chips, scroll cue, touch popover.
+   Loaded AFTER assets/css/custom.css (same load order the coordinator
+   already uses to append override layers): equal-specificity rules below
+   win by source order; !important is added only where the target rule in
+   custom.css already uses !important and must be beaten. Each override is
+   commented with the exact custom.css line it targets, so it can be
+   re-checked if custom.css changes upstream. */
+
+/* --------------------------------------------------------------------
+   1) Scroll cue must never overlap content.
+
+   Root cause: custom.css:4435-4444 is the last (authoritative) rule for
+   .ale-scroll-cue — explicitly commented there as "kept last so it wins
+   the cascade above" — and sets:
+     position: fixed !important; left: 50% !important; bottom: 1.4rem !important;
+   A fixed cue is pinned to the *viewport* bottom-center regardless of how
+   tall the hero content is. custom.css:4364-4378 (.ale-intro, same "kept
+   last" pass) lays the hero out as a centered flex column
+   (display:flex!important; flex-direction:column!important;
+   justify-content:center!important) with .ale-keywords last via
+   order:3 (custom.css:4413-4418) — so on a normal desktop viewport the
+   hero content is short enough relative to viewport height that
+   bottom:1.4rem sits safely below it. On short/tall-content viewports it
+   does not:
+     - 390x844 (phone portrait): 14 keyword chips wrap across several
+       rows and, together with the rest of the centered column, run close
+       to the bottom of the screen, right where bottom:1.4rem is anchored
+       -> the fixed cue sits on top of the last chip row.
+     - 844x390 (phone landscape, i.e. "viewport basso"): min-height:100svh
+       (custom.css:4367) is only ~390px minus the ~44px navbar
+       (custom.css:2910-2912), so the whole centered column barely fits;
+       whatever ends up rendered near the container's vertical center is
+       exactly where the fixed cue is pinned -> overlap on the hero name.
+
+   Fix: two independent, narrowly-scoped media conditions per the audit's
+   canonical breakpoints (mobile-audit.md):
+     a) Phone portrait (max-width: 575.98px): take the cue out of fixed
+        positioning and let it participate in the existing flex column as
+        the last item (order higher than .ale-keywords' order:3), so it
+        renders in-flow right after the chips instead of floating over
+        them. The container's own `gap` (custom.css:4375) already spaces
+        it consistently — no extra margin needed.
+     b) Short landscape viewport (max-height: 500px and
+        orientation:landscape) — width-independent, since a landscape
+        phone (e.g. 844px wide) does not match the 575.98px phone
+        breakpoint: hide the cue outright rather than trying to reflow a
+        fixed viewport-height hero. This needs !important and a selector
+        that matches the two other custom.css rules that also toggle its
+        visibility with !important
+        (custom.css:3050-3055 .ale-home-page:not(.ale-has-scrolled)
+        .ale-scroll-cue {display:grid!important; opacity:1!important; ...}
+        and custom.css:4445-4449 .ale-has-scrolled .ale-scroll-cue
+        {opacity:0!important; ...}) so it stays hidden in both the
+        "not scrolled yet" and "scrolled" states.
+   Desktop (>=851px, normal viewport height) matches neither condition:
+   the original fixed/bob behaviour is untouched. */
+@keyframes ale-scroll-cue-bob-inline {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+@media (max-width: 850.98px) {
+  /* The whole mobile/tablet band, not just phones: at in-between sizes
+     like 576x800 the viewport-pinned cue still lands on the last chip
+     row, so the in-flow placement is the only overlap-proof option. */
+  .ale-scroll-cue {
+    position: static !important; /* beats custom.css:4436 position:fixed!important */
+    left: auto !important; /* beats custom.css:4437 left:50%!important */
+    bottom: auto !important; /* beats custom.css:4438 bottom:1.4rem!important */
+    order: 4; /* renders after .ale-keywords (order:3, custom.css:4414) in the flex column */
+    transform: none; /* the fixed-cue centering shift (custom.css:4442 translateX(-50%), deliberately not !important there) would drag the in-flow cue half its width to the left */
+    align-self: center; /* the hero flex column left-aligns items on mobile; keep the cue centered like its fixed counterpart */
+  }
+}
+/* Re-enable the bob animation only when motion is not reduced — kept as a
+   separate rule so it never fights the existing
+   @media (prefers-reduced-motion: reduce) { .ale-scroll-cue { animation: none } }
+   block at custom.css:4459-4463 (that block is untouched, per instructions). */
+@media (max-width: 850.98px) and (prefers-reduced-motion: no-preference) {
+  .ale-scroll-cue {
+    animation: ale-scroll-cue-bob-inline 3.2s ease-in-out infinite;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .ale-scroll-cue,
+  .ale-home-page:not(.ale-has-scrolled) .ale-scroll-cue,
+  .ale-has-scrolled .ale-scroll-cue {
+    display: none !important; /* beats custom.css:3050-3055 display:grid!important */
+  }
+}
+
+/* --------------------------------------------------------------------
+   2) Keyword chips: kill the single-column wall at <=380px.
+
+   custom.css:3909-3922 introduces a 380px breakpoint that collapses
+   .ale-keywords to `grid-template-columns: 1fr !important;` — a single
+   full-width column of all 14 chips, stacked into a tall wall (the 720px
+   and 600px breakpoints just above it, custom.css:3749-3753 and
+   3212-3214, already use a 2-column grid and read fine — confirmed by the
+   audit at 390px). Restore the 2-column grid at this narrower breakpoint
+   too and tighten the chip padding slightly so long labels (e.g.
+   "ARTIFICIAL GENERAL INTELLIGENCE") wrap comfortably across 2-3 lines
+   without ballooning the row height. font-size is intentionally left at
+   the inherited 0.62rem (custom.css:3757) — already the compact size the
+   audit asked for.
+   Right padding is deliberately NOT touched here: custom.css:4423 reserves
+   padding-right: 1.35rem !important on .ale-keywords span for the "i"
+   info mark (custom.css:4426-4428); that rule is unconditional (not in a
+   media query) and loads after this breakpoint inside custom.css, and
+   this file loads after custom.css entirely, so it keeps winning
+   regardless — the "i" stays clear of the (possibly 2-line) label. */
+@media (max-width: 380px) {
+  .ale-keywords {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* beats custom.css:3914 grid-template-columns:1fr!important */
+    gap: 0.4rem !important; /* beats custom.css:3970-ish inherited 0.55rem!important gap */
+  }
+  .ale-keywords span {
+    min-height: 40px; /* >=40px effective tap target, up from the inherited 38px (custom.css:3755) */
+    padding-block: 0.3rem;
+    padding-left: 0.35rem;
+    font-size: 0.6rem;
+    line-height: 1.22;
+  }
+}
+
+/* --------------------------------------------------------------------
+   3) Keyword popover: touch handling lives in _pages/about.md's <script>
+   (the only owner of that file). No CSS change is required here — the
+   popover's positioning (custom.css:3079-3103, placeInfo() in the
+   script) already clamps it inside the viewport for any input type. */
+
+/* --------------------------------------------------------------------
+   4) Story reveal animation: the reduced enter/exit travel distance on
+   touch/phone is implemented in _pages/about.md's render() function
+   (motionScale). No CSS change needed — the animated custom properties
+   (--ale-scroll-x / --ale-scroll-opacity, custom.css:3134-3141) are
+   consumed as-is regardless of the JS-computed magnitude. */
+
+/* --------------------------------------------------------------------
+   5) Contact CTA: grow the "Contact me ->" tap target to >=44px tall on
+   touch only, without touching desktop hover appearance.
+
+   custom.css defines `.ale-contact-cta a` three times (1504-1509 base
+   colors/underline, 3164-3180 unscoped flex layout + font-weight,
+   3809-3815 inside the 720px breakpoint switches the container to
+   display:block) but never sets padding on the anchor itself — so on
+   mobile the link's hit box is just its text: ~94x19px (audit #9).
+   Add vertical (and a touch of horizontal) padding scoped to the touch
+   media feature, offset with an equal negative margin so the *visual*
+   position/spacing stays put (margin is outside the border box and does
+   not shrink the hit area) while the *tappable* border-box grows to
+   >=44px tall. No !important needed: no existing rule sets display or
+   padding on `.ale-contact-cta a`, so this simply adds new declarations
+   that win by normal cascade (this file loads after custom.css). */
+@media (hover: none), (pointer: coarse) {
+  .ale-contact-cta a {
+    display: inline-block;
+    margin: -0.75rem -0.15rem;
+    padding: 0.75rem 0.15rem; /* ~14.7px*1.4 line-box + 24px vertical padding ≈ 44.6px tall */
+  }
+}
+
+/* == Mobile layer C: pages, footer, touch states == */
+/* Standalone block, meant to be appended AFTER assets/css/custom.css so it
+   wins the cascade at equal selector specificity. Canonical breakpoints used
+   throughout (per mobile-audit.md):
+     phone      max-width: 575.98px
+     tablet     576px - 850.98px  (both combined below as max-width: 850.98px)
+     desktop    min-width: 851px  (never touched here)
+     touch      (hover: none), (pointer: coarse)
+   :has() is used below without a fallback: it is already relied upon
+   unguarded elsewhere in custom.css (e.g. line 2267 and line 3574), so this
+   introduces no new browser-support regression versus the current site. */
+
+
+/* --------------------------------------------------------------------------
+   1) Footer social icons — tap target + touch feedback
+   Beats: custom.css:3558-3561 (.ale-footer-social a font-size/line-height,
+   !important, the winning rule out of 6+ redefinitions of this selector).
+   Desktop (>=851px) is untouched: this block is width-scoped.
+   -------------------------------------------------------------------------- */
+@media (max-width: 850.98px) {
+  .ale-footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.3rem;
+    /* Icon glyph itself: ~18-20px, up from the 0.72rem (~11.5px) that wins
+       on every breakpoint today. Needs !important to beat custom.css:3559,
+       which also carries !important. */
+    font-size: 1.2rem !important;
+    line-height: 1 !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  /* custom.css:1230 (.ale-footer-social a:hover { color: var(--ale-accent) })
+     resolves to #191915 in the final theme (custom.css:1354), i.e. the same
+     value as the non-hover color (custom.css:1592) — already a no-op, so
+     nothing to neutralize there. Touch gets its own, genuinely visible cue
+     instead: a soft circular tint + a slight press-down scale. No !important
+     needed, nothing else sets background-color/transform on this element. */
+  .ale-footer-social a:active {
+    background-color: rgba(25, 25, 21, 0.14);
+    border-radius: 50%;
+    transform: scale(0.92);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   2) Page descriptions — no more clipped ellipsis on mobile
+   Beats: custom.css:4880-4889 (.post-header .post-description), the only
+   rule that truncates it. None of the three truncating properties there
+   carry !important, so this override wins purely by appearing later in the
+   cascade at equal specificity — no !important needed.
+   NB: there is a second, separate rule at custom.css:4739-4751 targeting
+   `.post-header .desc` that does NOT truncate anything; it looks like
+   leftover/duplicate CSS from an earlier class name and was left alone
+   (out of scope, does not reproduce the bug — see report).
+   -------------------------------------------------------------------------- */
+@media (max-width: 850.98px) {
+  .post-header .post-description {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   3) Project cards without an image — collapse the reserved top space
+   Beats: custom.css:2267-2269
+   (.ale-project-card:not(:has(.card-img-top)) .card-body { padding-top: 3rem }).
+   That padding was sized to clear the metadata chips when they still sat
+   top-right (original position at custom.css:2238-2247). A later pass
+   (custom.css:4893-4899) moved the chips to bottom-right and added bottom
+   padding for them instead — the 3rem top padding was never removed, so
+   image-less cards (Enterprise AI, AI Voice Cloning) keep a dead gap above
+   the title. On mobile, reset it to the same top padding image-having
+   cards get from the card body's own base rule (custom.css:2229-2230,
+   padding: 1.05rem 1.15rem 1.2rem). No !important: the original declaration
+   doesn't use it either, and this selector matches it at equal specificity.
+   -------------------------------------------------------------------------- */
+@media (max-width: 850.98px) {
+  .ale-projects-page .ale-project-card:not(:has(.card-img-top)) .card-body {
+    padding-top: 1.05rem;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   4) "See also" card arrows (v0.7.4 "card arrows") — always visible on touch
+   Ownership note: the only arrow affordance actually introduced by the
+   "card arrows" commit (git 4fad80b) is `.ale-work-links a::after` at
+   custom.css:4599-4611 — the home page "see also" cards (Projects /
+   Research Outputs, markup in _pages/about.md:87-92), not the /projects/
+   grid cards (those only have a hover lift + chips, no arrow glyph).
+   The arrow has no opacity:0 anywhere in custom.css, so it is already
+   rendered by default; only its outward nudge (custom.css:4608-4610) is
+   hover-gated. The rule below makes that explicit/defensive, and gives
+   touch an :active nudge since hover never fires there. It also restores
+   tactile feedback for the whole card, which custom.css:3924-3929 already
+   strips on touch (transform/box-shadow reset to none) with nothing to
+   replace it.
+   -------------------------------------------------------------------------- */
+@media (hover: none), (pointer: coarse) {
+  .ale-work-links a::after {
+    opacity: 1;
+  }
+  .ale-work-links a:active {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 #191915;
+  }
+  .ale-work-links a:active::after {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* Extra clearance on the narrowest phones: pull the arrow slightly toward
+   the corner so a two-line, large-type card title (custom.css:3806-3808,
+   font-size: 1.8rem on max-width:720px) never reaches its bounding box.
+   Verified against the "Research Outputs" / "Projects" strings at 320px:
+   text is vertically centered and stays well clear of the top-anchored
+   arrow even without this, but the reduced footprint below removes any
+   margin-of-error concern on very large accessibility zoom. */
+@media (max-width: 380px) {
+  .ale-work-links a::after {
+    top: 0.9rem;
+    right: 1rem;
+    font-size: 1.15rem;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   5) Publications / project-detail action buttons — 40px touch targets
+   Beats, all without !important on the property being changed (so none is
+   used here either):
+     - custom.css:3361-3383  .ale-publications-page .links .btn (no min-height)
+     - custom.css:799-812    .btn.ale-code-action / thesis a.ale-code-action
+                              (min-height: 30px, no !important)
+     - custom.css:19-62      .ale-thesis-links a (no min-height)
+     - custom.css:4156-4168  .ale-project-reference-action (no min-height)
+     - custom.css:3276-3284  .ale-publications-header .ale-action
+                              (min-height: 24px, no !important — the
+                              "Google Scholar" button in the page header)
+   -------------------------------------------------------------------------- */
+@media (max-width: 850.98px) {
+  .ale-publications-page .links a,
+  .ale-publications-page .links .btn,
+  .ale-publications-page .links .btn.ale-code-action,
+  .ale-supervised-theses .ale-thesis-links a.ale-code-action,
+  .ale-thesis-links a,
+  .ale-project-related-list .ale-project-reference-action,
+  .ale-publications-page .ale-publications-header .ale-action,
+  .ale-back-link {
+    min-height: 40px;
+    box-sizing: border-box;
+  }
+  .ale-back-link {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* BibTeX panel: wrap instead of forcing horizontal scroll on phones.
+   Beats custom.css:3603-3608 (pre, code, .bibtex { overflow-x: auto }),
+   a bare-element rule with no !important — our page-scoped selector below
+   has higher specificity and comes later, so it wins outright. */
+@media (max-width: 575.98px) {
+  .ale-publications-page div.bibtex pre,
+  .ale-publications-page div.bibtex code,
+  .ale-publications-page div.bibtex code.language-bibtex {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: visible;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   6) Contact cells — compact min-height on mobile
+   Beats: custom.css:4937-4940 (.ale-contact-cell { min-height: 216px
+   !important }), which is NOT wrapped in a media query and therefore wins
+   at every width below the >=851px overrides (custom.css:4983-5001 and
+   5049-5062). The 4 profile cells (Scholar/GitHub/LinkedIn/PoliTO) already
+   escape it via the more specific-in-source-order custom.css:4947-4950
+   (.ale-contact-profile { min-height: 104px !important }) — left
+   untouched, per the brief, using :not() below.
+   !important is required here to beat the 216px rule's own !important.
+   -------------------------------------------------------------------------- */
+@media (max-width: 850.98px) {
+  .ale-contact-cell:not(.ale-contact-profile) {
+    min-height: 144px !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  /* Neutralize the hover lift so it can't get "stuck" after a tap (no
+     !important needed: custom.css:4799-4806 doesn't use it either). */
+  .ale-contact-cell:hover,
+  .ale-contact-cell:focus-visible {
+    transform: none;
+    box-shadow: none;
+  }
+  /* Replace it with an :active equivalent, slightly toned down. */
+  .ale-contact-cell:active {
+    z-index: 2;
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 #191915;
+  }
+  /* Hover-only title underline (custom.css:5002-5007) becomes a tap cue.
+     !important is required to beat the blanket "never underline"
+     reset at custom.css:4973-4978, which also uses !important. */
+  .ale-contact-cell:active strong {
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   7) General touch pass — hover-only affordances with no touch equivalent
+   Each of these has a translate+box-shadow "lift" that only ever fires on
+   :hover, with no existing neutralizer for touch (unlike .ale-jump a and
+   .ale-work-links a, already handled at custom.css:3924-3929 — arrow
+   feedback for the latter is restored in section 4 above). Same pattern
+   applied consistently: reset :hover so a mobile "sticky hover" can't
+   leave the lift stuck on screen, add :active for the real tap feedback.
+
+   Scope check (grep across _pages/_includes/_projects): .navbar .nav-link
+   and the hero/story elements (.ale-keywords, .ale-jump) belong to other
+   files/workstreams and are left alone. .ale-footer-contacts,
+   .ale-contact-profiles and .ale-affiliation have hover rules in custom.css
+   but no matching markup anywhere in the current site (dead CSS) — skipped.
+   -------------------------------------------------------------------------- */
+@media (hover: none), (pointer: coarse) {
+  /* Project grid cards (custom.css:2285-2288). Base .card carries
+     `box-shadow: none !important` (custom.css:2226), so overriding the
+     hover box-shadow back to none needs !important too; the :active
+     replacement needs it for the same reason. */
+  .ale-projects-page .projects .card:hover {
+    transform: none;
+    box-shadow: none !important;
+  }
+  .ale-projects-page .projects .card:active {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 #191915 !important;
+  }
+
+  /* Publications / Scholar action buttons (custom.css:3384-3391). The
+     hover box-shadow there is !important, so neutralizing it is too. */
+  .ale-publications-page .links .btn:hover,
+  .ale-publications-page .ale-publications-header .ale-action:hover {
+    transform: none;
+    box-shadow: none !important;
+  }
+  .ale-publications-page .links .btn:active,
+  .ale-publications-page .ale-publications-header .ale-action:active {
+    transform: translate(-3px, -3px);
+    box-shadow: 5px 5px 0 #191915 !important;
+  }
+
+  /* Project-detail "related project" reference links (custom.css:4170-4176,
+     no !important there). */
+  .ale-project-related-list .ale-project-reference-action:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .ale-project-related-list .ale-project-reference-action:active {
+    transform: translate(-3px, -3px);
+    box-shadow: 5px 5px 0 #191915;
+  }
+
+  /* "back to projects" link on project detail pages (custom.css:4629-4633,
+     no !important there). */
+  .ale-back-link:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .ale-back-link:active {
+    transform: translate(-3px, -3px);
+    box-shadow: 5px 5px 0 #191915;
+  }
+}
