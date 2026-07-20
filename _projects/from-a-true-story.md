@@ -6,7 +6,6 @@ img: assets/img/projects/from-a-true-story/teaser.png
 importance: 5
 year: 2026
 category: phd-research
-related_publications: true
 ---
 
 <p class="ale-project-lead"><strong>From a True Story</strong> turns structured catalogue records from the Museo Egizio in Torino into narratives that remain connected to the historical source material.</p>

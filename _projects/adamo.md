@@ -2,11 +2,10 @@
 layout: page
 title: A.D.A.M.O.
 card_description: A language-driven virtual human that perceives, reasons and acts inside interactive 3D environments.
-img: assets/img/projects/adamo/video-poster.jpg
+img: assets/img/projects/adamo/character-portrait.jpg
 importance: 1
 year: 2026
 category: phd-research
-related_publications: true
 ---
 
 <p class="ale-project-lead"><strong>A.D.A.M.O.</strong>—<strong>A</strong>gent for language-<strong>D</strong>riven <strong>A</strong>ctions with <strong>M</strong>ultimodal <strong>O</strong>bservations—is a virtual human that can receive a natural-language instruction, observe a 3D environment and act inside it to complete the requested task.</p>

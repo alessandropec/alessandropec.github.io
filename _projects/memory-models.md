@@ -6,7 +6,6 @@ img: assets/img/projects/memory-models/memory-architecture-cover.jpg
 importance: 6
 year: 2025
 category: phd-research
-related_publications: true
 ---
 
 <p class="ale-project-lead">A survey connecting the psychological foundations of human memory with the computational architectures used to give virtual agents continuity, adaptation and more coherent long-term behaviour.</p>

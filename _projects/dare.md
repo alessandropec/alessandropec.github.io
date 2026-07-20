@@ -7,7 +7,6 @@ image_fit: contain
 importance: 4
 year: 2026
 category: applied-research
-related_publications: true
 ---
 
 <p class="ale-project-lead"><strong>DARE</strong> investigates how computer vision and machine learning can support the analysis of complex home-related insurance claims and the data workflows behind risk assessment.</p>

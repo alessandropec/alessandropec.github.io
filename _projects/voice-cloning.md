@@ -6,7 +6,6 @@ img: assets/img/projects/voice-cloning/spectrogram-cover.jpg
 importance: 8
 year: 2023
 category: msc-thesis
-related_publications: true
 ---
 
 <p class="ale-project-lead">My M.Sc. thesis on zero-shot voice cloning: combining text-to-speech synthesis with speaker embeddings to generate new speech in a target voice from short reference recordings.</p>

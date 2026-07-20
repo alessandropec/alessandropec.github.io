@@ -32,24 +32,24 @@ latest_posts:
     <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
     <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
   </div>
-  <div class="ale-portrait-placeholder ale-portrait-logo" role="img" aria-label="AEP monogram — Alessandro Emmanuel Pecora">
-    <img class="ale-hero-logo" src="{{ '/assets/img/aep-logo-thick-3000.png' | relative_url }}?v=aep-thick-1" alt="">
+  <div class="ale-portrait-placeholder ale-portrait-photo">
+    <img class="ale-hero-logo" src="{{ '/assets/img/profile-photo.png' | relative_url }}" alt="Alessandro Emmanuel Pecora">
   </div>
   <p id="ale-keywords-heading" class="ale-eyebrow ale-keywords-label">My interests:</p>
   <div class="ale-keywords" aria-labelledby="ale-keywords-heading">
     <span tabindex="0" data-note="AI that plans and acts on its own, not just answers. The core idea behind every agent I build.">Agentic AI</span>
-    <span tabindex="0" data-note="A model of the mind, rooted in psychology, linking memory and reasoning. How I design the way my agents think.">Cognitive architectures</span>
+    <span tabindex="0" data-note="A model of the mind, rooted in psychology, linking memory and reasoning. The blueprint behind how I build intelligent systems.">Cognitive architectures</span>
     <span tabindex="0" data-note="Keeping and reusing experience instead of starting over each time. My current research focus.">Long-term memory</span>
-    <span tabindex="0" data-note="Digital characters believable enough to talk and act like people. My main testbed for agents with memory.">Virtual humans</span>
-    <span tabindex="0" data-note="Intelligence with a body in a real or virtual world, not just a chatbot. Why my agents act, not only answer.">Embodied AI</span>
-    <span tabindex="0" data-note="Teaching machines to see and interpret images. I use it for real-world detection tasks too, not just as input for agents.">Computer vision</span>
-    <span tabindex="0" data-note="How machines understand and generate language. What lets my agents and virtual humans speak and reason.">Natural language processing</span>
-    <span tabindex="0" data-note="Turning speech into data and back: recognition, synthesis, voice cloning. The voice behind my virtual humans.">Speech processing</span>
-    <span tabindex="0" data-note="Virtual and augmented reality for interaction. A strong focus of my research group, and where I test my agents.">XR</span>
+    <span tabindex="0" data-note="Digital characters believable enough to talk and act like people. My main line of research in embodied AI.">Virtual humans</span>
+    <span tabindex="0" data-note="Intelligence with a body in a real or virtual world, not just a chatbot. A more physical, situated way to think about intelligence.">Embodied AI</span>
+    <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
+    <span tabindex="0" data-note="How machines understand and generate language. Present in everything from chatbots to storytelling systems.">Natural language processing</span>
+    <span tabindex="0" data-note="Turning speech into data and back: recognition, synthesis, voice cloning. From voice assistants to character voices in my projects.">Speech processing</span>
+    <span tabindex="0" data-note="Virtual and augmented reality for interaction. A strong focus of my research group, and a natural home for embodied AI.">XR</span>
     <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
-    <span tabindex="0" data-note="Practice with feedback, to build real skills over time. A main use case for my virtual humans.">Learning &amp; training</span>
+    <span tabindex="0" data-note="Practice with feedback, to build real skills over time. Often delivered through digital applications, especially VR.">Learning &amp; training</span>
     <span tabindex="0" data-note="Research turned into things that actually work outside the lab. The bridge between my papers and real use cases.">Applied AI</span>
-    <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my work on memory and agents.">Artificial general intelligence</span>
+    <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my research.">Artificial general intelligence</span>
   </div>
   <a class="ale-scroll-cue" href="#story-1" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
 </div>
