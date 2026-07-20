@@ -18,7 +18,11 @@
         {% if project.year %}<span>{{ project.year }}</span>{% endif %}
       </div>
       {% if project.img %}
-        {% include figure.liquid loading="lazy" path=project.img alt=project.title class="card-img-top" %}
+        {% assign project_image_class = "card-img-top" %}
+        {% if project.image_fit == "contain" %}
+          {% assign project_image_class = project_image_class | append: " ale-project-card__image--contain" %}
+        {% endif %}
+        {% include figure.liquid loading="lazy" path=project.img alt=project.title class=project_image_class %}
       {% endif %}
       <div class="card-body">
         <h2 class="card-title">{{ project.title }}</h2>

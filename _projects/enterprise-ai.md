@@ -2,7 +2,7 @@
 layout: page
 title: Enterprise AI & Data Engineering
 card_description: LLM-powered solutions and data platforms for enterprise clients, built at Cluster Reply on Azure and Databricks.
-img:
+img: assets/img/projects/enterprise-ai/data-platform-cover.jpg
 importance: 7
 year: 2022–2023
 category: industry

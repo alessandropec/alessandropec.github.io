@@ -2,7 +2,7 @@
 layout: page
 title: A.D.A.M.O.
 card_description: A language-driven virtual human that perceives, reasons and acts inside interactive 3D environments.
-img: assets/img/projects/adamo/framework-teaser.jpg
+img: assets/img/projects/adamo/video-poster.jpg
 importance: 1
 year: 2026
 category: phd-research

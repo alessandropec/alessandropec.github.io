@@ -35,22 +35,21 @@ latest_posts:
   <div class="ale-portrait-placeholder ale-portrait-logo" role="img" aria-label="AEP monogram — Alessandro Emmanuel Pecora">
     <img class="ale-hero-logo" src="{{ '/assets/img/aep-logo-thick-3000.png' | relative_url }}?v=aep-thick-1" alt="">
   </div>
-  <p id="ale-keywords-heading" class="ale-eyebrow ale-keywords-label">What I work on</p>
+  <p id="ale-keywords-heading" class="ale-eyebrow ale-keywords-label">My interests:</p>
   <div class="ale-keywords" aria-labelledby="ale-keywords-heading">
-    <span tabindex="0" data-note="AI systems that plan, call tools and act autonomously toward a goal. The core paradigm behind the agents I build.">Agentic AI</span>
-    <span tabindex="0" data-note="Frameworks connecting perception, memory, reasoning and action into one system. The blueprint I use to structure my agents.">Cognitive architectures</span>
-    <span tabindex="0" data-note="The ability to store and reuse experience across interactions over time. My current focus: agents that learn from experience, not just prompts.">Long-term memory</span>
-    <span tabindex="0" data-note="Believable digital characters that perceive, converse and act like people. My main testbed for embodied, memory-driven agents.">Virtual humans</span>
-    <span tabindex="0" data-note="Intelligence grounded in a body acting within an environment, not just text. The lens behind agents that act, not only answer.">Embodied AI</span>
-    <span tabindex="0" data-note="Perceiving and interpreting visual and 3D environments. The perception layer behind my agents and virtual humans.">Computer vision</span>
-    <span tabindex="0" data-note="Understanding and generating language, from parsing to dialogue. How my agents and virtual humans understand and speak.">Natural language processing</span>
-    <span tabindex="0" data-note="Voice cloning, synthesis and recognition for spoken interaction. The voice interface layer of my virtual humans.">Speech processing</span>
-    <span tabindex="0" data-note="Virtual, augmented and mixed-reality environments for interaction. Where I deploy and test embodied agents in practice.">XR</span>
-    <span tabindex="0" data-note="Extracting patterns and building models from data at scale. The engineering foundation underneath all of my AI work.">Data science</span>
-    <span tabindex="0" data-note="Guided practice with feedback, to build skills over time. A main application of my virtual humans, in training scenarios.">Learning &amp; training</span>
-    <span tabindex="0" data-note="Museum and archival knowledge turned into stories and experiences. One domain where I apply agentic, grounded storytelling.">Cultural heritage</span>
-    <span tabindex="0" data-note="Research methods engineered into systems that work in the real world. The bridge between my research and industry use cases.">Applied AI</span>
-    <span tabindex="0" data-note="AI with human-like, general-purpose reasoning across domains. The long-term question behind my work on memory and agents.">Artificial general intelligence</span>
+    <span tabindex="0" data-note="AI that plans and acts on its own, not just answers. The core idea behind every agent I build.">Agentic AI</span>
+    <span tabindex="0" data-note="A model of the mind, rooted in psychology, linking memory and reasoning. How I design the way my agents think.">Cognitive architectures</span>
+    <span tabindex="0" data-note="Keeping and reusing experience instead of starting over each time. My current research focus.">Long-term memory</span>
+    <span tabindex="0" data-note="Digital characters believable enough to talk and act like people. My main testbed for agents with memory.">Virtual humans</span>
+    <span tabindex="0" data-note="Intelligence with a body in a real or virtual world, not just a chatbot. Why my agents act, not only answer.">Embodied AI</span>
+    <span tabindex="0" data-note="Teaching machines to see and interpret images. I use it for real-world detection tasks too, not just as input for agents.">Computer vision</span>
+    <span tabindex="0" data-note="How machines understand and generate language. What lets my agents and virtual humans speak and reason.">Natural language processing</span>
+    <span tabindex="0" data-note="Turning speech into data and back: recognition, synthesis, voice cloning. The voice behind my virtual humans.">Speech processing</span>
+    <span tabindex="0" data-note="Virtual and augmented reality for interaction. A strong focus of my research group, and where I test my agents.">XR</span>
+    <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
+    <span tabindex="0" data-note="Practice with feedback, to build real skills over time. A main use case for my virtual humans.">Learning &amp; training</span>
+    <span tabindex="0" data-note="Research turned into things that actually work outside the lab. The bridge between my papers and real use cases.">Applied AI</span>
+    <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my work on memory and agents.">Artificial general intelligence</span>
   </div>
   <a class="ale-scroll-cue" href="#story-1" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
 </div>
@@ -58,28 +57,24 @@ latest_posts:
 <div id="story" class="ale-story-track">
 <section id="story-1" class="ale-story ale-reveal" data-step="01">
   <span class="ale-kicker">Origins</span>
-  <h2>Sicily, an Amiga, and a change of latitude</h2>
-  <p>Born in <strong>Caltanissetta</strong> and raised in <strong>Agrigento</strong>, I moved to <strong>Torino</strong> for university. The computing part began earlier, when my brothers brought home an <strong>Amiga</strong>; science followed shortly after. I worked my way through university — web development, STEM teaching and bootcamp instruction — then consulted on <strong>AI and data science</strong> at Cluster Reply, before research won me back to academia.</p>
+  <p>Born in <strong>Caltanissetta</strong> and raised in <strong>Agrigento</strong>, I moved to <strong>Torino</strong> for a B.Sc. in <strong>computer engineering</strong>. The computing part began earlier, when my brothers brought home an <strong>Amiga</strong>; science followed shortly after. University meant working my way through it — web development, STEM teaching, bootcamp instruction — and, alongside it, co-founding Bridge The Gaps, a non-profit for the digital divide and gender equality in STEM. A master's in <strong>data science and engineering</strong> followed, while I consulted for an IT company on data and AI projects. Then came a year as a <strong>Research Fellow</strong>, before a <strong>Ph.D.</strong> brought me fully into academia.</p>
   <a class="ale-section-next" href="#story-2" aria-label="Continue to background"><span aria-hidden="true">&darr;</span></a>
 </section>
 
 <section id="story-2" class="ale-story ale-reveal" data-step="02">
   <span class="ale-kicker">Background</span>
-  <h2>A multidisciplinary route into AI</h2>
-  <p>My path has spanned <strong>computer vision</strong>, <strong>natural language processing</strong>, <strong>speech processing</strong> and <strong>data science</strong> at large, converging into workflow and agentic AI, and embodied AI with virtual humans in interactive environments such as <strong>XR</strong>. Virtual humans are mainly applied to <strong>learning and training</strong>; agentic AI spans further, from <strong>cultural heritage</strong> storytelling to <strong>agriculture</strong>, <strong>insurance</strong> and <strong>enterprise automation</strong>.</p>
+  <p>That path runs through <strong>computer engineering</strong> during my early jobs in web development and teaching, into <strong>data science and engineering</strong> while consulting on data and AI, with <strong>speech processing</strong> as my thesis topic and <strong>natural language processing</strong> carried through that same consulting work — <strong>computer vision</strong> came with my year as a Research Fellow, before it all converged into my doctoral research on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. Agentic AI spans applications from <strong>enterprise automation</strong> to <strong>cultural heritage</strong> storytelling, <strong>AI assistants</strong> and <strong>RAG systems</strong>; <strong>virtual humans</strong> — mainly applied to <strong>learning and training</strong> — bring these agents into interactive environments such as <strong>XR</strong>.</p>
   <a class="ale-section-next" href="#story-3" aria-label="Continue to research direction"><span aria-hidden="true">&darr;</span></a>
 </section>
 
 <section id="story-3" class="ale-story ale-reveal" data-step="03">
   <span class="ale-kicker">Research direction</span>
-  <h2>Memory as part of the architecture</h2>
-  <p>Integrating these strands into cognitive architectures with <strong>long-term memory</strong> — giving agents what they usually lack, so that perception, reasoning and action can build on experience instead of starting from scratch at every prompt — my goal becomes building <strong>generalist agents</strong> and <strong>believable virtual humans</strong> able to sustain these use cases over the long term, with the ultimate goal of studying <strong>artificial general intelligence</strong>.</p>
+  <p>My research direction is <strong>agentic</strong> and <strong>virtual embodied AI</strong>, built through <strong>cognitive architectures</strong> — with <strong>long-term memory</strong> as the core focus: models rooted in <strong>psychological theories</strong> of human memory, letting agents build on experience instead of starting over each time. It's a step towards <strong>generalist agents</strong>, <strong>believable virtual humans</strong> and, ultimately, the study of <strong>artificial general intelligence</strong>.</p>
   <a class="ale-section-next" href="#story-4" aria-label="Continue to academic practice"><span aria-hidden="true">&darr;</span></a>
 </section>
 
 <section id="story-4" class="ale-story ale-reveal" data-step="04">
   <span class="ale-kicker">Academic practice</span>
-  <h2>Teaching, supervision and prototypes</h2>
   <p>I lecture on <em>AI-powered Virtual Humans — LLM-based Cognitive Architectures</em> and collaborate on <em>Algorithms and Data Structures</em> at Politecnico di Torino, and I co-supervise B.Sc./M.Sc. theses on agents, storytelling and applied deep learning.</p>
   <a class="ale-section-next" href="#work" aria-label="Continue to projects and research outputs"><span aria-hidden="true">&darr;</span></a>
 </section>

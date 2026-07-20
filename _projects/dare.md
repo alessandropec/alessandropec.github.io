@@ -3,6 +3,7 @@ layout: page
 title: DARE
 card_description: AI for insurance risk management — computer vision and machine learning on complex home-related claims.
 img: assets/img/projects/dare/interactive-prompt.jpeg
+image_fit: contain
 importance: 4
 year: 2026
 category: applied-research

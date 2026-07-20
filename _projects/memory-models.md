@@ -2,7 +2,7 @@
 layout: page
 title: Memory Models for Virtual Humans
 card_description: Survey of memory models for virtual agents and humans, from psychological foundations to computational architectures.
-img:
+img: assets/img/projects/memory-models/memory-architecture-cover.jpg
 importance: 6
 year: 2025
 category: phd-research
