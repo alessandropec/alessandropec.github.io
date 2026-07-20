@@ -2025,6 +2025,11 @@ nav [aria-label*="search"] {
   object-fit: cover;
   border-bottom: 1px solid #191915;
 }
+.ale-projects-page .ale-project-card .ale-project-card__image--contain {
+  object-fit: contain;
+  padding: 0.35rem;
+  background: #f3efe5;
+}
 .ale-projects-page .ale-project-card:not(:has(.card-img-top)) .card-body {
   padding-top: 3rem;
 }
@@ -3715,6 +3720,66 @@ code,
   }
 }
 
+/* Closing path from the curated projects grid to the complete GitHub work. */
+.ale-projects-more {
+  margin-top: clamp(2.75rem, 6vw, 5rem);
+  padding: clamp(1.35rem, 3vw, 2rem) 0;
+  border-top: 1px solid #191915;
+  border-bottom: 1px solid #191915;
+}
+
+.ale-projects-more h2 {
+  margin: 0 0 0.55rem;
+  font: 500 clamp(1.35rem, 2.5vw, 1.8rem) / 1.15 Roboto, sans-serif;
+  letter-spacing: -0.035em;
+}
+
+.ale-projects-more p {
+  max-width: 720px;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.ale-projects-more__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.15rem;
+}
+
+.ale-projects-more__action {
+  min-height: 40px;
+  padding: 0.4rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid #191915;
+  color: #191915;
+  font: 500 0.8rem/1 Roboto, sans-serif;
+  letter-spacing: 0.04em;
+  text-decoration: none !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ale-projects-more__action:hover,
+.ale-projects-more__action:focus-visible {
+  color: #191915;
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 #191915;
+}
+
+@media (max-width: 575.98px) {
+  .ale-projects-more__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ale-projects-more__action {
+    width: 100%;
+  }
+}
+
 /* ==========================================================================
    Footer — final layout pass (kept last so it wins the cascade above).
    Single row on desktop: question + social + copyright all inline,
@@ -3879,10 +3944,11 @@ footer.sticky-bottom > .container {
 }
 
 /* Keyword chips: reserve room for the "i" mark so it never overlaps the
-   longer labels, and soften the corners just slightly. */
+   longer labels, and soften the corners a bit more (still square-ish,
+   consistent with the ivory/ink flat design used everywhere else). */
 .ale-keywords span {
   padding-right: 1.35rem !important;
-  border-radius: 3px !important;
+  border-radius: 6px !important;
 }
 .ale-keywords span::before {
   right: 0.4rem;
@@ -5638,6 +5704,71 @@ footer.sticky-bottom > .container {
 .ale-keywords-label {
   order: 2;
   width: 100%;
-  text-align: center;
+  text-align: left;
   margin: 0;
+}
+
+/* --------------------------------------------------------------------
+   Story chapters (about.md) — the <h2> taglines under each kicker were
+   dropped (kicker goes straight into the paragraph now). The kicker's
+   own margin-bottom used to only need to clear its decorative underline
+   (custom.css:3026-3032, the ::after bar); with the <h2> gone there is no
+   longer a large heading providing breathing room before the paragraph,
+   so it needs its own gap. Reuses the value already validated for the
+   ≤575.98px layer (custom.css:5802-5804, "keeps the label attached to
+   its headline") so mobile spacing is unchanged; this just extends the
+   same gap to desktop/tablet, where the <h2> used to supply it. */
+.ale-story .ale-kicker {
+  margin-bottom: 1.2rem;
+}
+
+/* Mirror the papers heading/year alignment in the theses section only. */
+.ale-supervised-theses .ale-section-heading h2:only-child {
+  margin-left: 0;
+}
+
+.ale-supervised-theses .ale-thesis-year {
+  text-align: right;
+}
+
+/* Project detail headers: keep the shared title compact. The old hero kept
+   its large min-height and display type after global rules removed its
+   background and decorative layers, leaving a large empty outlined box. */
+.ale-project-detail-page .post-header.ale-project-hero {
+  width: 100%;
+  min-height: 0;
+  margin: 0 0 clamp(2rem, 5vw, 3.5rem) !important;
+  padding: clamp(1.35rem, 3vw, 2.25rem) 0 !important;
+  display: block;
+  overflow: visible;
+  border: 0;
+  border-top: 1px solid #191915;
+  border-bottom: 1px solid #191915 !important;
+  isolation: auto;
+}
+
+.ale-project-detail-page .post-header.ale-project-hero::before,
+.ale-project-detail-page .post-header.ale-project-hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+.ale-project-detail-page .post-header.ale-project-hero .post-title {
+  max-width: 100%;
+  font-size: clamp(2.35rem, 6vw, 5rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.045em !important;
+  flex-wrap: nowrap;
+  text-wrap: balance;
+}
+
+@media (max-width: 720px) {
+  .ale-project-detail-page .post-header.ale-project-hero {
+    min-height: 0;
+    padding: 1.15rem 0 !important;
+  }
+
+  .ale-project-detail-page .post-header.ale-project-hero .post-title {
+    font-size: clamp(2rem, 11vw, 3.2rem) !important;
+  }
 }
