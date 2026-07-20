@@ -4094,24 +4094,6 @@ footer.sticky-bottom > .container {
 
 /* Hero monogram: the arch placeholder now hosts the AEP logo image —
    drop the photo-frame styling and let the logo breathe. */
-.ale-portrait-logo,
-.ale-portrait-logo::before,
-.ale-portrait-logo::after {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-.ale-portrait-logo {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: auto !important;
-  height: auto !important;
-  min-height: 0 !important;
-  aspect-ratio: auto !important;
-  border-radius: 0 !important;
-  overflow: visible !important;
-}
 .ale-hero-logo {
   width: clamp(96px, 12vw, 170px);
   height: auto;
@@ -5289,8 +5271,7 @@ footer.sticky-bottom > .container {
     gap: 0.85rem;
     padding-bottom: 2.6rem;
   }
-  .ale-portrait-placeholder,
-  .ale-portrait-logo {
+  .ale-portrait-placeholder {
     margin-bottom: 0;
   }
   .ale-portrait-placeholder {
@@ -5771,4 +5752,44 @@ footer.sticky-bottom > .container {
   .ale-project-detail-page .post-header.ale-project-hero .post-title {
     font-size: clamp(2rem, 11vw, 3.2rem) !important;
   }
+}
+
+/* Keyword popover (custom.css:3084-3101): text was left-aligned by
+   default, so a note wrapping to a second line read as ragged/asymmetric
+   under the centered chip. Center it so both lines sit evenly. */
+.ale-keyword-popover {
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------
+   Hero portrait: a real photo now replaces the AEP monogram (about.md
+   swapped the div's second class from .ale-portrait-logo to
+   .ale-portrait-photo; .ale-portrait-logo itself is untouched in case
+   the logo is ever needed again elsewhere).
+   Revives the arch-shaped frame from the very first hero design
+   (custom.css:435-448, before it was flattened to "let the logo
+   breathe" at custom.css:4634-4652), recolored to the ivory/ink palette
+   (border/gradient values from the light-theme pass, custom.css:1451-
+   1454) instead of the original navy gradient.
+   Source photo is a 500x500 transparent cutout (assets/img/profile-
+   photo.png) — already a tight square crop, so aspect-ratio:1/1 avoids
+   cropping any more of it away; object-fit:cover here is mostly a
+   safety net. width/height:100% + !important on .ale-hero-logo is
+   needed to beat the ≤575.98px rule that forces that same class to a
+   fixed 64x64 box (custom.css:5843-5846, written for the old logo) —
+   higher specificity here (.ale-portrait-photo .ale-hero-logo) makes
+   it win at every breakpoint without touching that rule. */
+.ale-portrait-photo {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid #191915;
+  border-radius: 45% 45% 0.6rem 0.6rem;
+  background: linear-gradient(155deg, #ddd5c6, #f3efe5 72%);
+  box-shadow: none;
+}
+.ale-portrait-photo .ale-hero-logo {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  display: block;
 }
