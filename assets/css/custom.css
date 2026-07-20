@@ -6168,3 +6168,20 @@ footer.sticky-bottom > .container {
     font-size: 1.25rem;
   }
 }
+
+/* --------------------------------------------------------------------
+   Hero — "What I work on" label above the keyword chips.
+   Reuses .ale-eyebrow (custom.css:407-414, 1434-1437) for color/type so
+   it matches the .ale-kicker labels used in the story track; only adds
+   what .ale-eyebrow doesn't cover: this is a flex item of .ale-intro
+   (custom.css:4364-4378, unconditional flex column on every viewport),
+   so it needs an explicit order to land between .ale-intro-copy
+   (default order:0) and .ale-keywords (order:3, custom.css:4413-4418)
+   at every breakpoint — no media query needed since that column layout
+   is itself unconditional. */
+.ale-keywords-label {
+  order: 2;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}

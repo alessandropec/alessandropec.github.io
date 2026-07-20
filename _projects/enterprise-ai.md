@@ -19,3 +19,7 @@ The work included LLM-powered assistants, a car-sales recommender, multimodal ma
 Alongside model development, I worked on data-lake modernisation with **Azure** and **Databricks**: ingestion and transformation pipelines, reusable data products and the infrastructure required to move experimental models into maintainable enterprise workflows.
 
 Client data and interfaces remain confidential, so this case study focuses on responsibilities and technical scope rather than screenshots or proprietary performance figures.
+
+## Context and collaboration
+
+This work was carried out at **Cluster Reply**, an Italian systems-integration and technology-consulting firm, for enterprise clients in regulated industries.

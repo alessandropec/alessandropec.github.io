@@ -2,7 +2,7 @@
 layout: page
 title: AI Voice Cloning
 card_description: M.Sc. thesis on zero-shot voice cloning — text-to-speech models combined with speaker embeddings.
-img: assets/img/projects/voice-cloning/fastspeech2.png
+img: assets/img/projects/voice-cloning/pipeline.png
 importance: 8
 year: 2023
 category: msc-thesis
@@ -37,7 +37,7 @@ The system separates **what is spoken** from **who is speaking**. Text is conver
 
 The thesis compares modelling and training choices through objective audio measures and speaker-embedding analysis, examining the trade-off between intelligibility, naturalness and similarity to an unseen target speaker.
 
-## Context
+## Context and collaboration
 
 The project was developed as an M.Sc. thesis in Computer Engineering at **Politecnico di Torino**.
 

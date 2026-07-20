@@ -35,21 +35,22 @@ latest_posts:
   <div class="ale-portrait-placeholder ale-portrait-logo" role="img" aria-label="AEP monogram — Alessandro Emmanuel Pecora">
     <img class="ale-hero-logo" src="{{ '/assets/img/aep-logo-thick-3000.png' | relative_url }}?v=aep-thick-1" alt="">
   </div>
-  <div class="ale-keywords" aria-label="Research areas">
-    <span tabindex="0" data-note="Agents that plan, use tools and act toward goals.">Agentic AI</span>
-    <span tabindex="0" data-note="The structural layer linking perception, memory, reasoning and action.">Cognitive architectures</span>
-    <span tabindex="0" data-note="My current focus: agents that accumulate and reuse experience over time.">Long-term memory</span>
-    <span tabindex="0" data-note="Believable digital characters for interaction and simulation.">Virtual humans</span>
-    <span tabindex="0" data-note="Intelligence grounded in a body and an environment, not just prompts.">Embodied AI</span>
-    <span tabindex="0" data-note="From segmentation to multimodal perception in 3D environments.">Computer vision</span>
-    <span tabindex="0" data-note="Language understanding and generation for agents and narratives.">Natural language processing</span>
-    <span tabindex="0" data-note="Voice cloning and speech interfaces for virtual humans.">Speech processing</span>
-    <span tabindex="0" data-note="Interactive environments to build and evaluate agents.">XR</span>
-    <span tabindex="0" data-note="The engineering foundation behind my AI work.">Data science</span>
-    <span tabindex="0" data-note="Virtual humans applied to guided practice and reflective feedback.">Learning &amp; training</span>
-    <span tabindex="0" data-note="Grounded storytelling from museum and archival knowledge.">Cultural heritage</span>
-    <span tabindex="0" data-note="Research methods turned into systems for real-world use.">Applied AI</span>
-    <span tabindex="0" data-note="The longer-term question behind memory, agents and cognition.">Artificial general intelligence</span>
+  <p id="ale-keywords-heading" class="ale-eyebrow ale-keywords-label">What I work on</p>
+  <div class="ale-keywords" aria-labelledby="ale-keywords-heading">
+    <span tabindex="0" data-note="AI systems that plan, call tools and act autonomously toward a goal. The core paradigm behind the agents I build.">Agentic AI</span>
+    <span tabindex="0" data-note="Frameworks connecting perception, memory, reasoning and action into one system. The blueprint I use to structure my agents.">Cognitive architectures</span>
+    <span tabindex="0" data-note="The ability to store and reuse experience across interactions over time. My current focus: agents that learn from experience, not just prompts.">Long-term memory</span>
+    <span tabindex="0" data-note="Believable digital characters that perceive, converse and act like people. My main testbed for embodied, memory-driven agents.">Virtual humans</span>
+    <span tabindex="0" data-note="Intelligence grounded in a body acting within an environment, not just text. The lens behind agents that act, not only answer.">Embodied AI</span>
+    <span tabindex="0" data-note="Perceiving and interpreting visual and 3D environments. The perception layer behind my agents and virtual humans.">Computer vision</span>
+    <span tabindex="0" data-note="Understanding and generating language, from parsing to dialogue. How my agents and virtual humans understand and speak.">Natural language processing</span>
+    <span tabindex="0" data-note="Voice cloning, synthesis and recognition for spoken interaction. The voice interface layer of my virtual humans.">Speech processing</span>
+    <span tabindex="0" data-note="Virtual, augmented and mixed-reality environments for interaction. Where I deploy and test embodied agents in practice.">XR</span>
+    <span tabindex="0" data-note="Extracting patterns and building models from data at scale. The engineering foundation underneath all of my AI work.">Data science</span>
+    <span tabindex="0" data-note="Guided practice with feedback, to build skills over time. A main application of my virtual humans, in training scenarios.">Learning &amp; training</span>
+    <span tabindex="0" data-note="Museum and archival knowledge turned into stories and experiences. One domain where I apply agentic, grounded storytelling.">Cultural heritage</span>
+    <span tabindex="0" data-note="Research methods engineered into systems that work in the real world. The bridge between my research and industry use cases.">Applied AI</span>
+    <span tabindex="0" data-note="AI with human-like, general-purpose reasoning across domains. The long-term question behind my work on memory and agents.">Artificial general intelligence</span>
   </div>
   <a class="ale-scroll-cue" href="#story-1" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
 </div>
