@@ -70,12 +70,6 @@ latest_posts:
 <section id="story-3" class="ale-story ale-reveal" data-step="03">
   <span class="ale-kicker">Research direction</span>
   <p>My research direction is <strong>agentic</strong> and <strong>virtual embodied AI</strong>, built through <strong>cognitive architectures</strong> — with <strong>long-term memory</strong> as the core focus: models rooted in <strong>psychological theories</strong> of human memory, letting agents build on experience instead of starting over each time. It's a step towards <strong>generalist agents</strong>, <strong>believable virtual humans</strong> and, ultimately, the study of <strong>artificial general intelligence</strong>.</p>
-  <a class="ale-section-next" href="#story-4" aria-label="Continue to academic practice"><span aria-hidden="true">&darr;</span></a>
-</section>
-
-<section id="story-4" class="ale-story ale-reveal" data-step="04">
-  <span class="ale-kicker">Academic practice</span>
-  <p>I lecture on <em>AI-powered Virtual Humans — LLM-based Cognitive Architectures</em> and collaborate on <em>Algorithms and Data Structures</em> at Politecnico di Torino, and I co-supervise B.Sc./M.Sc. theses on agents, storytelling and applied deep learning.</p>
   <a class="ale-section-next" href="#work" aria-label="Continue to projects and research outputs"><span aria-hidden="true">&darr;</span></a>
 </section>
 </div>
