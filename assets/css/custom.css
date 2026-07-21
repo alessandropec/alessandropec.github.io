@@ -6352,21 +6352,11 @@ footer.sticky-bottom > .container {
   /* Slightly bigger than the logo used to be (custom.css:4471 width:
      min(120px,22vw)!important) — same selector/specificity trick,
      appended later so it wins. */
-  width: min(145px, 24vw) !important;
+  width: min(170px, 28vw) !important;
 }
 .ale-portrait-photo .ale-hero-logo {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover;
   display: block;
-}
-
-/* Keyword chips (custom.css:4478-4483, unconditional): centered rows
-   look mismatched with an odd chip count (13 → 7 + 6) — the shorter
-   second row visibly floats centered under the longer first one, and
-   sits out of alignment with "My interests:" above it (already
-   left-aligned, custom.css:.ale-keywords-label). Left-align both rows
-   instead so they share one consistent starting edge. */
-.ale-keywords {
-  justify-content: flex-start !important;
 }
