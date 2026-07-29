@@ -42,27 +42,35 @@ latest_posts:
       <button type="button" class="ale-bio-flip" aria-pressed="false" aria-label="Show my interests" title="Flip">
         <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
       </button>
+      <span class="ale-bio-flip-ring" aria-hidden="true">
+        <svg class="ale-bio-flip-ring-svg" viewBox="0 0 82 82" width="82" height="82" focusable="false" aria-hidden="true">
+          <path id="ale-bio-ring-path" d="M 10,41 A 31,31 0 0 1 72,41" fill="none" stroke="none"></path>
+          <text>
+            <textPath id="ale-bio-ring-label" class="ale-bio-flip-ring-text" href="#ale-bio-ring-path" xlink:href="#ale-bio-ring-path" startOffset="50%" text-anchor="middle">MY INTERESTS</textPath>
+          </text>
+        </svg>
+      </span>
       <div class="ale-bio-inner">
         <div class="ale-bio-face ale-bio-front">
           <p class="ale-eyebrow">About me</p>
           <p class="ale-landing-bio">Ph.D. Candidate in Computer and Control Engineering at Politecnico di Torino, working on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. My path ran from <strong>computer engineering</strong> through a master's in <strong>data science and engineering</strong> and a few years as an IT consultant on data and AI projects — with <strong>speech</strong> and <strong>natural language processing</strong> along the way — to <strong>computer vision</strong> as a Research Fellow, before converging into doctoral research on agents with <strong>long-term memory</strong>, modeled on psychological theories of how people remember. That research spans <strong>agentic AI</strong> and <strong>virtual humans</strong>, working towards generalist agents and, ultimately, <strong>artificial general intelligence</strong>.</p>
         </div>
-        <div class="ale-bio-face ale-bio-back" aria-hidden="true">
+        <div class="ale-bio-face ale-bio-back" aria-hidden="true" inert>
           <p class="ale-eyebrow">My interests</p>
           <div class="ale-keywords-list">
-            <span>Agentic AI</span>
-            <span>Cognitive architectures</span>
-            <span>Long-term memory</span>
-            <span>Virtual humans</span>
-            <span>Embodied AI</span>
-            <span>Computer vision</span>
-            <span>Natural language processing</span>
-            <span>Speech processing</span>
-            <span>XR</span>
-            <span>Data science &amp; engineering</span>
-            <span>Learning &amp; training</span>
-            <span>Applied AI</span>
-            <span>Artificial general intelligence</span>
+            <span tabindex="0" data-note="AI that plans and acts on its own, not just answers. The core idea behind every agent I build.">Agentic AI</span>
+            <span tabindex="0" data-note="A model of the mind, rooted in psychology, linking memory and reasoning. The blueprint behind how I build intelligent systems.">Cognitive architectures</span>
+            <span tabindex="0" data-note="Keeping and reusing experience instead of starting over each time. My current research focus.">Long-term memory</span>
+            <span tabindex="0" data-note="Digital characters believable enough to talk and act like people. My main line of research in embodied AI.">Virtual humans</span>
+            <span tabindex="0" data-note="Intelligence with a body in a real or virtual world, not just a chatbot. A more physical, situated way to think about intelligence.">Embodied AI</span>
+            <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
+            <span tabindex="0" data-note="How machines understand and generate language. Present in everything from chatbots to storytelling systems.">Natural language processing</span>
+            <span tabindex="0" data-note="Turning speech into data and back: recognition, synthesis, voice cloning. From voice assistants to character voices in my projects.">Speech processing</span>
+            <span tabindex="0" data-note="Virtual and augmented reality for interaction. A strong focus of my research group, and a natural home for embodied AI.">XR</span>
+            <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
+            <span tabindex="0" data-note="Practice with feedback, to build real skills over time. Often delivered through digital applications, especially VR.">Learning &amp; training</span>
+            <span tabindex="0" data-note="Research turned into things that actually work outside the lab. The bridge between my papers and real use cases.">Applied AI</span>
+            <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my research.">Artificial general intelligence</span>
           </div>
         </div>
       </div>
@@ -84,12 +92,96 @@ latest_posts:
     var button = card.querySelector(".ale-bio-flip");
     var back = card.querySelector(".ale-bio-back");
     var front = card.querySelector(".ale-bio-front");
+    var ringLabel = card.querySelector("#ale-bio-ring-label");
     button.addEventListener("click", function () {
       var flipped = card.classList.toggle("is-flipped");
       button.setAttribute("aria-pressed", flipped ? "true" : "false");
       button.setAttribute("aria-label", flipped ? "Show my bio" : "Show my interests");
       back.setAttribute("aria-hidden", flipped ? "false" : "true");
       front.setAttribute("aria-hidden", flipped ? "true" : "false");
+      // Keep the hidden face out of the tab order / pointer interaction so
+      // keyboard users don't land on off-screen chips, and the interest
+      // popovers only fire on the visible face.
+      back.inert = !flipped;
+      front.inert = flipped;
+      if (ringLabel) {
+        ringLabel.textContent = flipped ? "ABOUT ME" : "MY INTERESTS";
+      }
     });
+  })();
+
+  (function () {
+    var chips = Array.prototype.slice.call(
+      document.querySelectorAll(".ale-keywords-list span[data-note]")
+    );
+    if (!chips.length) return;
+
+    var pop = document.createElement("div");
+    var activeChip = null;
+    var hideTimer = null;
+    var MARGIN = 8;
+    pop.className = "ale-keyword-popover";
+    pop.setAttribute("role", "tooltip");
+    pop.setAttribute("hidden", "");
+    document.body.appendChild(pop);
+
+    var isTouch = window.matchMedia("(hover: none)").matches;
+
+    function place(chip) {
+      var r = chip.getBoundingClientRect();
+      var pw = pop.offsetWidth;
+      var ph = pop.offsetHeight;
+      var left = r.left + r.width / 2 - pw / 2;
+      left = Math.max(MARGIN, Math.min(left, window.innerWidth - pw - MARGIN));
+      var top = r.top - ph - 10;
+      if (top < MARGIN) top = r.bottom + 10;
+      pop.style.left = Math.round(left) + "px";
+      pop.style.top = Math.round(top) + "px";
+    }
+
+    function show(chip) {
+      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+      activeChip = chip;
+      pop.textContent = chip.getAttribute("data-note") || "";
+      pop.removeAttribute("hidden");
+      place(chip);
+      requestAnimationFrame(function () { pop.classList.add("ale-open"); });
+    }
+
+    function hide() {
+      if (!activeChip) return;
+      activeChip = null;
+      pop.classList.remove("ale-open");
+      hideTimer = setTimeout(function () { pop.setAttribute("hidden", ""); }, 180);
+    }
+
+    chips.forEach(function (chip) {
+      if (isTouch) {
+        chip.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (activeChip === chip) { hide(); } else { show(chip); }
+        });
+      } else {
+        chip.addEventListener("mouseenter", function () { show(chip); });
+        chip.addEventListener("mouseleave", hide);
+        chip.addEventListener("focus", function () { show(chip); });
+        chip.addEventListener("blur", hide);
+      }
+    });
+
+    if (isTouch) {
+      document.addEventListener("click", function (e) {
+        if (activeChip && e.target !== activeChip && !pop.contains(e.target)) hide();
+      });
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!activeChip) return;
+      if (isTouch) { place(activeChip); } else { hide(); }
+    }, { passive: true });
+
+    window.addEventListener("resize", function () {
+      if (activeChip) place(activeChip);
+    }, { passive: true });
   })();
 </script>
