@@ -44,7 +44,7 @@ latest_posts:
       </button>
       <span class="ale-bio-flip-ring" aria-hidden="true">
         <svg class="ale-bio-flip-ring-svg" viewBox="0 0 82 82" width="82" height="82" focusable="false" aria-hidden="true">
-          <path id="ale-bio-ring-path" d="M 10,41 A 31,31 0 0 1 72,41" fill="none" stroke="none"></path>
+          <path id="ale-bio-ring-path" d="M 14,41 A 27,27 0 0 1 68,41" fill="none" stroke="none"></path>
           <text>
             <textPath id="ale-bio-ring-label" class="ale-bio-flip-ring-text" href="#ale-bio-ring-path" xlink:href="#ale-bio-ring-path" startOffset="50%" text-anchor="middle">MY INTERESTS</textPath>
           </text>
@@ -53,7 +53,7 @@ latest_posts:
       <div class="ale-bio-inner">
         <div class="ale-bio-face ale-bio-front">
           <p class="ale-eyebrow">About me</p>
-          <p class="ale-landing-bio">Ph.D. Candidate in Computer and Control Engineering at Politecnico di Torino, working on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. My path ran from <strong>computer engineering</strong> through a master's in <strong>data science and engineering</strong> and years as an IT consultant — across <strong>speech</strong>, <strong>natural language processing</strong> and, later, <strong>computer vision</strong> as a Research Fellow — before converging into doctoral research on agents with <strong>long-term memory</strong>, modeled on how people remember. It reaches from <strong>agentic AI</strong> to <strong>virtual humans</strong>, working towards generalist agents and, ultimately, <strong>artificial general intelligence</strong>.</p>
+          <p class="ale-landing-bio">Ph.D. Candidate in Computer and Control Engineering at Politecnico di Torino. My path began in <strong>computer engineering</strong>, continued through <strong>data science and engineering</strong>, and reached AI through <strong>speech processing</strong>, <strong>natural language processing</strong> and <strong>computer vision</strong> — first as an IT consultant, then converging into doctoral research on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. Agentic AI spans <strong>cultural heritage storytelling</strong>, <strong>AI assistants</strong>, <strong>enterprise automation</strong> and <strong>RAG systems</strong>; <strong>virtual humans</strong> carry them into environments such as <strong>XR</strong>. At its core: <strong>long-term memory models</strong> rooted in <strong>psychological theories</strong> — towards <strong>generalist agents</strong>, <strong>believable virtual humans</strong> and, ultimately, <strong>artificial general intelligence</strong>.</p>
         </div>
         <div class="ale-bio-face ale-bio-back" aria-hidden="true" inert>
           <p class="ale-eyebrow">My interests</p>
@@ -93,6 +93,10 @@ latest_posts:
     var back = card.querySelector(".ale-bio-back");
     var front = card.querySelector(".ale-bio-front");
     var ringLabel = card.querySelector("#ale-bio-ring-label");
+    var ringSvg = card.querySelector(".ale-bio-flip-ring-svg");
+    var ringText = ringLabel ? (ringLabel.closest("text") || ringLabel) : null;
+    var DUR = 600;
+    var ease = "cubic-bezier(0.2, 0.7, 0.2, 1)";
     button.addEventListener("click", function () {
       var flipped = card.classList.toggle("is-flipped");
       button.setAttribute("aria-pressed", flipped ? "true" : "false");
@@ -104,9 +108,42 @@ latest_posts:
       // popovers only fire on the visible face.
       back.inert = !flipped;
       front.inert = flipped;
-      if (ringLabel) {
-        ringLabel.textContent = flipped ? "ABOUT ME" : "MY INTERESTS";
+
+      var newText = flipped ? "ABOUT ME" : "MY INTERESTS";
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce || !ringSvg || !ringText || typeof ringSvg.animate !== "function") {
+        if (ringLabel) ringLabel.textContent = newText;
+        return;
       }
+      // The button spins once on click…
+      button.animate(
+        [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
+        { duration: DUR, easing: ease }
+      );
+      // …and the curved label revolves once around its perimeter with it,
+      // fading the old text out on the way round and the new one back in,
+      // so the swap reads as one continuous rotation.
+      ringSvg.animate(
+        [
+          { transform: "translate(-50%, -50%) rotate(0deg)" },
+          { transform: "translate(-50%, -50%) rotate(360deg)" },
+        ],
+        { duration: DUR, easing: ease }
+      );
+      ringText.animate(
+        [
+          { opacity: 1, offset: 0 },
+          { opacity: 0, offset: 0.4 },
+          { opacity: 0, offset: 0.6 },
+          { opacity: 1, offset: 1 },
+        ],
+        { duration: DUR, easing: "linear" }
+      );
+      // Swap the text at the half-way point, while it is invisible and the
+      // ring is at the top of its revolution.
+      window.setTimeout(function () {
+        if (ringLabel) ringLabel.textContent = newText;
+      }, DUR / 2);
     });
   })();
 

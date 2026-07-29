@@ -6502,8 +6502,8 @@ footer.sticky-bottom > .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.45rem;
-  padding: 1.15rem 1.3rem;
+  gap: 0.5rem;
+  padding: 1.2rem 1.35rem;
   border: 1px solid #191915;
   background: #f3efe5;
 }
@@ -6516,8 +6516,8 @@ footer.sticky-bottom > .container {
 .ale-landing-bio {
   margin: 0;
   color: #191915;
-  font-size: clamp(0.86rem, 0.4vw + 0.76rem, 0.95rem);
-  line-height: 1.5;
+  font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
+  line-height: 1.52;
 }
 .ale-keywords-list {
   display: flex;
@@ -6578,7 +6578,10 @@ footer.sticky-bottom > .container {
 }
 .ale-bio-flip:hover,
 .ale-bio-flip:focus-visible {
-  transform: rotate(180deg);
+  /* No hover rotation: the rotation is now the click-driven spin
+     animation (about.md), and a competing hover transform would fight the
+     Web Animations spin and snap the button on mouseout. Keep hover as a
+     colour invert only. */
   background: #f3efe5;
   color: #191915;
 }
@@ -6637,7 +6640,7 @@ footer.sticky-bottom > .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: clamp(0.8rem, 2vh, 1.4rem);
+  margin-top: clamp(0.7rem, 1.8vh, 1.3rem);
 }
 .ale-landing-actions .ale-work-links {
   width: 100%;
@@ -6647,7 +6650,7 @@ footer.sticky-bottom > .container {
   gap: 0.9rem;
 }
 .ale-landing-actions .ale-work-links a {
-  min-height: clamp(58px, 8vh, 82px);
+  min-height: clamp(56px, 7.5vh, 80px);
   padding: 0.9rem 1rem;
 }
 .ale-landing-actions .ale-work-links a strong {
