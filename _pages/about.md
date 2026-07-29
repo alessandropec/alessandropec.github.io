@@ -26,198 +26,25 @@ latest_posts:
 
 <script>document.documentElement.classList.add("ale-home-page");</script>
 
-<div class="ale-intro">
-  <div class="ale-intro-copy">
-    <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
-    <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
-    <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
+<div class="ale-landing">
+  <div class="ale-landing-left">
+    <div class="ale-portrait-placeholder ale-portrait-photo">
+      <img class="ale-hero-logo" src="{{ '/assets/img/profile-photo.png' | relative_url }}" alt="Alessandro Emmanuel Pecora">
+    </div>
+    <div class="ale-landing-identity">
+      <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
+      <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
+      <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
+    </div>
   </div>
-  <div class="ale-portrait-placeholder ale-portrait-photo">
-    <img class="ale-hero-logo" src="{{ '/assets/img/profile-photo.png' | relative_url }}" alt="Alessandro Emmanuel Pecora">
+  <div class="ale-landing-right">
+    <p class="ale-landing-bio">I'm a Ph.D. Candidate in Computer and Control Engineering at Politecnico di Torino, working on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. My path ran from <strong>computer engineering</strong> through a master's in <strong>data science and engineering</strong>, <strong>speech</strong> and <strong>natural language processing</strong> in industry, to <strong>computer vision</strong> as a Research Fellow — before converging into doctoral research on agents with <strong>long-term memory</strong>, modeled on psychological theories of how people remember. That research spans <strong>agentic AI</strong> for enterprise automation, cultural heritage storytelling, AI assistants and RAG systems, and <strong>virtual humans</strong> for learning and training in XR — working towards generalist agents, believable virtual humans and, ultimately, <strong>artificial general intelligence</strong>.</p>
+    <div class="ale-landing-actions">
+      <div class="ale-work-links">
+        <a href="{{ '/projects/' | relative_url }}"><strong>Projects</strong></a>
+        <a href="{{ '/publications/' | relative_url }}"><strong>Research Outputs</strong></a>
+      </div>
+      <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">&rarr;</span></a></p>
+    </div>
   </div>
-  <p id="ale-keywords-heading" class="ale-eyebrow ale-keywords-label">My interests:</p>
-  <div class="ale-keywords" aria-labelledby="ale-keywords-heading">
-    <span tabindex="0" data-note="AI that plans and acts on its own, not just answers. The core idea behind every agent I build.">Agentic AI</span>
-    <span tabindex="0" data-note="A model of the mind, rooted in psychology, linking memory and reasoning. The blueprint behind how I build intelligent systems.">Cognitive architectures</span>
-    <span tabindex="0" data-note="Keeping and reusing experience instead of starting over each time. My current research focus.">Long-term memory</span>
-    <span tabindex="0" data-note="Digital characters believable enough to talk and act like people. My main line of research in embodied AI.">Virtual humans</span>
-    <span tabindex="0" data-note="Intelligence with a body in a real or virtual world, not just a chatbot. A more physical, situated way to think about intelligence.">Embodied AI</span>
-    <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
-    <span tabindex="0" data-note="How machines understand and generate language. Present in everything from chatbots to storytelling systems.">Natural language processing</span>
-    <span tabindex="0" data-note="Turning speech into data and back: recognition, synthesis, voice cloning. From voice assistants to character voices in my projects.">Speech processing</span>
-    <span tabindex="0" data-note="Virtual and augmented reality for interaction. A strong focus of my research group, and a natural home for embodied AI.">XR</span>
-    <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
-    <span tabindex="0" data-note="Practice with feedback, to build real skills over time. Often delivered through digital applications, especially VR.">Learning &amp; training</span>
-    <span tabindex="0" data-note="Research turned into things that actually work outside the lab. The bridge between my papers and real use cases.">Applied AI</span>
-    <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my research.">Artificial general intelligence</span>
-  </div>
-  <a class="ale-scroll-cue" href="#story-1" aria-label="Scroll to the story"><span aria-hidden="true">&darr;</span></a>
 </div>
-
-<div id="story" class="ale-story-track">
-<section id="story-1" class="ale-story ale-reveal" data-step="01">
-  <span class="ale-kicker">Origins</span>
-  <p>Born in <strong>Caltanissetta</strong> and raised in <strong>Agrigento</strong>, I moved to <strong>Torino</strong> for a B.Sc. in <strong>computer engineering</strong>. The computing part began earlier, when my brothers brought home an <strong>Amiga</strong>; science followed shortly after. University meant working my way through it — web development, STEM teaching, bootcamp instruction — and, alongside it, co-founding Bridge The Gaps, a non-profit for the digital divide and gender equality in STEM. A master's in <strong>data science and engineering</strong> followed, while I consulted for an IT company on data and AI projects. Then came a year as a <strong>Research Fellow</strong>, before a <strong>Ph.D.</strong> brought me fully into academia.</p>
-  <a class="ale-section-next" href="#story-2" aria-label="Continue to background"><span aria-hidden="true">&darr;</span></a>
-</section>
-
-<section id="story-2" class="ale-story ale-reveal" data-step="02">
-  <span class="ale-kicker">Background</span>
-  <p>That path runs through <strong>computer engineering</strong> during my early jobs in web development and teaching, into <strong>data science and engineering</strong> while consulting on data and AI, with <strong>speech processing</strong> as my thesis topic and <strong>natural language processing</strong> carried through that same consulting work — <strong>computer vision</strong> came with my year as a Research Fellow, before it all converged into my doctoral research on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. Agentic AI spans applications from <strong>enterprise automation</strong> to <strong>cultural heritage</strong> storytelling, <strong>AI assistants</strong> and <strong>RAG systems</strong>; <strong>virtual humans</strong> — mainly applied to <strong>learning and training</strong> — bring these agents into interactive environments such as <strong>XR</strong>.</p>
-  <a class="ale-section-next" href="#story-3" aria-label="Continue to research direction"><span aria-hidden="true">&darr;</span></a>
-</section>
-
-<section id="story-3" class="ale-story ale-reveal" data-step="03">
-  <span class="ale-kicker">Research direction</span>
-  <p>My research direction is <strong>agentic</strong> and <strong>virtual embodied AI</strong>, built through <strong>cognitive architectures</strong> — with <strong>long-term memory</strong> as the core focus: models rooted in <strong>psychological theories</strong> of human memory, letting agents build on experience instead of starting over each time. It's a step towards <strong>generalist agents</strong>, <strong>believable virtual humans</strong> and, ultimately, the study of <strong>artificial general intelligence</strong>.</p>
-  <a class="ale-section-next" href="#work" aria-label="Continue to projects and research outputs"><span aria-hidden="true">&darr;</span></a>
-</section>
-</div>
-
-<div id="work" class="ale-see-also">
-  <span>see also...</span>
-  <div class="ale-work-links">
-    <a href="{{ '/projects/' | relative_url }}"><strong>Projects</strong></a>
-    <a href="{{ '/publications/' | relative_url }}"><strong>Research Outputs</strong></a>
-  </div>
-  <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">&rarr;</span></a></p>
-</div>
-
-<script>
-  (function () {
-    var els = document.querySelectorAll(".ale-reveal");
-    var keywords = document.querySelectorAll(".ale-keywords [data-note]");
-    var info = document.createElement("div");
-    var activeKeyword = null;
-    info.className = "ale-keyword-popover";
-    info.setAttribute("role", "tooltip");
-    info.hidden = true;
-    document.body.appendChild(info);
-
-    function placeInfo(keyword) {
-      var rect = keyword.getBoundingClientRect();
-      var width = info.offsetWidth;
-      var height = info.offsetHeight;
-      var left = Math.max(8, Math.min(window.innerWidth - width - 8, rect.left + rect.width / 2 - width / 2));
-      var top = rect.top - height - 10;
-      if (top < 8) top = rect.bottom + 10;
-      info.style.left = Math.round(left) + "px";
-      info.style.top = Math.round(top) + "px";
-    }
-
-    function showInfo(keyword) {
-      activeKeyword = keyword;
-      info.textContent = keyword.getAttribute("data-note");
-      info.hidden = false;
-      requestAnimationFrame(function () { placeInfo(keyword); info.classList.add("ale-open"); });
-    }
-
-    function hideInfo() {
-      info.classList.remove("ale-open");
-      activeKeyword = null;
-      window.setTimeout(function () { if (!activeKeyword) info.hidden = true; }, 120);
-    }
-
-    // Touch devices get an explicit tap-to-toggle interaction instead of
-    // hover/focus, so a single tap never double-triggers show+hide.
-    var isTouch = window.matchMedia("(hover: none)").matches;
-
-    if (isTouch) {
-      keywords.forEach(function (keyword) {
-        keyword.addEventListener("click", function (event) {
-          event.stopPropagation();
-          if (activeKeyword === keyword) {
-            hideInfo();
-          } else {
-            showInfo(keyword);
-          }
-        });
-      });
-      document.addEventListener("click", function (event) {
-        if (activeKeyword && event.target !== activeKeyword && !info.contains(event.target)) {
-          hideInfo();
-        }
-      });
-    } else {
-      keywords.forEach(function (keyword) {
-        keyword.addEventListener("mouseenter", function () { showInfo(keyword); });
-        keyword.addEventListener("mouseleave", hideInfo);
-        keyword.addEventListener("focus", function () { showInfo(keyword); });
-        keyword.addEventListener("blur", hideInfo);
-      });
-    }
-    window.addEventListener("scroll", hideInfo, { passive: true });
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      els.forEach(function (el) {
-        el.classList.add("ale-visible");
-      });
-      return;
-    }
-    var ticking = false;
-    function render() {
-      var viewport = window.innerHeight;
-      document.documentElement.classList.toggle("ale-has-scrolled", window.scrollY > 100);
-      // Touch/phone: halve the horizontal travel so the reveal doesn't read
-      // as an oversized swipe on small, close screens.
-      var motionScale = isTouch || window.innerWidth <= 575.98 ? 0.5 : 1;
-      els.forEach(function (el) {
-        var rect = el.getBoundingClientRect();
-        var enterDistance = Math.min(230, window.innerWidth * 0.16) * motionScale;
-        var exitDistance = Math.min(320, window.innerWidth * 0.21) * motionScale;
-        var progress = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
-        var x;
-        var opacity;
-        if (progress < 0.3) {
-          var entering = progress / 0.3;
-          var enterEase = 1 - Math.pow(1 - entering, 3);
-          x = -enterDistance * (1 - enterEase);
-          opacity = enterEase;
-        } else if (progress <= 0.7) {
-          x = 0;
-          opacity = 1;
-        } else if (progress <= 1) {
-          var leaving = (progress - 0.7) / 0.3;
-          var leaveEase = leaving * leaving * (3 - 2 * leaving);
-          x = exitDistance * leaveEase;
-          opacity = 1 - leaveEase;
-        } else {
-          x = exitDistance;
-          opacity = 0;
-        }
-        el.style.setProperty("--ale-scroll-x", x.toFixed(2) + "px");
-        el.style.setProperty("--ale-scroll-opacity", opacity.toFixed(3));
-      });
-      ticking = false;
-    }
-    function requestRender() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(render);
-      }
-    }
-    window.addEventListener("scroll", requestRender, { passive: true });
-    window.addEventListener("resize", requestRender);
-    window.addEventListener("resize", function () { if (activeKeyword) placeInfo(activeKeyword); });
-    window.addEventListener("scroll", function () { if (activeKeyword) placeInfo(activeKeyword); }, { passive: true });
-    document.querySelectorAll(".ale-scroll-cue, .ale-section-next").forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        var target = document.querySelector(link.getAttribute("href"));
-        if (!target) return;
-        event.preventDefault();
-        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        var destination;
-        if (link.getAttribute("href") === "#work") {
-          // Last arrow on the landing: go all the way down so the
-          // see-also section and footer are both in view.
-          destination = maxScroll;
-        } else {
-          var targetRect = target.getBoundingClientRect();
-          destination = targetRect.top + window.scrollY + targetRect.height / 2 - window.innerHeight / 2;
-          destination = Math.max(0, Math.min(maxScroll, destination));
-        }
-        window.scrollTo({ top: destination, behavior: "smooth" });
-      });
-    });
-    render();
-  })();
-</script>
