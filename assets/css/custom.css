@@ -4769,9 +4769,22 @@ footer.sticky-bottom > .container {
    photo size / card padding rather than reintroducing a scroll. */
 
 .ale-landing {
-  width: min(1120px, calc(100vw - 3rem));
-  margin: 0 auto;
+  /* Full-bleed out of the theme's centered 930px `.container` (verified
+     via Playwright: [role=main] max-width is 930px, so a 1120px block
+     could not center and spilled right — the asymmetric-margins bug). The
+     100vw + negative inline margin escapes the container so the grid below
+     centers on the *viewport*, giving equal left/right margins by
+     construction. Same technique the old `.ale-see-also` used. */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding-inline: 1.5rem;
   box-sizing: border-box;
+}
+/* The About layout injects an empty `.profile.float-right` (270px wide,
+   verified live) that has no photo on the home page yet still reserved
+   width and skewed the float context. Hide it on home. */
+.ale-home-page .profile {
+  display: none;
 }
 
 /* --- Left column: photo + identity, centered --- */
@@ -4782,8 +4795,8 @@ footer.sticky-bottom > .container {
   text-align: center;
 }
 .ale-landing .ale-portrait-photo {
-  width: min(224px, 22vw) !important;
-  margin: 0 auto 1.3rem;
+  width: min(190px, 20vw) !important;
+  margin: 0 auto 1.1rem;
 }
 .ale-landing-identity {
   width: 100%;
@@ -4847,8 +4860,8 @@ footer.sticky-bottom > .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.7rem;
-  padding: 1.5rem 1.6rem;
+  gap: 0.45rem;
+  padding: 1.15rem 1.3rem;
   border: 1px solid #191915;
   background: #f3efe5;
 }
@@ -4861,8 +4874,8 @@ footer.sticky-bottom > .container {
 .ale-landing-bio {
   margin: 0;
   color: #191915;
-  font-size: clamp(0.88rem, 0.4vw + 0.78rem, 0.98rem);
-  line-height: 1.6;
+  font-size: clamp(0.86rem, 0.4vw + 0.76rem, 0.95rem);
+  line-height: 1.5;
 }
 .ale-keywords-list {
   display: flex;
@@ -4961,14 +4974,18 @@ footer.sticky-bottom > .container {
   left: 50%;
   width: 5.125rem;
   height: 5.125rem;
+  /* Beat the theme's global `svg { max-width: 100% }`, which clamped this
+     SVG to its 2.35rem parent (verified live: rendered 38px wide instead
+     of 82px, crushing the curved label to invisibility). */
+  max-width: none;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 .ale-bio-flip-ring-text {
   font-family: "Roboto", sans-serif;
-  font-size: 7.5px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   fill: #191915;
 }
@@ -4978,7 +4995,7 @@ footer.sticky-bottom > .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: clamp(1.1rem, 2.6vh, 2rem);
+  margin-top: clamp(0.8rem, 2vh, 1.4rem);
 }
 .ale-landing-actions .ale-work-links {
   width: 100%;
@@ -4988,30 +5005,26 @@ footer.sticky-bottom > .container {
   gap: 0.9rem;
 }
 .ale-landing-actions .ale-work-links a {
-  min-height: clamp(72px, 10vh, 104px);
-  padding: 1rem 1rem;
-  gap: 0.4rem; /* space between the centered label and the inline arrow */
+  min-height: clamp(58px, 8vh, 82px);
+  padding: 0.9rem 1rem;
 }
 .ale-landing-actions .ale-work-links a strong {
-  /* reduced so "Research Outputs" + arrow fit one line at the landing's
-     narrower side-by-side width; still reads as a clear button label. */
   font-size: clamp(0.92rem, 1.1vw, 1.15rem);
 }
-/* Arrow/label collision fix, landing buttons only. The global
-   .ale-work-links a::after (custom.css:4665) pins the arrow to the
-   top-right corner — fine on the wide "see also" cards, but the long
-   "Research Outputs" label reaches that corner at the landing's narrow
-   width and overlaps it. Higher specificity (0,2,2 vs 0,1,2), no
-   !important: drop the absolute positioning so the arrow flows as a
-   second flex item right after the label (the anchor is already
-   flex/centered, custom.css:4614), rendering "Research Outputs →" as one
-   centered unit. The hover nudge (custom.css:4674) still applies. */
+/* Link affordance: a diagonal ↗ pinned to the top-right corner (the
+   conventional "go to / open" glyph the user asked for). The button is a
+   centered vertical flex (.ale-work-links a is flex-direction:column,
+   verified live), so the single-line label sits at the button's vertical
+   centre and never reaches this top-corner glyph — no collision, unlike
+   the earlier inline attempt which dropped the arrow onto its own line.
+   Only content/offset change here; position:absolute + the hover nudge
+   (translate 3px,-3px — already diagonal) come from the global rule. */
 .ale-landing-actions .ale-work-links a::after {
-  position: static;
-  top: auto;
-  right: auto;
-  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
-  line-height: 1;
+  content: "\2197";
+  position: absolute;
+  top: 0.7rem;
+  right: 0.85rem;
+  font-size: 1.05rem;
 }
 .ale-landing-actions .ale-contact-cta {
   width: 100%;
@@ -5028,7 +5041,7 @@ footer.sticky-bottom > .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-block: clamp(1rem, 3vh, 2.5rem);
+    padding-block: clamp(0.4rem, 1.2vh, 1.4rem);
   }
   .ale-landing {
     display: grid;
