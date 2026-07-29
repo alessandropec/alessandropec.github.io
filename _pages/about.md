@@ -38,7 +38,35 @@ latest_posts:
     </div>
   </div>
   <div class="ale-landing-right">
-    <p class="ale-landing-bio">I'm a Ph.D. Candidate in Computer and Control Engineering at Politecnico di Torino, working on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. My path ran from <strong>computer engineering</strong> through a master's in <strong>data science and engineering</strong> and a few years as an IT consultant on data and AI projects, working on <strong>speech</strong> and <strong>natural language processing</strong> along the way, to <strong>computer vision</strong> as a Research Fellow — before converging into doctoral research on agents with <strong>long-term memory</strong>, modeled on psychological theories of how people remember. That research spans <strong>agentic AI</strong> for enterprise automation, cultural heritage storytelling, AI assistants and RAG systems, and <strong>virtual humans</strong> for learning and training in XR — working towards generalist agents, believable virtual humans and, ultimately, <strong>artificial general intelligence</strong>.</p>
+    <div class="ale-bio-card" id="ale-bio-card">
+      <button type="button" class="ale-bio-flip" aria-pressed="false" aria-label="Show my interests" title="Flip">
+        <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+      </button>
+      <div class="ale-bio-inner">
+        <div class="ale-bio-face ale-bio-front">
+          <p class="ale-eyebrow">About me</p>
+          <p class="ale-landing-bio">Ph.D. Candidate in Computer and Control Engineering at Politecnico di Torino, working on <strong>cognitive architectures for agentic and virtual embodied AI</strong>. My path ran from <strong>computer engineering</strong> through a master's in <strong>data science and engineering</strong> and a few years as an IT consultant on data and AI projects — with <strong>speech</strong> and <strong>natural language processing</strong> along the way — to <strong>computer vision</strong> as a Research Fellow, before converging into doctoral research on agents with <strong>long-term memory</strong>, modeled on psychological theories of how people remember. That research spans <strong>agentic AI</strong> and <strong>virtual humans</strong>, working towards generalist agents and, ultimately, <strong>artificial general intelligence</strong>.</p>
+        </div>
+        <div class="ale-bio-face ale-bio-back" aria-hidden="true">
+          <p class="ale-eyebrow">My interests</p>
+          <div class="ale-keywords-list">
+            <span>Agentic AI</span>
+            <span>Cognitive architectures</span>
+            <span>Long-term memory</span>
+            <span>Virtual humans</span>
+            <span>Embodied AI</span>
+            <span>Computer vision</span>
+            <span>Natural language processing</span>
+            <span>Speech processing</span>
+            <span>XR</span>
+            <span>Data science &amp; engineering</span>
+            <span>Learning &amp; training</span>
+            <span>Applied AI</span>
+            <span>Artificial general intelligence</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="ale-landing-actions">
       <div class="ale-work-links">
         <a href="{{ '/projects/' | relative_url }}"><strong>Projects</strong></a>
@@ -48,3 +76,20 @@ latest_posts:
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var card = document.getElementById("ale-bio-card");
+    if (!card) return;
+    var button = card.querySelector(".ale-bio-flip");
+    var back = card.querySelector(".ale-bio-back");
+    var front = card.querySelector(".ale-bio-front");
+    button.addEventListener("click", function () {
+      var flipped = card.classList.toggle("is-flipped");
+      button.setAttribute("aria-pressed", flipped ? "true" : "false");
+      button.setAttribute("aria-label", flipped ? "Show my bio" : "Show my interests");
+      back.setAttribute("aria-hidden", flipped ? "false" : "true");
+      front.setAttribute("aria-hidden", flipped ? "true" : "false");
+    });
+  })();
+</script>

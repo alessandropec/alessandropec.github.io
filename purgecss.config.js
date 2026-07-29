@@ -27,5 +27,9 @@ module.exports = {
     // rule for it (mobile sizing, safe-area offset, bob animation) gets purged
     // and only the library's own injected defaults survive.
     "back-to-top",
+    // landing bio flip card: the state class is toggled by the inline script
+    // in _pages/about.md. It does appear as a literal there (rendered into
+    // _site/index.html, which is scanned), so this is belt-and-braces.
+    "is-flipped",
   ],
 };
