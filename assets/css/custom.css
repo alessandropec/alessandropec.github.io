@@ -6833,3 +6833,132 @@ footer.sticky-bottom > .container {
     white-space: nowrap;
   }
 }
+
+/* Publications BibTeX: the entry used to overflow its box and get clipped
+   (the long `author = {…}` line ran off the right edge, needing a
+   horizontal scroll inside the code block). Let it wrap so the whole entry
+   fits the column with no cut / no side-scroll. Scoped to the publications
+   page so project-detail code blocks keep their normal scroll behaviour. */
+.ale-publications-page figure.highlight pre,
+.ale-publications-page figure.highlight pre code,
+.ale-publications-page figure.highlight code.language-bibtex {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.ale-publications-page figure.highlight pre {
+  overflow-x: visible;
+}
+
+/* ---------------------------------------------------------------------------
+   Project pages — canonical building blocks (v0.9.6, 30/7/2026)
+   -------------------------------------------------------------------------
+   Two reusable pieces shared by every project detail page:
+   1. .ale-project-pub — a single "Related work" entry that mirrors the
+      research-outputs bibliography row (venue chip + status chip + Code
+      button on the left, title / authors / source on the right). Self
+      contained under .ale-project-detail-page so it does NOT depend on the
+      .ale-publications-page scope, while reusing the same palette/box style.
+   2. .ale-back-link--bottom — the closing "back to projects" button injected
+      by head.liquid at the end of the post body on every project page. */
+.ale-project-detail-page .ale-project-pub {
+  margin: 1.5rem 0 3rem;
+  padding: 1.4rem 0;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.28fr) minmax(0, 1fr);
+  gap: 1.4rem;
+  align-items: start;
+  border-top: 1px solid #191915;
+  border-bottom: 1px solid #191915;
+}
+.ale-project-detail-page .ale-project-pub__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+.ale-project-detail-page .ale-project-pub__venue {
+  min-width: 92px;
+  min-height: 34px;
+  padding: 0 0.6rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid #191915;
+  background: #9fbab4;
+  color: #10201d;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.ale-project-detail-page .ale-project-pub.ale-in-press .ale-project-pub__venue {
+  background: #d7aa55;
+  color: #2d1b00;
+}
+.ale-project-detail-page .ale-project-pub__status {
+  padding: 0.16rem 0.5rem;
+  border: 1px solid #a66a16;
+  background: #efd7a9;
+  color: #684006;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.ale-project-detail-page .ale-project-pub__code {
+  margin-top: 0.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.42rem 0.65rem;
+  border: 1px solid #191915;
+  background: transparent;
+  color: #191915 !important;
+  font-size: 0.78rem;
+  line-height: 1;
+  text-decoration: none !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+.ale-project-detail-page .ale-project-pub__code:hover,
+.ale-project-detail-page .ale-project-pub__code:focus-visible {
+  background: #f3efe5;
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 #191915;
+}
+.ale-project-detail-page .ale-project-pub__body {
+  min-width: 0;
+}
+.ale-project-detail-page .ale-project-pub__title {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.ale-project-detail-page .ale-project-pub__authors {
+  margin: 0 0 0.35rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.ale-project-detail-page .ale-project-pub__source {
+  margin: 0;
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.45;
+  opacity: 0.85;
+}
+
+/* Closing "back to projects" button at the foot of every project page. */
+.ale-project-detail-page .ale-back-link--bottom {
+  margin: 2.75rem 0 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .ale-project-detail-page .ale-project-pub {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  .ale-project-detail-page .ale-project-pub__meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
