@@ -4769,15 +4769,14 @@ footer.sticky-bottom > .container {
    photo size / card padding rather than reintroducing a scroll. */
 
 .ale-landing {
-  /* Full-bleed out of the theme's centered 930px `.container` (verified
-     via Playwright: [role=main] max-width is 930px, so a 1120px block
-     could not center and spilled right — the asymmetric-margins bug). The
-     100vw + negative inline margin escapes the container so the grid below
-     centers on the *viewport*, giving equal left/right margins by
-     construction. Same technique the old `.ale-see-also` used. */
-  width: 100vw;
-  margin-inline: calc(50% - 50vw);
-  padding-inline: 1.5rem;
+  /* Safe default: stays inside the theme container so nothing overflows on
+     narrow / stacked (mobile & tablet) layouts. The full-bleed break-out
+     that centres the two columns on the viewport is applied ONLY at the
+     desktop grid breakpoint below (>=851px), where it's needed for
+     symmetry — on phones the old always-on full-bleed pushed the card and
+     its corner flip button past the right edge and clipped them (verified
+     via Playwright). */
+  width: 100%;
   box-sizing: border-box;
 }
 /* The About layout injects an empty `.profile.float-right` (270px wide,
@@ -5047,6 +5046,13 @@ footer.sticky-bottom > .container {
     padding-block: clamp(0.4rem, 1.2vh, 1.4rem);
   }
   .ale-landing {
+    /* Desktop-only full-bleed: break out of the 930px container so the
+       column pair centres on the viewport (equal outer margins). See the
+       base rule note — kept off mobile to avoid the clipping it caused. */
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: 1.5rem;
+    box-sizing: border-box;
     display: grid;
     /* Equal, content-independent column widths for symmetric outer
        margins. `1fr 1fr` does NOT give equal pixel widths here: grid
@@ -5060,6 +5066,40 @@ footer.sticky-bottom > .container {
     justify-content: center;
     align-items: center;
     gap: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* Short desktop viewports (e.g. 1280x720 / 1366x768 maximised → ~610-720px
+   of content height): the comfortable sizing overflowed and forced a page
+   scroll (verified via Playwright). Compact the vertical rhythm so the
+   two-column landing + footer still fit one screen. Height-based, so tall
+   screens keep the roomier default. */
+@media (min-width: 851px) and (max-height: 730px) {
+  .ale-home-page body > [role="main"] {
+    padding-block: clamp(0.3rem, 0.8vh, 0.9rem);
+  }
+  .ale-landing .ale-portrait-photo {
+    width: min(150px, 16vw) !important;
+    margin-bottom: 0.7rem;
+  }
+  .ale-landing .ale-hero-name {
+    font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+    margin-bottom: 0.45rem;
+  }
+  .ale-bio-face {
+    padding: 0.8rem 1.05rem;
+    gap: 0.35rem;
+  }
+  .ale-landing-bio {
+    font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.84rem);
+    line-height: 1.4;
+  }
+  .ale-landing-actions {
+    margin-top: clamp(0.45rem, 1vh, 0.8rem);
+  }
+  .ale-landing-actions .ale-work-links a {
+    min-height: clamp(46px, 5.5vh, 60px);
+    padding: 0.65rem 1rem;
   }
 }
 
@@ -5078,5 +5118,19 @@ footer.sticky-bottom > .container {
 @media (max-width: 575.98px) {
   .ale-landing-actions .ale-work-links {
     grid-template-columns: 1fr;
+  }
+  /* Phones: the corner flip button straddles the card edge and its ~82px
+     decorative ring orbits well past it — on a near-full-width card that
+     runs off the right of the screen and gets clipped (verified via
+     Playwright: ring ~34px beyond the viewport at 360-414px wide). Pull the
+     button fully inside the card, and drop the ring (its 8px curved label
+     is unreadable at this size anyway). The flip + spin still work; the
+     button keeps its aria-label and rotate icon. */
+  .ale-bio-flip {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  .ale-bio-flip-ring {
+    display: none;
   }
 }
