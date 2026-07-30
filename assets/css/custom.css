@@ -5172,3 +5172,22 @@ footer.sticky-bottom > .container {
     margin-top: 0.7rem;
   }
 }
+
+/* ==========================================================================
+   v0.9.7 — Site-wide responsive tour fixes (Playwright audit, 30/7/2026)
+   ========================================================================== */
+
+/* Navbar: the brand NAME was hidden on phones (three `.ale-brand-name
+   {display:none}` rules under <=720px / small-width media queries), so only
+   the AP logo showed and "Alessandro Emmanuel Pecora" disappeared. Bring it
+   back — verified via Playwright that it fits with clear space before the
+   hamburger down to 320px wide (no horizontal overflow, no overlap).
+   inline-block (not inline-flex) preserves the space between the bold
+   "Alessandro" and "Emmanuel Pecora". !important + last source position
+   beats the earlier plain display:none rules. */
+@media (max-width: 720px) {
+  .ale-brand-name {
+    display: inline-block !important;
+    white-space: nowrap;
+  }
+}
