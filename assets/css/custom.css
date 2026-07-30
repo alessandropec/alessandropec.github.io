@@ -5119,18 +5119,56 @@ footer.sticky-bottom > .container {
   .ale-landing-actions .ale-work-links {
     grid-template-columns: 1fr;
   }
-  /* Phones: the corner flip button straddles the card edge and its ~82px
-     decorative ring orbits well past it — on a near-full-width card that
-     runs off the right of the screen and gets clipped (verified via
-     Playwright: ring ~34px beyond the viewport at 360-414px wide). Pull the
-     button fully inside the card, and drop the ring (its 8px curved label
-     is unreadable at this size anyway). The flip + spin still work; the
-     button keeps its aria-label and rotate icon. */
-  .ale-bio-flip {
-    top: 0.5rem;
-    right: 0.5rem;
-  }
+  /* Phones: keep the flip button AND its curved "MY INTERESTS" label on
+     screen. The old corner position (right:-0.75rem) pushed the label ~34px
+     past the right edge and it got clipped. Now that full-bleed is off on
+     mobile (card sits inside the container with a small side gutter), pull
+     the button in from the corner so the label — which curves over the top
+     of the button — clears the edge. Button and ring box share the same
+     top/right so they stay concentric. */
+  .ale-bio-flip,
   .ale-bio-flip-ring {
-    display: none;
+    top: 0.5rem;
+    right: 0.65rem;
+  }
+  /* Lift the whole stack so the Projects / Research Outputs buttons come
+     into view (they were well below the fold). The negative margin claws
+     back the container's `mt-5` (a layered !important utility that can't be
+     overridden directly); the rest trims top padding, the photo→card gap
+     and a bit of type/padding so more of the page fits the first screen.
+     Kept moderate — the bio stays comfortably readable on a phone. */
+  .ale-landing {
+    margin-top: -1.75rem;
+    padding: 0.5rem 0 2rem;
+  }
+  .ale-landing-right {
+    margin-top: 0.9rem;
+  }
+  .ale-landing .ale-portrait-photo {
+    margin-bottom: 0.8rem;
+  }
+  .ale-landing .ale-hero-name {
+    font-size: clamp(1.5rem, 7vw, 1.9rem);
+    margin-bottom: 0.4rem;
+  }
+  .ale-bio-face {
+    padding: 1rem 1.15rem;
+    gap: 0.4rem;
+  }
+  .ale-landing-bio {
+    font-size: 0.88rem;
+    line-height: 1.46;
+  }
+  /* Stacked on phones, so shorter buttons + a tighter lead-in keep both
+     Projects and Research Outputs above the fold on common phone heights. */
+  .ale-landing-actions {
+    margin-top: 0.65rem;
+  }
+  .ale-landing-actions .ale-work-links a {
+    min-height: 48px;
+    padding: 0.6rem 1rem;
+  }
+  .ale-landing-actions .ale-contact-cta {
+    margin-top: 0.7rem;
   }
 }
