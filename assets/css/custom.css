@@ -5191,3 +5191,33 @@ footer.sticky-bottom > .container {
     white-space: nowrap;
   }
 }
+
+/* Publications BibTeX: the entry used to overflow its box and get clipped
+   (the long `author = {…}` line ran off the right edge, needing a
+   horizontal scroll inside the code block). Let it wrap so the whole entry
+   fits the column with no cut / no side-scroll. Scoped to the publications
+   page so project-detail code blocks keep their normal scroll behaviour. */
+.ale-publications-page figure.highlight pre,
+.ale-publications-page figure.highlight pre code,
+.ale-publications-page figure.highlight code.language-bibtex {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.ale-publications-page figure.highlight pre {
+  overflow-x: visible;
+}
+
+/* ---------------------------------------------------------------------------
+   Project pages — canonical building blocks (v0.9.6, 30/7/2026)
+   -------------------------------------------------------------------------
+   Two reusable pieces shared by every project detail page:
+   1. .ale-project-pub — a single "Related work" entry that mirrors the
+      research-outputs bibliography row (venue chip + status chip + Code
+      button on the left, title / authors / source on the right). Self
+      contained under .ale-project-detail-page so it does NOT depend on the
+      .ale-publications-page scope, while reusing the same palette/box style.
+   2. .ale-back-link--bottom — the closing "back to projects" button injected
+      by head.liquid at the end of the post body on every project page. */
+
+/* Closing "back to projects" button at the foot of every project page. */
