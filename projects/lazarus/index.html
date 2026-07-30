@@ -51,6 +51,16 @@
         backAnchor.insertAdjacentElement("beforebegin", back);
       }
     }
+    if (projectMatch && !document.querySelector(".ale-back-link--bottom")) {
+      var bottomAnchor = document.querySelector(".post-content") || document.querySelector(".post");
+      if (bottomAnchor) {
+        var backBottom = document.createElement("a");
+        backBottom.className = "ale-back-link ale-back-link--bottom";
+        backBottom.href = projectMatch[1] + "/";
+        backBottom.innerHTML = '<span aria-hidden="true">&larr;</span> back to projects';
+        bottomAnchor.appendChild(backBottom);
+      }
+    }
     // Small page logo inline with the title on every internal page
     // (projects, research outputs, contact, project detail...).
     if (!document.documentElement.classList.contains("ale-home-page")) {
