@@ -31,5 +31,9 @@ module.exports = {
     // in _pages/about.md. It does appear as a literal there (rendered into
     // _site/index.html, which is scanned), so this is belt-and-braces.
     "is-flipped",
+    // closing "back to projects" button injected at runtime by head.liquid on
+    // every project detail page; belt-and-braces (the literal is in the inline
+    // script that renders into each scanned HTML page).
+    "ale-back-link--bottom",
   ],
 };
