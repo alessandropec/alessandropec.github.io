@@ -48,14 +48,27 @@ DIVINE is developed at **Politecnico di Torino** through collaboration between c
 
 ## Related work
 
-<ul class="ale-project-related-list">
-  <li>
-    <span>Master's thesis · 2024</span>
-    <div><strong>DIVINE: DIagnosis of grapeVIne diseases through NEural networks and deep learning</strong><small>Fabrizio Sanino</small></div>
-    <a class="ale-project-reference-action" href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Thesis <span aria-hidden="true">↗</span></a>
-  </li>
-  <li>
-    <span>Master's thesis · 2025–2026 · forthcoming</span>
-    <div><strong>DIVINE: Imaging Diagnosis of Vine diseases using Neural networks and deep learning</strong><small>Matteo Giardino</small></div>
-  </li>
-</ul>
+<div class="ale-project-pub">
+  <div class="ale-project-pub__meta">
+    <span class="ale-project-pub__venue">M.Sc. thesis</span>
+    <a class="ale-project-pub__code" href="https://webthesis.biblio.polito.it/31783/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>Thesis</span><span aria-hidden="true">↗</span></a>
+    <a class="ale-project-pub__code" href="https://github.com/fabriziosanino/grape_leaves_detection" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="ale-project-pub__body">
+    <p class="ale-project-pub__title">DIVINE: DIagnosis of grapeVIne diseases through NEural networks and deep learning</p>
+    <p class="ale-project-pub__authors">Fabrizio Sanino · Supervisors: A. Bottino, <u>A. E. Pecora</u></p>
+    <p class="ale-project-pub__source">M.Sc. thesis · Politecnico di Torino · 2024</p>
+  </div>
+</div>
+
+<div class="ale-project-pub ale-in-press">
+  <div class="ale-project-pub__meta">
+    <span class="ale-project-pub__venue">M.Sc. thesis</span>
+    <span class="ale-project-pub__status">In progress</span>
+  </div>
+  <div class="ale-project-pub__body">
+    <p class="ale-project-pub__title">DIVINE: Imaging Diagnosis of Vine diseases using Neural networks and deep learning</p>
+    <p class="ale-project-pub__authors">Matteo Giardino · Supervisors: A. Bottino, <u>A. E. Pecora</u></p>
+    <p class="ale-project-pub__source">M.Sc. thesis · Politecnico di Torino · in progress</p>
+  </div>
+</div>

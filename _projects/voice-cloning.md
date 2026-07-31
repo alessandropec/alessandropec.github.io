@@ -42,14 +42,15 @@ The project was developed as an M.Sc. thesis in Computer Engineering at **Polite
 
 ## Related work
 
-<ul class="ale-project-related-list">
-  <li>
-    <span>Master's thesis · 2023</span>
-    <div><strong>Data Driven: AI Voice Cloning</strong><small>A. E. Pecora · Supervisors: L. Cagliero, M. La Quatra and L. Vaiani</small></div>
-  </li>
-  <li>
-    <span>Open-source software</span>
-    <div><strong>AI Voice Cloning project repository</strong><small>Training, inference and evaluation code</small></div>
-    <a class="ale-project-reference-action" href="https://github.com/alessandropec/data_driven_ai_voice_cloning" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Code <span aria-hidden="true">↗</span></a>
-  </li>
-</ul>
+<div class="ale-project-pub">
+  <div class="ale-project-pub__meta">
+    <span class="ale-project-pub__venue">M.Sc. thesis</span>
+    <a class="ale-project-pub__code" href="https://webthesis.biblio.polito.it/27738/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>Thesis</span><span aria-hidden="true">↗</span></a>
+    <a class="ale-project-pub__code" href="https://github.com/alessandropec/data_driven_ai_voice_cloning" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code</span><span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="ale-project-pub__body">
+    <p class="ale-project-pub__title">Data Driven: AI Voice Cloning</p>
+    <p class="ale-project-pub__authors"><u>A. E. Pecora</u> · Supervisors: L. Cagliero, M. La Quatra, L. Vaiani</p>
+    <p class="ale-project-pub__source">M.Sc. thesis · Politecnico di Torino · 2023</p>
+  </div>
+</div>

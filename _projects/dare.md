@@ -37,10 +37,14 @@ DARE connects applied insurance-risk problems with computer-vision research at *
 
 ## Related work
 
-<ul class="ale-project-related-list">
-  <li>
-    <span>Journal survey · FnT CGV 2026</span>
-    <div><strong>Promptable image segmentation: a survey of guided input techniques</strong><small>H. Nejabat, F. D'Asaro, A. E. Pecora, T. Monopoli and A. Bottino</small></div>
-    <a class="ale-project-reference-action" href="https://doi.org/10.1108/FTCGV-03-2026-001" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> DOI <span aria-hidden="true">↗</span></a>
-  </li>
-</ul>
+<div class="ale-project-pub">
+  <div class="ale-project-pub__meta">
+    <span class="ale-project-pub__venue">FnT CGV</span>
+    <a class="ale-project-pub__code" href="https://doi.org/10.1108/FTCGV-03-2026-001" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span>DOI</span><span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="ale-project-pub__body">
+    <p class="ale-project-pub__title">Promptable Image Segmentation: A Survey of Guided Input Techniques</p>
+    <p class="ale-project-pub__authors">H. Nejabat, F. D'Asaro, <u>A. E. Pecora</u>, T. Monopoli and A. Bottino</p>
+    <p class="ale-project-pub__source">Foundations and Trends in Computer Graphics and Vision · vol. 18(1) · pp. 1–139 · 2026</p>
+  </div>
+</div>
