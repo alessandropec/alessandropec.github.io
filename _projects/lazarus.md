@@ -33,6 +33,13 @@ The virtual patient runs on an emotion-driven cognitive architecture. As the tra
 
 We are running usability and performance studies with clinical experts and nursing students at the **University of Turin**. Early results are encouraging, with high ratings for immersion, presence and the believability of the virtual patient.
 
+Alongside the VR experience, a companion web interface exposes every conversational turn together with the communication technique the system recognises, its assessed quality and the patient's evolving state. Experts use it to review interactions and confirm or correct those labels, building a dataset that lets us validate how techniques are classified, while it also works as a lighter training and analysis tool.
+
+<figure class="ale-project-feature">
+  <img src="{{ '/assets/img/projects/lazarus/web-interface.png' | relative_url }}" alt="Lazarus web interface: each turn with its recognised communication technique, quality and the patient's action-availability state, plus an expert feedback panel" loading="lazy">
+  <figcaption>The companion web interface shows each turn with its recognised technique and quality, the patient's action-availability state and the model's reasoning, and lets experts confirm or correct the labels.</figcaption>
+</figure>
+
 ## Context and collaboration
 
 Project Lazarus is one of the core projects of my PhD, developed within the **Computer Graphics and Vision Group at Politecnico di Torino** as part of the group's research on believable virtual humans, embodied AI and cognitive architectures, in collaboration with the nursing and public-health researchers of the **University of Turin**.
