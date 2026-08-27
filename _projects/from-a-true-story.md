@@ -38,7 +38,7 @@ The project is a collaboration between **Politecnico di Torino**, **Università 
 
 <ul class="ale-project-related-list">
   <li>
-    <span>Journal article · ACM TIST 2026 · under review</span>
+    <span>Journal article · ACM TIST 2026 · in press</span>
     <div><strong>From a True Story: Leveraging Museum Catalogue Data for LLM-Driven Narrative Generation</strong><small>E. Mensa, A. E. Pecora, C. Fulfaro, A. Pizzo, E. Ferraris, A. Bottino and R. Damiano</small></div>
   </li>
   <li>

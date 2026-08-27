@@ -2,7 +2,7 @@
 layout: page
 title: projects
 permalink: /projects/
-description: Relevant projects across research, applied AI and data engineering.
+description: Selected relevant projects developed throughout my career.
 nav: true
 nav_order: 2
 horizontal: false
