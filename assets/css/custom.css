@@ -6984,8 +6984,8 @@ footer.sticky-bottom > .container {
   justify-content: flex-start;
   text-align: left;
   color: #191915;
-  font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.86rem);
-  line-height: 1.43;
+  font-size: clamp(0.86rem, 0.3vw + 0.76rem, 1rem);
+  line-height: 1.5;
 }
 .ale-bio-face-bio-right { border-left-width: 0; }
 .ale-bio-face-cover-back { border-right-width: 0; }
@@ -6994,17 +6994,52 @@ footer.sticky-bottom > .container {
   border-left: 1px solid #191915;
   border-right: 9px solid #191915;
 }
-.ale-bio-face-page .ale-eyebrow { margin: 0 0 0.65rem; }
+.ale-bio-face-page .ale-eyebrow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+}
+.ale-page-number {
+  color: #77736a;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
 .ale-bio-face-cover .ale-portrait-photo { width: min(170px, 48%) !important; }
 .ale-bio-face-cover .ale-hero-name { font-size: clamp(1.4rem, 3vw, 1.85rem); }
-.ale-bio-pager { min-height: 44px; }
+.ale-bio-pager {
+  min-height: 44px;
+  gap: 0;
+  transition: gap 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+.ale-bio-pager.has-two-actions { gap: 0.7rem; }
 .ale-bio-pager-btn {
   min-width: 150px;
+  max-width: 190px;
+  overflow: hidden;
+  white-space: nowrap;
   background-color: #f3efe5 !important;
   color: #191915 !important;
   transition:
+    min-width 0.45s cubic-bezier(0.22, 0.7, 0.2, 1),
+    max-width 0.45s cubic-bezier(0.22, 0.7, 0.2, 1),
+    padding 0.45s cubic-bezier(0.22, 0.7, 0.2, 1),
+    border-width 0.3s ease,
+    opacity 0.3s ease,
     transform 0.15s ease,
     box-shadow 0.15s ease;
+}
+.ale-bio-pager-btn.is-concealed {
+  min-width: 0;
+  max-width: 0;
+  padding-right: 0;
+  padding-left: 0;
+  border-right-width: 0;
+  border-left-width: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 .ale-bio-pager-btn > span { color: inherit !important; }
 .ale-bio-pager-btn:hover,

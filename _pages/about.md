@@ -40,17 +40,17 @@ latest_posts:
         </div>
       </div>
       <div class="ale-bio-face ale-bio-face-page ale-bio-face-cover-back" aria-hidden="true" inert>
-        <p class="ale-eyebrow">About me</p>
+        <p class="ale-eyebrow"><span>About me</span><span class="ale-page-number" aria-label="Page 1">01</span></p>
         <p class="ale-bio-page">Ph.D. candidate in Computer and Control Engineering at Politecnico di Torino. My journey began in childhood with a passion for <strong>space</strong>, which grew into an interest in <strong>science</strong> and led me to study <strong>computer engineering</strong>, followed by <strong>data science and engineering</strong>. I developed my expertise in AI through academic work in <strong>speech processing</strong>, <strong>natural language processing</strong>, and <strong>computer vision</strong>, alongside hands-on experience as an IT consultant and during a year of research. This path led to my Ph.D. on <strong>cognitive architectures for agentic and virtually embodied AI</strong>.</p>
       </div>
     </div>
     <div class="ale-bio-leaf ale-bio-final-leaf" id="ale-bio-final-leaf" aria-hidden="true" inert>
       <div class="ale-bio-face ale-bio-face-page ale-bio-face-bio-right">
-        <p class="ale-eyebrow">About me</p>
+        <p class="ale-eyebrow"><span>About me</span><span class="ale-page-number" aria-label="Page 2">02</span></p>
         <p class="ale-bio-page">My work on <strong>agentic AI</strong> spans <strong>cultural heritage storytelling</strong>, <strong>AI assistants</strong>, <strong>enterprise automation</strong>, and <strong>RAG systems</strong>, while my research on <strong>virtually embodied AI</strong> focuses on <strong>virtual humans</strong> in environments such as <strong>XR</strong>. Both rely on <strong>cognitive architectures</strong>, where <strong>long-term memory</strong> plays a central role and represents my current research focus. More broadly, I investigate <strong>computational memory models</strong> grounded in <strong>psychological theories</strong>, aiming to develop <strong>believable virtual humans</strong>, <strong>generalist agents</strong>, and, ultimately, contribute to the pursuit of <strong>artificial general intelligence</strong>.</p>
       </div>
       <div class="ale-bio-face ale-bio-face-page ale-bio-face-interests" aria-hidden="true" inert>
-        <p class="ale-eyebrow">My interests</p>
+        <p class="ale-eyebrow"><span>My interests</span><span class="ale-page-number" aria-label="Page 3">03</span></p>
         <div class="ale-keywords-list">
           <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
           <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
@@ -71,7 +71,7 @@ latest_posts:
   </div>
 
   <div class="ale-bio-pager" id="ale-bio-pager">
-    <button type="button" id="ale-bio-back-btn" class="ale-bio-pager-btn ale-bio-pager-btn--back" hidden>
+    <button type="button" id="ale-bio-back-btn" class="ale-bio-pager-btn ale-bio-pager-btn--back is-concealed" aria-hidden="true" disabled>
       <span aria-hidden="true">&larr;</span> Back
     </button>
     <button type="button" id="ale-bio-next-btn" class="ale-bio-pager-btn" aria-controls="ale-bio-card">
@@ -97,18 +97,26 @@ latest_posts:
     var bioLeft = card ? card.querySelector(".ale-bio-face-cover-back") : null;
     var bioRight = card ? card.querySelector(".ale-bio-face-bio-right") : null;
     var interests = card ? card.querySelector(".ale-bio-face-interests") : null;
+    var pager = document.getElementById("ale-bio-pager");
     var backBtn = document.getElementById("ale-bio-back-btn");
     var nextBtn = document.getElementById("ale-bio-next-btn");
     var nextLabel = document.getElementById("ale-bio-next-label");
-    if (!card || !coverLeaf || !finalLeaf || !cover || !bioLeft || !bioRight || !interests || !backBtn || !nextBtn) {
+    if (!card || !coverLeaf || !finalLeaf || !cover || !bioLeft || !bioRight || !interests || !pager || !backBtn || !nextBtn) {
       return;
     }
 
     var state = 0;
 
     function updateButtons() {
-      backBtn.hidden = state === 0;
-      nextBtn.hidden = state === 2;
+      var hideBack = state === 0;
+      var hideNext = state === 2;
+      pager.classList.toggle("has-two-actions", state === 1);
+      backBtn.classList.toggle("is-concealed", hideBack);
+      nextBtn.classList.toggle("is-concealed", hideNext);
+      backBtn.disabled = hideBack;
+      nextBtn.disabled = hideNext;
+      backBtn.setAttribute("aria-hidden", hideBack ? "true" : "false");
+      nextBtn.setAttribute("aria-hidden", hideNext ? "true" : "false");
       nextLabel.textContent = state === 1 ? "My interests" : "About me";
       nextBtn.setAttribute("aria-label", state === 1 ? "Show my interests" : "Open the book");
     }
