@@ -107,11 +107,20 @@ latest_posts:
     }
 
     var state = 0;
+    var controlsTimer = null;
+
+    function hideButtons() {
+      backBtn.classList.add("is-concealed");
+      nextBtn.classList.add("is-concealed");
+      backBtn.disabled = true;
+      nextBtn.disabled = true;
+      backBtn.setAttribute("aria-hidden", "true");
+      nextBtn.setAttribute("aria-hidden", "true");
+    }
 
     function updateButtons() {
       var hideBack = state === 0;
       var hideNext = state === 2;
-      pager.classList.toggle("has-two-actions", state === 1);
       backBtn.classList.toggle("is-concealed", hideBack);
       nextBtn.classList.toggle("is-concealed", hideNext);
       backBtn.disabled = hideBack;
@@ -120,6 +129,7 @@ latest_posts:
       nextBtn.setAttribute("aria-hidden", hideNext ? "true" : "false");
       nextLabel.textContent = state === 1 ? "My interests" : "About me";
       nextBtn.setAttribute("aria-label", state === 1 ? "Show my interests" : "Open the book");
+      (state === 0 ? nextBtn : backBtn).focus();
     }
 
     function expose(element, visible) {
@@ -130,6 +140,8 @@ latest_posts:
 
     function goTo(target) {
       if (target === state) return;
+      if (controlsTimer) window.clearTimeout(controlsTimer);
+      hideButtons();
       state = target;
       card.classList.toggle("is-open", state === 1);
       card.classList.toggle("is-back-cover", state === 2);
@@ -141,8 +153,14 @@ latest_posts:
       expose(interests, state === 2);
       finalLeaf.inert = state === 0;
       finalLeaf.setAttribute("aria-hidden", state === 0 ? "true" : "false");
-      updateButtons();
-      (state === 0 ? nextBtn : backBtn).focus();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        updateButtons();
+      } else {
+        controlsTimer = window.setTimeout(function () {
+          updateButtons();
+          controlsTimer = null;
+        }, 820);
+      }
     }
 
     nextBtn.addEventListener("click", function () {

@@ -6992,6 +6992,9 @@ footer.sticky-bottom > .container {
 .ale-bio-face-cover-back { border-right-width: 0; }
 .ale-bio-face-cover {
   border-left: 9px solid #191915;
+}
+.ale-bio-face-cover,
+.ale-bio-face-interests {
   background-color: #eae1d1;
   background-image:
     repeating-linear-gradient(
@@ -7050,25 +7053,13 @@ footer.sticky-bottom > .container {
   pointer-events: auto;
   transform: translateX(-50%);
   transition:
-    min-width 0.45s cubic-bezier(0.22, 0.7, 0.2, 1),
-    max-width 0.45s cubic-bezier(0.22, 0.7, 0.2, 1),
-    padding 0.45s cubic-bezier(0.22, 0.7, 0.2, 1),
-    border-width 0.3s ease,
-    opacity 0.3s ease,
     transform 0.15s ease,
     box-shadow 0.15s ease;
 }
 .ale-bio-pager-btn--back { left: 25%; }
 .ale-bio-pager-btn:not(.ale-bio-pager-btn--back) { left: 75%; }
 .ale-bio-pager-btn.is-concealed {
-  min-width: 0;
-  max-width: 0;
-  padding-right: 0;
-  padding-left: 0;
-  border-right-width: 0;
-  border-left-width: 0;
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 .ale-bio-pager-btn > span { color: inherit !important; }
 .ale-bio-pager-btn:hover,
