@@ -40,7 +40,7 @@ latest_posts:
       <button type="button" class="ale-bio-open-btn" id="ale-bio-open" aria-expanded="false" aria-controls="ale-bio-book">About me <span aria-hidden="true">&rarr;</span></button>
     </div>
 
-    <div class="ale-bio-book" id="ale-bio-book" hidden>
+    <div class="ale-bio-book" id="ale-bio-book" aria-hidden="true" inert>
       <button type="button" class="ale-bio-close" id="ale-bio-close" aria-label="Back to cover" title="Back to cover">
         <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
       </button>
@@ -97,25 +97,36 @@ latest_posts:
 
 <script>
   (function () {
+    var card = document.getElementById("ale-bio-card");
     var cover = document.getElementById("ale-bio-cover");
     var book = document.getElementById("ale-bio-book");
     var openBtn = document.getElementById("ale-bio-open");
     var closeBtn = document.getElementById("ale-bio-close");
-    if (!cover || !book || !openBtn || !closeBtn) return;
+    if (!card || !cover || !book || !openBtn || !closeBtn) return;
 
+    // The cover and the book are stacked in the same spot (custom.css
+    // grid-area:1/1) and the page-turn is a CSS transition on the cover's
+    // own transform (hinged on its left edge, like the spine) — toggling
+    // .is-open here is what drives it. inert/aria-hidden swap immediately
+    // (no need to wait for the animation: inert already removes the
+    // rotated-away face from hit-testing and the tab order, same as the
+    // front/back interest flip below never having used [hidden] either).
     function openBook() {
-      cover.hidden = true;
+      card.classList.add("is-open");
       cover.inert = true;
+      cover.setAttribute("aria-hidden", "true");
       openBtn.setAttribute("aria-expanded", "true");
-      book.hidden = false;
-      var flipBtn = book.querySelector(".ale-bio-flip");
-      if (flipBtn) flipBtn.focus();
+      book.inert = false;
+      book.removeAttribute("aria-hidden");
+      closeBtn.focus();
     }
 
     function closeBook() {
-      book.hidden = true;
-      cover.hidden = false;
+      card.classList.remove("is-open");
+      book.inert = true;
+      book.setAttribute("aria-hidden", "true");
       cover.inert = false;
+      cover.removeAttribute("aria-hidden");
       openBtn.setAttribute("aria-expanded", "false");
       openBtn.focus();
     }

@@ -6411,22 +6411,26 @@ footer.sticky-bottom > .container {
   display: none;
 }
 
+/* The cover and the book occupy the same grid cell (like .ale-bio-inner's
+   own front/back stacking below) instead of one being [hidden] — that's
+   what lets the cover animate as a page turning open instead of popping
+   away instantly. perspective here is what makes .ale-bio-cover's rotateY
+   read as 3D depth rather than a flat squash. */
 .ale-bio-card {
+  position: relative;
+  display: grid;
   width: 100%;
+  perspective: 1600px;
+}
+.ale-bio-cover,
+.ale-bio-book {
+  grid-area: 1 / 1;
 }
 
 /* --- Cover: photo, name, roles, the button that opens the book --- */
-/* [hidden] ties on specificity with the plain-class rule below (both
-   0-1-0) and author styles beat the UA stylesheet, so without this the
-   `display:flex` here would win and the cover would stay visible after
-   about.md's script sets `cover.hidden = true` (caught via the Playwright
-   harness — the "opened" state rendered with the cover still on screen
-   above the book). Higher-specificity attribute selector wins instead. */
-.ale-bio-cover[hidden] {
-  display: none;
-}
 .ale-bio-cover {
   position: relative;
+  z-index: 2; /* stays on top of .ale-bio-book while closed/turning */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -6442,6 +6446,28 @@ footer.sticky-bottom > .container {
   box-shadow:
     4px 4px 0 #e4dcc9,
     8px 8px 0 rgba(25, 25, 21, 0.14);
+  /* Page turn: hinge on the left edge (the spine) and swing the cover
+     open. backface-visibility hides it once it's rotated past 90deg
+     instead of showing a mirrored front face facing the wrong way — so
+     only the first ~55% of this rotation (0 to ~90deg of the 160deg
+     total) is ever actually seen. The interior front/back flip's snappy
+     ease-out (cubic-bezier(0.2,0.7,0.2,1), front-loaded to ~90% progress
+     by 40% of its duration) would burn through that visible window almost
+     instantly, reading as a flash-cut rather than a turn — ease-in-out
+     paces it evenly instead, so the page visibly swings the whole time. */
+  transform-origin: left center;
+  transform: rotateY(0deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform 0.8s ease-in-out;
+}
+.ale-bio-card.is-open .ale-bio-cover {
+  transform: rotateY(-160deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ale-bio-cover {
+    transition: none;
+  }
 }
 /* Spine tab: a bound-edge strip standing off the cover's left side, only
    on the closed-book cover — the open two-page spread already reads as a
@@ -6488,7 +6514,6 @@ footer.sticky-bottom > .container {
   padding: 0.7rem 1.7rem;
   border: 1px solid #191915;
   background: #191915;
-  color: #f3efe5;
   font-family: Roboto, sans-serif;
   font-weight: 600;
   font-size: 0.92rem;
@@ -6498,15 +6523,32 @@ footer.sticky-bottom > .container {
     background-color 0.2s ease,
     color 0.2s ease;
 }
+/* !important: the arrow span read black-on-black live (reported on the
+   deployed site, not reproducible in the local Playwright harness — some
+   more-specific rule in the compiled theme CSS this repo doesn't have a
+   local copy of must be winning on `color` otherwise). Force both the
+   button and its child span so neither can lose that fight, same escape
+   hatch this file already leans on elsewhere for the same class of
+   problem (see .ale-portrait-photo width above). */
+.ale-bio-open-btn,
+.ale-bio-open-btn span {
+  color: #f3efe5 !important;
+}
 .ale-bio-open-btn:hover,
 .ale-bio-open-btn:focus-visible {
   background: #f3efe5;
-  color: #191915;
+}
+.ale-bio-open-btn:hover,
+.ale-bio-open-btn:focus-visible,
+.ale-bio-open-btn:hover span,
+.ale-bio-open-btn:focus-visible span {
+  color: #191915 !important;
 }
 
 /* --- Book: two-page bio <-> interests, flip card as before --- */
 .ale-bio-book {
   position: relative;
+  z-index: 1; /* under .ale-bio-cover, revealed as it swings open */
   perspective: 1600px;
 }
 .ale-bio-inner {
