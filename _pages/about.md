@@ -37,12 +37,15 @@ latest_posts:
         <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
         <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
       </div>
-      <button type="button" class="ale-bio-open-btn" id="ale-bio-open" aria-expanded="false" aria-controls="ale-bio-book">About me</button>
+      <button type="button" class="ale-bio-open-btn" id="ale-bio-open" aria-expanded="false" aria-controls="ale-bio-book">About me <span aria-hidden="true">&rarr;</span></button>
     </div>
 
     <div class="ale-bio-book" id="ale-bio-book" hidden>
+      <button type="button" class="ale-bio-close" id="ale-bio-close" aria-label="Back to cover" title="Back to cover">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
       <button type="button" class="ale-bio-flip" aria-pressed="false" aria-label="Show my interests" title="Flip">
-        <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
       </button>
       <span class="ale-bio-flip-ring" aria-hidden="true">
         <svg class="ale-bio-flip-ring-svg" viewBox="0 0 82 82" width="82" height="82" focusable="false" aria-hidden="true">
@@ -97,15 +100,28 @@ latest_posts:
     var cover = document.getElementById("ale-bio-cover");
     var book = document.getElementById("ale-bio-book");
     var openBtn = document.getElementById("ale-bio-open");
-    if (!cover || !book || !openBtn) return;
-    openBtn.addEventListener("click", function () {
+    var closeBtn = document.getElementById("ale-bio-close");
+    if (!cover || !book || !openBtn || !closeBtn) return;
+
+    function openBook() {
       cover.hidden = true;
       cover.inert = true;
       openBtn.setAttribute("aria-expanded", "true");
       book.hidden = false;
       var flipBtn = book.querySelector(".ale-bio-flip");
       if (flipBtn) flipBtn.focus();
-    });
+    }
+
+    function closeBook() {
+      book.hidden = true;
+      cover.hidden = false;
+      cover.inert = false;
+      openBtn.setAttribute("aria-expanded", "false");
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener("click", openBook);
+    closeBtn.addEventListener("click", closeBook);
   })();
 
   (function () {

@@ -6426,6 +6426,7 @@ footer.sticky-bottom > .container {
   display: none;
 }
 .ale-bio-cover {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -6435,6 +6436,27 @@ footer.sticky-bottom > .container {
   padding: 2rem 1.5rem 2.1rem;
   border: 1px solid #191915;
   background: #f3efe5;
+  /* Page-stack shadow: two offset flat layers read as pages peeking out
+     from under the cover, echoed on .ale-bio-face so the book keeps the
+     same "object" whichever face is showing. */
+  box-shadow:
+    4px 4px 0 #e4dcc9,
+    8px 8px 0 rgba(25, 25, 21, 0.14);
+}
+/* Spine tab: a bound-edge strip standing off the cover's left side, only
+   on the closed-book cover — the open two-page spread already reads as a
+   book via its own centre gutter (.ale-bio-spine below), so doubling up
+   here would fight it instead of reinforcing it. */
+.ale-bio-cover::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 8px;
+  bottom: 8px;
+  width: 14px;
+  background: linear-gradient(115deg, #14140f, #333326 45%, #14140f);
+  border-radius: 6px 0 0 6px;
+  box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.35);
 }
 .ale-bio-cover .ale-portrait-photo {
   margin: 0 auto 0.3rem;
@@ -6507,6 +6529,9 @@ footer.sticky-bottom > .container {
   padding: 1.5rem 1.6rem;
   border: 1px solid #191915;
   background: #f3efe5;
+  box-shadow:
+    4px 4px 0 #e4dcc9,
+    8px 8px 0 rgba(25, 25, 21, 0.14);
 }
 .ale-bio-back {
   transform: rotateY(180deg);
@@ -6622,11 +6647,44 @@ footer.sticky-bottom > .container {
   background: #f3efe5;
   color: #191915;
 }
+/* Mirrors .ale-bio-flip on the opposite corner: always available once the
+   book is open (it's a sibling of .ale-bio-inner, not one of the rotating
+   faces, so it doesn't flip with them) and always means the same thing —
+   close the book, back to the cover — regardless of which page is
+   showing. Outline instead of filled so it reads as the secondary action
+   next to the filled .ale-bio-flip. */
+.ale-bio-close {
+  position: absolute;
+  top: -0.75rem;
+  left: -0.75rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  border: 1px solid #191915;
+  border-radius: 50%;
+  background: #f3efe5;
+  color: #191915;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.ale-bio-close:hover,
+.ale-bio-close:focus-visible {
+  background: #191915;
+  color: #f3efe5;
+}
 @media (prefers-reduced-motion: reduce) {
   .ale-bio-inner {
     transition: none;
   }
-  .ale-bio-flip {
+  .ale-bio-flip,
+  .ale-bio-close {
     transition: none;
   }
 }
@@ -6776,11 +6834,16 @@ footer.sticky-bottom > .container {
   /* Phones: keep the flip button AND its curved "MY INTERESTS" label on
      screen — the corner position (right:-0.75rem) would push the label
      past the card's edge on narrow cards, so pull it in. Button and ring
-     box share the same top/right so they stay concentric. */
+     box share the same top/right so they stay concentric. .ale-bio-close
+     gets the mirrored treatment on the opposite corner. */
   .ale-bio-flip,
   .ale-bio-flip-ring {
     top: 0.5rem;
     right: 0.65rem;
+  }
+  .ale-bio-close {
+    top: 0.5rem;
+    left: 0.65rem;
   }
   /* Lift the whole stack so the Projects / Research Outputs buttons come
      into view. The negative margin claws back the container's `mt-5` (a
@@ -6800,7 +6863,12 @@ footer.sticky-bottom > .container {
     margin-bottom: 0.4rem;
   }
   .ale-bio-face {
-    padding: 1.1rem 1.15rem;
+    /* Extra top clearance: .ale-bio-close and .ale-bio-flip both sit
+       inside the card at this width (top:0.5rem, 2.35rem tall — pulled in
+       from the corners so their curved label / circle don't clip past the
+       viewport edge), so the eyebrow needs room below them on both sides,
+       not just the top margin a negative-offset corner button would need. */
+    padding: 3rem 1.15rem 1.1rem;
     gap: 0.45rem;
   }
   .ale-landing-bio {
