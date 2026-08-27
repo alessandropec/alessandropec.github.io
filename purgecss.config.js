@@ -27,10 +27,12 @@ module.exports = {
     // rule for it (mobile sizing, safe-area offset, bob animation) gets purged
     // and only the library's own injected defaults survive.
     "back-to-top",
-    // landing bio flip card: the state class is toggled by the inline script
-    // in _pages/about.md. It does appear as a literal there (rendered into
+    // landing bio pager: state classes toggled by the inline script in
+    // _pages/about.md. They do appear as literals there (rendered into
     // _site/index.html, which is scanned), so this is belt-and-braces.
-    "is-flipped",
+    "is-open",
+    "is-turned",
+    "ale-bio-fade-out",
     // closing "back to projects" button injected at runtime by head.liquid on
     // every project detail page; belt-and-braces (the literal is in the inline
     // script that renders into each scanned HTML page).
