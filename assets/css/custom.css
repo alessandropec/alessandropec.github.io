@@ -4720,64 +4720,47 @@ footer.sticky-bottom > .container {
 }
 
 /* ==========================================================================
-   v0.9.2 — Landing page redesign: symmetric split hero + flip bio card
-   (v0.9.2 revision: equal-width centered columns for symmetric outer
-   margins, slightly smaller photo/card, a curved "MY INTERESTS / ABOUT ME"
-   label orbiting the flip button, restored keyword info popovers, and an
-   inline arrow on the landing buttons so "Research Outputs" never collides
-   with the corner glyph. Built by three parallel workstreams, integrated
-   here.)
-   One fixed composition, no page scroll on desktop:
-     LEFT  — photo (large, centered), name, titles, roles (all centered)
-     RIGHT — a bordered "bio card" that flips (front = condensed bio,
-             back = interest chips) via a corner button, then the two
-             Projects / Research Outputs buttons, then a Contact line
-             centered under them.
-   Both columns are vertically centered against each other and share the
-   same centered-block treatment for symmetry; the right column's card /
-   buttons / contact all share one max-width so their edges line up.
+   v0.9.12 — Landing: book card (cover -> two-page bio -> interests)
+   Replaces the v0.9.2-11 two-column split hero (photo/identity in a left
+   column matched in height against a right-column flip card). That layout
+   broke as soon as the bio text grew (v0.9.9-11 history): the card sized
+   to its tallest face regardless of the photo column, so a longer bio
+   either stranded blank space or towered over the photo.
 
-   Supersedes the v0.9.0 block that used to live here (single-viewport
-   split hero, left-aligned, 32/68 columns, plain bio paragraph). Same
-   .ale-landing* class family, extended with .ale-bio-card / .ale-bio-inner
-   / .ale-bio-face / .ale-bio-flip / .ale-keywords-list for the flip
-   interaction. The `is-flipped` state class is toggled by the inline
-   script in _pages/about.md; it also appears as a literal there (rendered
-   into _site/index.html, which PurgeCSS scans) and is safelisted in
-   purgecss.config.js as belt-and-braces, per the runtime-class gotcha
-   documented in the v0.8.1 header above.
+   Single centered column instead: the photo/name/roles now live on the
+   book's own cover face, with an "About me" button that reveals the book
+   (script in _pages/about.md toggles the [hidden] attribute — native
+   browser show/hide, no PurgeCSS-safelist entry needed since there's no
+   custom CSS selector for it). Inside the book, the existing corner flip
+   button/ring still toggles .ale-bio-front (now a two-page bio spread,
+   split at >=560px so lines don't run the full card width) <-> .ale-bio-
+   back (interest chips) via the same rotateY mechanism as before; the
+   `is-flipped` state class is still toggled by the inline script and
+   safelisted in purgecss.config.js.
+
+   Projects / Research Outputs + Contact stay outside the card as
+   .ale-landing-actions, always visible under it regardless of cover/book
+   state.
 
    The reused type classes (.ale-hero-name/.ale-doctorate/.ale-hero-roles/
    .ale-portrait-photo/.ale-work-links/.ale-contact-cta) are kept only for
-   their inherited type styling — every layout property is redeclared here
-   via higher-specificity .ale-landing* / .ale-landing-actions* compound
-   selectors so nothing leaks in from the many older redefinitions above.
+   their inherited type styling — layout is redeclared here via
+   .ale-bio-cover / .ale-landing-actions compound selectors.
 
-   No-scroll fit: instead of the v0.9.0 fixed min-height guess, this uses
-   the real sticky-footer contract. The theme's actual "main" is a plain
-   `<div class="container mt-5" role="main">` (no <main> element, verified
-   against live HTML), so the file's global `body > main { flex:1 }` never
-   matched and the footer just trailed the content. The rule below finally
-   feeds that flex chain on the home page — grow the real main container
-   and center the landing inside it — so body's existing
-   `display:flex;flex-direction:column;min-height:100vh` pins the footer to
-   the viewport bottom with the hero centered above it, all within 100vh.
-   Desktop-only (>=851px, this file's breakpoint); below that the two
-   columns can't coexist, so the composition stacks and scrolls naturally.
-   Unverified against a real render (no local Jekyll/browser here) — check
-   on the live site after push; if a short laptop clips the hero, trim the
-   photo size / card padding rather than reintroducing a scroll. */
+   Checked against a static Playwright harness reusing this file (no local
+   Ruby/Jekyll available) at 1440x900 / 768x1024 / 390x844 — see the
+   commit message for what was verified. Re-check the live site after
+   deploy since the harness approximates but doesn't fully match the real
+   theme chrome (nav/footer). */
 
 .ale-landing {
-  /* Safe default: stays inside the theme container so nothing overflows on
-     narrow / stacked (mobile & tablet) layouts. The full-bleed break-out
-     that centres the two columns on the viewport is applied ONLY at the
-     desktop grid breakpoint below (>=851px), where it's needed for
-     symmetry — on phones the old always-on full-bleed pushed the card and
-     its corner flip button past the right edge and clipped them (verified
-     via Playwright). */
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /* The About layout injects an empty `.profile.float-right` (270px wide,
    verified live) that has no photo on the home page yet still reserved
@@ -4786,60 +4769,79 @@ footer.sticky-bottom > .container {
   display: none;
 }
 
-/* --- Left column: photo + identity, centered --- */
-.ale-landing-left {
+.ale-bio-card {
+  width: 100%;
+}
+
+/* --- Cover: photo, name, roles, the button that opens the book --- */
+/* [hidden] ties on specificity with the plain-class rule below (both
+   0-1-0) and author styles beat the UA stylesheet, so without this the
+   `display:flex` here would win and the cover would stay visible after
+   about.md's script sets `cover.hidden = true` (caught via the Playwright
+   harness — the "opened" state rendered with the cover still on screen
+   above the book). Higher-specificity attribute selector wins instead. */
+.ale-bio-cover[hidden] {
+  display: none;
+}
+.ale-bio-cover {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 0.6rem;
+  padding: 2rem 1.5rem 2.1rem;
+  border: 1px solid #191915;
+  background: #f3efe5;
 }
-.ale-landing .ale-portrait-photo {
-  width: min(190px, 20vw) !important;
-  margin: 0 auto 1.1rem;
+.ale-bio-cover .ale-portrait-photo {
+  margin: 0 auto 0.3rem;
 }
-.ale-landing-identity {
+.ale-bio-cover .ale-landing-identity {
   width: 100%;
 }
-.ale-landing .ale-hero-name {
+.ale-bio-cover .ale-hero-name {
   text-align: center;
   max-width: 100%;
-  margin: 0 0 0.65rem;
-  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
   line-height: 1.08;
 }
-.ale-landing .ale-hero-name::after {
+.ale-bio-cover .ale-hero-name::after {
   margin-inline: auto;
 }
-.ale-landing .ale-doctorate {
+.ale-bio-cover .ale-doctorate {
   display: inline-block;
   text-align: center;
-  margin: 0 auto 0.55rem;
+  margin: 0 auto 0.4rem;
 }
-.ale-landing .ale-hero-roles {
+.ale-bio-cover .ale-hero-roles {
   text-align: center;
   margin: 0;
 }
-
-/* --- Right column: bio card + actions, centered block --- */
-.ale-landing-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 0;
+.ale-bio-open-btn {
+  margin-top: 0.7rem;
+  padding: 0.7rem 1.7rem;
+  border: 1px solid #191915;
+  background: #191915;
+  color: #f3efe5;
+  font-family: Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
-.ale-landing-right > * {
-  width: 100%;
-  /* matches the equal 440px grid track cap below, so the card uses its
-     full column without straining it (and reads a touch smaller than the
-     first pass' 480px). */
-  max-width: 440px;
+.ale-bio-open-btn:hover,
+.ale-bio-open-btn:focus-visible {
+  background: #f3efe5;
+  color: #191915;
 }
 
-/* Flip card: two faces stacked in one grid cell so the card sizes to the
-   taller face; backface-visibility hides the reverse during the rotateY.
-   The flip button sits on .ale-bio-card (outside the rotating .ale-bio-
-   inner) so it stays put while the faces turn. */
-.ale-bio-card {
+/* --- Book: two-page bio <-> interests, flip card as before --- */
+.ale-bio-book {
   position: relative;
   perspective: 1600px;
 }
@@ -4859,8 +4861,8 @@ footer.sticky-bottom > .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 1.2rem 1.35rem;
+  gap: 0.6rem;
+  padding: 1.5rem 1.6rem;
   border: 1px solid #191915;
   background: #f3efe5;
 }
@@ -4876,11 +4878,41 @@ footer.sticky-bottom > .container {
   font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
   line-height: 1.52;
 }
-.ale-landing-bio p {
+.ale-bio-page {
   margin: 0;
 }
-.ale-landing-bio p + p {
+.ale-bio-page + .ale-bio-page {
   margin-top: 0.75rem;
+}
+/* Two-page spread: only once the card is wide enough (>=560px, i.e. once
+   .ale-landing's own max-width has room) that a half-width column still
+   reads comfortably — narrower than that the pages stack like a normal
+   paragraph and the spine hides itself. */
+.ale-bio-spine {
+  display: none;
+}
+@media (min-width: 560px) {
+  .ale-bio-pages {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 1.1rem;
+    align-items: start;
+  }
+  .ale-bio-page + .ale-bio-page {
+    margin-top: 0;
+  }
+  .ale-bio-spine {
+    display: block;
+    align-self: stretch;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      rgba(25, 25, 21, 0) 0%,
+      rgba(25, 25, 21, 0.35) 12%,
+      rgba(25, 25, 21, 0.35) 88%,
+      rgba(25, 25, 21, 0) 100%
+    );
+  }
 }
 .ale-keywords-list {
   display: flex;
@@ -4964,7 +4996,7 @@ footer.sticky-bottom > .container {
    top/right/width/height box as .ale-bio-flip so their centers coincide
    at any root font-size; the SVG is then re-centered larger on that point
    so the text orbits outside the 2.35rem button. No overflow:hidden on
-   .ale-bio-card / .ale-landing-right > * (verified), so it isn't clipped.
+   .ale-bio-book / .ale-bio-card (verified), so it isn't clipped.
    Static text (swapped by textContent), so no motion / reduced-motion
    rule is needed. */
 .ale-bio-flip-ring {
@@ -4998,12 +5030,14 @@ footer.sticky-bottom > .container {
   fill: #191915;
 }
 
-/* --- Actions: buttons, then contact centered under them --- */
+/* --- Actions: buttons, then contact centered under them, always visible
+   under the card regardless of cover/book state --- */
 .ale-landing-actions {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: clamp(0.7rem, 1.8vh, 1.3rem);
+  margin-top: clamp(1rem, 3vh, 1.6rem);
 }
 .ale-landing-actions .ale-work-links {
   width: 100%;
@@ -5041,75 +5075,45 @@ footer.sticky-bottom > .container {
   margin: 1rem 0 0;
 }
 
-/* --- Desktop: two symmetric columns, centered, no page scroll --- */
-@media (min-width: 851px) {
+/* --- Vertical centering assist on tall-enough viewports: grow the real
+   main container and center the landing inside it, so body's existing
+   `display:flex;flex-direction:column;min-height:100vh` pins the footer to
+   the viewport bottom with the hero centered above it. Below this width a
+   single compact column already reads fine top-aligned. --- */
+@media (min-width: 640px) {
   .ale-home-page body > [role="main"] {
     flex: 1 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-block: clamp(0.4rem, 1.2vh, 1.4rem);
-  }
-  .ale-landing {
-    /* Desktop-only full-bleed: break out of the 930px container so the
-       column pair centres on the viewport (equal outer margins). See the
-       base rule note — kept off mobile to avoid the clipping it caused. */
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
-    padding-inline: 1.5rem;
-    box-sizing: border-box;
-    display: grid;
-    /* Equal, content-independent column widths for symmetric outer
-       margins. `1fr 1fr` does NOT give equal pixel widths here: grid
-       resolves each track's automatic base size from its own content
-       first, then splits only leftover space by the fr ratio — the wider
-       bio-card side claimed more width, making the left margin look
-       bigger. Two `minmax(0, 440px)` tracks are identical regardless of
-       content, and justify-content:center centers the fixed-width pair,
-       so left/right margins are equal by construction. */
-    grid-template-columns: repeat(2, minmax(0, 440px));
-    justify-content: center;
-    /* start, not center: with the longer bio the right column (bio card)
-       runs noticeably taller than the left (photo + identity). Centering
-       the row on the taller column pushed the photo column down and
-       stranded blank space above/below it — top-aligning keeps both
-       columns anchored together regardless of how long the bio text is. */
-    align-items: start;
-    gap: clamp(2rem, 5vw, 4rem);
+    padding-block: clamp(0.6rem, 2vh, 1.8rem);
   }
 }
 
-/* Short desktop viewports (e.g. 1280x720 / 1366x768 maximised → ~610-720px
-   of content height): the comfortable sizing overflowed and forced a page
-   scroll (verified via Playwright). Compact the vertical rhythm so the
-   two-column landing + footer still fit one screen. Height-based, so tall
-   screens keep the roomier default. */
-@media (min-width: 851px) and (max-height: 730px) {
-  .ale-home-page body > [role="main"] {
-    padding-block: clamp(0.3rem, 0.8vh, 0.9rem);
+/* Short viewports (e.g. a maximised 1366x768 laptop): compact the vertical
+   rhythm so the card + actions + footer still fit one screen. */
+@media (max-height: 730px) {
+  .ale-bio-cover {
+    padding: 1.4rem 1.3rem 1.6rem;
   }
-  .ale-landing .ale-portrait-photo {
-    width: min(150px, 16vw) !important;
-    margin-bottom: 0.7rem;
+  .ale-bio-cover .ale-portrait-photo {
+    width: min(140px, 16vw) !important;
   }
-  .ale-landing .ale-hero-name {
+  .ale-bio-cover .ale-hero-name {
     font-size: clamp(1.35rem, 2.3vw, 1.95rem);
     margin-bottom: 0.45rem;
   }
   .ale-bio-face {
-    padding: 0.8rem 1.05rem;
-    gap: 0.35rem;
+    padding: 0.9rem 1.1rem;
+    gap: 0.4rem;
   }
   .ale-landing-bio {
     font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.84rem);
     line-height: 1.36;
   }
-  .ale-landing-bio p + p {
-    margin-top: 0.5rem;
-  }
   .ale-landing-actions {
-    margin-top: clamp(0.45rem, 1vh, 0.8rem);
+    margin-top: clamp(0.5rem, 1.2vh, 0.9rem);
   }
   .ale-landing-actions .ale-work-links a {
     min-height: clamp(46px, 5.5vh, 60px);
@@ -5117,15 +5121,9 @@ footer.sticky-bottom > .container {
   }
 }
 
-/* --- Tablet / phone: stack and scroll naturally --- */
-@media (max-width: 850.98px) {
+@media (max-width: 639.98px) {
   .ale-landing {
-    display: flex;
-    flex-direction: column;
-    padding: 2.5rem 0 3rem;
-  }
-  .ale-landing-right {
-    margin-top: 2.4rem;
+    padding: 2rem 0 2.5rem;
   }
 }
 
@@ -5134,40 +5132,34 @@ footer.sticky-bottom > .container {
     grid-template-columns: 1fr;
   }
   /* Phones: keep the flip button AND its curved "MY INTERESTS" label on
-     screen. The old corner position (right:-0.75rem) pushed the label ~34px
-     past the right edge and it got clipped. Now that full-bleed is off on
-     mobile (card sits inside the container with a small side gutter), pull
-     the button in from the corner so the label — which curves over the top
-     of the button — clears the edge. Button and ring box share the same
-     top/right so they stay concentric. */
+     screen — the corner position (right:-0.75rem) would push the label
+     past the card's edge on narrow cards, so pull it in. Button and ring
+     box share the same top/right so they stay concentric. */
   .ale-bio-flip,
   .ale-bio-flip-ring {
     top: 0.5rem;
     right: 0.65rem;
   }
   /* Lift the whole stack so the Projects / Research Outputs buttons come
-     into view (they were well below the fold). The negative margin claws
-     back the container's `mt-5` (a layered !important utility that can't be
-     overridden directly); the rest trims top padding, the photo→card gap
-     and a bit of type/padding so more of the page fits the first screen.
-     Kept moderate — the bio stays comfortably readable on a phone. */
+     into view. The negative margin claws back the container's `mt-5` (a
+     layered !important utility that can't be overridden directly). */
   .ale-landing {
     margin-top: -1.75rem;
     padding: 0.5rem 0 2rem;
   }
-  .ale-landing-right {
-    margin-top: 0.9rem;
+  .ale-bio-cover {
+    padding: 1.5rem 1.15rem 1.7rem;
   }
-  .ale-landing .ale-portrait-photo {
-    margin-bottom: 0.8rem;
+  .ale-bio-cover .ale-portrait-photo {
+    margin-bottom: 0.5rem;
   }
-  .ale-landing .ale-hero-name {
+  .ale-bio-cover .ale-hero-name {
     font-size: clamp(1.5rem, 7vw, 1.9rem);
     margin-bottom: 0.4rem;
   }
   .ale-bio-face {
-    padding: 1rem 1.15rem;
-    gap: 0.4rem;
+    padding: 1.1rem 1.15rem;
+    gap: 0.45rem;
   }
   .ale-landing-bio {
     font-size: 0.88rem;
@@ -5176,7 +5168,7 @@ footer.sticky-bottom > .container {
   /* Stacked on phones, so shorter buttons + a tighter lead-in keep both
      Projects and Research Outputs above the fold on common phone heights. */
   .ale-landing-actions {
-    margin-top: 0.65rem;
+    margin-top: 0.9rem;
   }
   .ale-landing-actions .ale-work-links a {
     min-height: 48px;
