@@ -5112,12 +5112,12 @@ footer.sticky-bottom > .container {
    v0.9.16 — Fixed-size book interaction
    ========================================================================== */
 
-.ale-landing { max-width: 760px; }
+.ale-landing { max-width: 820px; }
 .ale-bio-card {
   position: relative;
   display: block;
-  width: min(720px, calc(100vw - 48px));
-  height: 500px;
+  width: min(780px, calc(100vw - 32px));
+  height: 540px;
   max-width: none;
   margin: 0 auto;
   perspective: 1800px;
@@ -5126,10 +5126,28 @@ footer.sticky-bottom > .container {
   transition: transform 0.8s cubic-bezier(0.22, 0.7, 0.2, 1);
 }
 .ale-bio-card.is-open {
-  width: min(720px, calc(100vw - 48px));
+  width: min(780px, calc(100vw - 32px));
   transform: translateX(0);
 }
 .ale-bio-card.is-back-cover { transform: translateX(25%); }
+.ale-bio-card.is-open::after {
+  content: "";
+  position: absolute;
+  z-index: 6;
+  top: 1.35rem;
+  bottom: 1.35rem;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(25, 25, 21, 0.12),
+    rgba(25, 25, 21, 0.55) 18%,
+    rgba(25, 25, 21, 0.55) 82%,
+    rgba(25, 25, 21, 0.12)
+  );
+  box-shadow: 4px 0 7px rgba(25, 25, 21, 0.12);
+  pointer-events: none;
+}
 .ale-bio-leaf {
   position: absolute;
   top: 0;
@@ -5178,30 +5196,30 @@ footer.sticky-bottom > .container {
 }
 .ale-bio-face-bio-right { border-left-width: 0; }
 .ale-bio-face-cover-back { border-right-width: 0; }
-.ale-bio-face-interests { border-left: 8px solid #191915; }
+.ale-bio-face-cover { border-left: 9px solid #191915; }
+.ale-bio-face-interests {
+  border-left: 1px solid #191915;
+  border-right: 9px solid #191915;
+}
 .ale-bio-face-page .ale-eyebrow { margin: 0 0 0.65rem; }
 .ale-bio-face-cover .ale-portrait-photo { width: min(170px, 48%) !important; }
 .ale-bio-face-cover .ale-hero-name { font-size: clamp(1.4rem, 3vw, 1.85rem); }
 .ale-bio-pager { min-height: 44px; }
 .ale-bio-pager-btn {
   min-width: 150px;
-  background-color: #191915 !important;
-  color: #f3efe5 !important;
+  background-color: #f3efe5 !important;
+  color: #191915 !important;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 .ale-bio-pager-btn > span { color: inherit !important; }
 .ale-bio-pager-btn:hover,
 .ale-bio-pager-btn:focus-visible {
   background-color: #f3efe5 !important;
   color: #191915 !important;
-}
-.ale-bio-pager-btn--back {
-  background-color: #f3efe5 !important;
-  color: #191915 !important;
-}
-.ale-bio-pager-btn--back:hover,
-.ale-bio-pager-btn--back:focus-visible {
-  background-color: #191915 !important;
-  color: #f3efe5 !important;
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 6px 0 #191915;
 }
 
 @media (max-width: 699.98px) {
@@ -5222,6 +5240,15 @@ footer.sticky-bottom > .container {
   .ale-bio-card.is-open .ale-bio-face-cover-back { transform: none; }
   .ale-bio-card.is-open .ale-bio-final-leaf { visibility: hidden; }
   .ale-bio-face-page { overflow-y: auto; }
+  .ale-bio-card.is-open::after { display: none; }
+}
+
+@media (min-width: 700px) and (max-height: 730px) {
+  .ale-bio-card,
+  .ale-bio-card.is-open {
+    width: min(720px, calc(100vw - 32px));
+    height: 470px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
