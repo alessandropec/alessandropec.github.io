@@ -27,18 +27,20 @@ latest_posts:
 <script>document.documentElement.classList.add("ale-home-page");</script>
 
 <div class="ale-landing">
-  <div class="ale-landing-left">
-    <div class="ale-portrait-placeholder ale-portrait-photo">
-      <img class="ale-hero-logo" src="{{ '/assets/img/profile-photo.png' | relative_url }}" alt="Alessandro Emmanuel Pecora">
+  <div class="ale-bio-card" id="ale-bio-card">
+    <div class="ale-bio-cover" id="ale-bio-cover">
+      <div class="ale-portrait-placeholder ale-portrait-photo">
+        <img class="ale-hero-logo" src="{{ '/assets/img/profile-photo.png' | relative_url }}" alt="Alessandro Emmanuel Pecora">
+      </div>
+      <div class="ale-landing-identity">
+        <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
+        <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
+        <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
+      </div>
+      <button type="button" class="ale-bio-open-btn" id="ale-bio-open" aria-expanded="false" aria-controls="ale-bio-book">About me</button>
     </div>
-    <div class="ale-landing-identity">
-      <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
-      <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
-      <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
-    </div>
-  </div>
-  <div class="ale-landing-right">
-    <div class="ale-bio-card" id="ale-bio-card">
+
+    <div class="ale-bio-book" id="ale-bio-book" hidden>
       <button type="button" class="ale-bio-flip" aria-pressed="false" aria-label="Show my interests" title="Flip">
         <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
       </button>
@@ -53,9 +55,10 @@ latest_posts:
       <div class="ale-bio-inner">
         <div class="ale-bio-face ale-bio-front">
           <p class="ale-eyebrow">About me</p>
-          <div class="ale-landing-bio">
-            <p>Ph.D. candidate in Computer and Control Engineering at Politecnico di Torino. My journey began in childhood with a passion for <strong>space</strong>, which grew into a broader interest in <strong>science</strong> and led me to pursue university studies in <strong>computer engineering</strong>, followed by <strong>data science and engineering</strong>. I approached AI through both my academic training—exploring <strong>speech processing</strong>, <strong>natural language processing</strong>, and <strong>computer vision</strong>—and hands-on professional experience, first as an IT consultant and later during a year of research. This path ultimately led me to pursue a Ph.D. on <strong>cognitive architectures for agentic and virtually embodied AI</strong>.</p>
-            <p>Within this field, my work on <strong>agentic AI</strong> covers applications such as <strong>cultural heritage storytelling</strong>, <strong>AI assistants</strong>, <strong>enterprise automation</strong>, and <strong>RAG systems</strong>, while my research on <strong>virtually embodied AI</strong> focuses on <strong>virtual humans</strong> operating in environments such as <strong>XR</strong>. Both embodied and non-embodied agents rely on <strong>cognitive architectures</strong>, in which <strong>long-term memory</strong> plays a central role and represents my current research focus. More broadly, my work explores <strong>computational memory models</strong> grounded in <strong>psychological theories</strong>, with the goal of developing <strong>believable virtual humans</strong>, <strong>generalist agents</strong>, and, ultimately, contributing to the pursuit of <strong>artificial general intelligence</strong>.</p>
+          <div class="ale-landing-bio ale-bio-pages">
+            <p class="ale-bio-page">Ph.D. candidate in Computer and Control Engineering at Politecnico di Torino. My journey began in childhood with a passion for <strong>space</strong>, which grew into a broader interest in <strong>science</strong> and led me to pursue university studies in <strong>computer engineering</strong>, followed by <strong>data science and engineering</strong>. I approached AI through both my academic training—exploring <strong>speech processing</strong>, <strong>natural language processing</strong>, and <strong>computer vision</strong>—and hands-on professional experience, first as an IT consultant and later during a year of research. This path ultimately led me to pursue a Ph.D. on <strong>cognitive architectures for agentic and virtually embodied AI</strong>.</p>
+            <span class="ale-bio-spine" aria-hidden="true"></span>
+            <p class="ale-bio-page">Within this field, my work on <strong>agentic AI</strong> covers applications such as <strong>cultural heritage storytelling</strong>, <strong>AI assistants</strong>, <strong>enterprise automation</strong>, and <strong>RAG systems</strong>, while my research on <strong>virtually embodied AI</strong> focuses on <strong>virtual humans</strong> operating in environments such as <strong>XR</strong>. Both embodied and non-embodied agents rely on <strong>cognitive architectures</strong>, in which <strong>long-term memory</strong> plays a central role and represents my current research focus. More broadly, my work explores <strong>computational memory models</strong> grounded in <strong>psychological theories</strong>, with the goal of developing <strong>believable virtual humans</strong>, <strong>generalist agents</strong>, and, ultimately, contributing to the pursuit of <strong>artificial general intelligence</strong>.</p>
           </div>
         </div>
         <div class="ale-bio-face ale-bio-back" aria-hidden="true" inert>
@@ -78,17 +81,33 @@ latest_posts:
         </div>
       </div>
     </div>
-    <div class="ale-landing-actions">
-      <div class="ale-work-links">
-        <a href="{{ '/projects/' | relative_url }}"><strong>Projects</strong></a>
-        <a href="{{ '/publications/' | relative_url }}"><strong>Research Outputs</strong></a>
-      </div>
-      <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">&rarr;</span></a></p>
+  </div>
+
+  <div class="ale-landing-actions">
+    <div class="ale-work-links">
+      <a href="{{ '/projects/' | relative_url }}"><strong>Projects</strong></a>
+      <a href="{{ '/publications/' | relative_url }}"><strong>Research Outputs</strong></a>
     </div>
+    <p class="ale-contact-cta"><span>Need something else?</span><a href="{{ '/contact/' | relative_url }}">Contact me <span aria-hidden="true">&rarr;</span></a></p>
   </div>
 </div>
 
 <script>
+  (function () {
+    var cover = document.getElementById("ale-bio-cover");
+    var book = document.getElementById("ale-bio-book");
+    var openBtn = document.getElementById("ale-bio-open");
+    if (!cover || !book || !openBtn) return;
+    openBtn.addEventListener("click", function () {
+      cover.hidden = true;
+      cover.inert = true;
+      openBtn.setAttribute("aria-expanded", "true");
+      book.hidden = false;
+      var flipBtn = book.querySelector(".ale-bio-flip");
+      if (flipBtn) flipBtn.focus();
+    });
+  })();
+
   (function () {
     var card = document.getElementById("ale-bio-card");
     if (!card) return;
