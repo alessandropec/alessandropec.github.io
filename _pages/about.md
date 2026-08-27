@@ -36,7 +36,7 @@ latest_posts:
         <div class="ale-landing-identity">
           <h1 class="ale-hero-name"><span class="ale-name-firstline"><strong>Alessandro</strong> Emmanuel</span><span>Pecora</span></h1>
           <p class="ale-doctorate">Ph.D. Candidate in Computer and Control Engineering<br><span>Politecnico di Torino</span></p>
-          <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
+          <p class="ale-hero-roles">Data Scientist &amp; Engineer<br>AI Researcher</p>
         </div>
       </div>
       <div class="ale-bio-face ale-bio-face-page ale-bio-face-cover-back" aria-hidden="true" inert>
@@ -68,15 +68,16 @@ latest_posts:
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="ale-bio-pager" id="ale-bio-pager">
-    <button type="button" id="ale-bio-back-btn" class="ale-bio-pager-btn ale-bio-pager-btn--back is-concealed" aria-hidden="true" disabled>
-      <span aria-hidden="true">&larr;</span> Back
-    </button>
-    <button type="button" id="ale-bio-next-btn" class="ale-bio-pager-btn" aria-controls="ale-bio-card">
-      <span id="ale-bio-next-label">About me</span> <span aria-hidden="true">&rarr;</span>
-    </button>
+    <div class="ale-bio-pager" id="ale-bio-pager">
+      <button type="button" id="ale-bio-back-btn" class="ale-bio-pager-btn ale-bio-pager-btn--back is-concealed" aria-hidden="true" disabled>
+        <span aria-hidden="true">&larr;</span> Back
+      </button>
+      <button type="button" id="ale-bio-next-btn" class="ale-bio-pager-btn" aria-controls="ale-bio-card">
+        <span id="ale-bio-next-label">About me</span> <span aria-hidden="true">&rarr;</span>
+      </button>
+    </div>
+
   </div>
 
   <div class="ale-landing-actions">
