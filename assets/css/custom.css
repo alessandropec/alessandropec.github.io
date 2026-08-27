@@ -4720,38 +4720,49 @@ footer.sticky-bottom > .container {
 }
 
 /* ==========================================================================
-   v0.9.12 — Landing: book card (cover -> two-page bio -> interests)
-   Replaces the v0.9.2-11 two-column split hero (photo/identity in a left
-   column matched in height against a right-column flip card). That layout
-   broke as soon as the bio text grew (v0.9.9-11 history): the card sized
-   to its tallest face regardless of the photo column, so a longer bio
-   either stranded blank space or towered over the photo.
+   v0.9.15 — Landing: book card with a real two-page pager
+   Replaces v0.9.12-14's cover-that-swings-away-to-reveal-a-whole-book
+   underneath. That model used one card-wide rotateY flip for opening AND
+   another whole-card rotateY flip for bio<->interests — visually it read
+   as "the whole card spins", not "I'm turning pages", and there was no
+   way back from the open book to the cover.
 
-   Single centered column instead: the photo/name/roles now live on the
-   book's own cover face, with an "About me" button that reveals the book
-   (script in _pages/about.md toggles the [hidden] attribute — native
-   browser show/hide, no PurgeCSS-safelist entry needed since there's no
-   custom CSS selector for it). Inside the book, the existing corner flip
-   button/ring still toggles .ale-bio-front (now a two-page bio spread,
-   split at >=560px so lines don't run the full card width) <-> .ale-bio-
-   back (interest chips) via the same rotateY mechanism as before; the
-   `is-flipped` state class is still toggled by the inline script and
-   safelisted in purgecss.config.js.
+   Real pager instead, three linear pages (0 cover, 1 bio, 2 interests),
+   ONE pair of text buttons below the card drives all of it (no more
+   corner icon buttons/ring):
+     - #ale-bio-next-btn: "About me" at page 0 (-> 1), relabels itself
+       "My interests" at page 1 (-> 2). Hidden at page 2 (last page).
+     - #ale-bio-back-btn: hidden at page 0, otherwise always goes back
+       one page. Never stale — hidden/shown synchronously with the page
+       change, nothing lingers from the previous state.
 
-   Projects / Research Outputs + Contact stay outside the card as
-   .ale-landing-actions, always visible under it regardless of cover/book
-   state.
+   .ale-bio-left is the only face that still turns (rotateY hinge on its
+   left edge, same technique as v0.9.14): it shows the cover at page 0 and
+   turns to a shared "dynamic" face for both page 1 (bio paragraph 1) and
+   page 2 (interests) — its content is swapped via a JS crossfade, not a
+   second rotation, when moving between 1 and 2 (explicitly no card-
+   rotating animation for that step). .ale-bio-right only ever holds bio
+   paragraph 2 and fades/widens in alongside .ale-bio-spine when page 1 is
+   open; both collapse to zero width otherwise, which is also what drives
+   .ale-bio-card's own width change.
 
-   The reused type classes (.ale-hero-name/.ale-doctorate/.ale-hero-roles/
-   .ale-portrait-photo/.ale-work-links/.ale-contact-cta) are kept only for
-   their inherited type styling — layout is redeclared here via
-   .ale-bio-cover / .ale-landing-actions compound selectors.
+   Proportions: closed (pages 0 and 2) the card is one page wide, centered
+   at translateX(0). Opening to page 1 grows the card by the right page's
+   width and nudges it right (SHIFT_OPEN) so the spread doesn't look like
+   it just grew symmetrically in place — closing back to page 2 drops the
+   shift again ("the book closes to one page").
+
+   >=700px only: below that a 380px left page next to a real right page
+   has no room, so the whole row/shift/width choreography is skipped and
+   .ale-bio-right just stacks under .ale-bio-left in normal flow (see the
+   `max-width: 639.98px` block) — no horizontal shift makes sense in a
+   single column anyway.
 
    Checked against a static Playwright harness reusing this file (no local
-   Ruby/Jekyll available) at 1440x900 / 768x1024 / 390x844 — see the
-   commit message for what was verified. Re-check the live site after
-   deploy since the harness approximates but doesn't fully match the real
-   theme chrome (nav/footer). */
+   Ruby/Jekyll available) at 1440x900 / 768x1024 / 390x844 / 320x640 —
+   see the commit message for what was verified. Re-check the live site
+   after deploy since the harness approximates but doesn't fully match the
+   real theme chrome (nav/footer). */
 
 .ale-landing {
   width: 100%;
@@ -4769,26 +4780,27 @@ footer.sticky-bottom > .container {
   display: none;
 }
 
-/* The cover and the book occupy the same grid cell (like .ale-bio-inner's
-   own front/back stacking below) instead of one being [hidden] — that's
-   what lets the cover animate as a page turning open instead of popping
-   away instantly. perspective here is what makes .ale-bio-cover's rotateY
-   read as 3D depth rather than a flat squash. */
 .ale-bio-card {
   position: relative;
-  display: grid;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  perspective: 1600px;
-}
-.ale-bio-cover,
-.ale-bio-book {
-  grid-area: 1 / 1;
+  max-width: 380px;
+  margin: 0 auto;
 }
 
-/* --- Cover: photo, name, roles, the button that opens the book --- */
-.ale-bio-cover {
+/* --- Left page: cover <-> (bio paragraph 1 / interests), the one page
+   that turns --- */
+.ale-bio-left {
   position: relative;
-  z-index: 2; /* stays on top of .ale-bio-book while closed/turning */
+  display: grid;
+  perspective: 1600px;
+}
+.ale-bio-face {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -4798,40 +4810,58 @@ footer.sticky-bottom > .container {
   padding: 2rem 1.5rem 2.1rem;
   border: 1px solid #191915;
   background: #f3efe5;
+  transition: transform 0.8s ease-in-out;
   /* Page-stack shadow: two offset flat layers read as pages peeking out
-     from under the cover, echoed on .ale-bio-face so the book keeps the
-     same "object" whichever face is showing. */
+     from under the top one — same on both faces so the book keeps one
+     consistent "object" whichever face/page is showing. */
   box-shadow:
     4px 4px 0 #e4dcc9,
     8px 8px 0 rgba(25, 25, 21, 0.14);
-  /* Page turn: hinge on the left edge (the spine) and swing the cover
-     open. backface-visibility hides it once it's rotated past 90deg
-     instead of showing a mirrored front face facing the wrong way — so
-     only the first ~55% of this rotation (0 to ~90deg of the 160deg
-     total) is ever actually seen. The interior front/back flip's snappy
-     ease-out (cubic-bezier(0.2,0.7,0.2,1), front-loaded to ~90% progress
-     by 40% of its duration) would burn through that visible window almost
-     instantly, reading as a flash-cut rather than a turn — ease-in-out
-     paces it evenly instead, so the page visibly swings the whole time. */
-  transform-origin: left center;
-  transform: rotateY(0deg);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transition: transform 0.8s ease-in-out;
 }
-.ale-bio-card.is-open .ale-bio-cover {
-  transform: rotateY(-160deg);
+.ale-bio-face-cover {
+  position: relative;
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.ale-bio-face-dynamic {
+  position: relative;
+  z-index: 1;
+  align-items: stretch;
+  text-align: left;
+  /* flex-start, not center: this face shares its grid cell with the
+     (taller) cover face, so its own box is often taller than its actual
+     text needs — centering left a visible gap above the eyebrow/text
+     that the paired .ale-bio-right (which just starts at its own top,
+     no cell-sharing) didn't have. Starting both at the top keeps the two
+     pages reading as one aligned spread. */
+  justify-content: flex-start;
+  transform: rotateY(180deg);
+}
+/* Turning: hinge on the left edge (the spine) so both faces swing as one
+   piece — cover rotates 0->180 out of view, the dynamic face (which
+   starts pre-rotated to 180) rotates 180->360 (== 0) into view at the
+   same time. ease-in-out paces the rotation evenly through the ~90deg
+   window where each face is actually visible (backface-visibility hides
+   the rest) — a snappy ease-out front-loads past that window almost
+   immediately and reads as a flash-cut instead of a turn (measured via a
+   Playwright trace of the computed transform matrix in v0.9.14). */
+.ale-bio-left.is-turned .ale-bio-face-cover {
+  transform: rotateY(180deg);
+}
+.ale-bio-left.is-turned .ale-bio-face-dynamic {
+  transform: rotateY(360deg);
 }
 @media (prefers-reduced-motion: reduce) {
-  .ale-bio-cover {
+  .ale-bio-face {
     transition: none;
   }
 }
-/* Spine tab: a bound-edge strip standing off the cover's left side, only
-   on the closed-book cover — the open two-page spread already reads as a
-   book via its own centre gutter (.ale-bio-spine below), so doubling up
-   here would fight it instead of reinforcing it. */
-.ale-bio-cover::before {
+/* Spine tab: a bound-edge strip standing off the left page's own left
+   side — reads as the book's binding when closed (cover or interests,
+   both one page) and as the spine of the currently-visible left leaf
+   when open. Always on .ale-bio-left itself (not conditional on state)
+   since there's always exactly one "current" left page. */
+.ale-bio-left::before {
   content: "";
   position: absolute;
   left: -10px;
@@ -4841,37 +4871,107 @@ footer.sticky-bottom > .container {
   background: linear-gradient(115deg, #14140f, #333326 45%, #14140f);
   border-radius: 6px 0 0 6px;
   box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.35);
+  z-index: 3;
 }
-.ale-bio-cover .ale-portrait-photo {
+.ale-bio-face-cover .ale-portrait-photo {
   margin: 0 auto 0.3rem;
 }
-.ale-bio-cover .ale-landing-identity {
+.ale-bio-face-cover .ale-landing-identity {
   width: 100%;
 }
-.ale-bio-cover .ale-hero-name {
+.ale-bio-face-cover .ale-hero-name {
   text-align: center;
   max-width: 100%;
   margin: 0 0 0.5rem;
-  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
   line-height: 1.08;
 }
-.ale-bio-cover .ale-hero-name::after {
+.ale-bio-face-cover .ale-hero-name::after {
   margin-inline: auto;
 }
-.ale-bio-cover .ale-doctorate {
+.ale-bio-face-cover .ale-doctorate {
   display: inline-block;
   text-align: center;
   margin: 0 auto 0.4rem;
 }
-.ale-bio-cover .ale-hero-roles {
+.ale-bio-face-cover .ale-hero-roles {
   text-align: center;
   margin: 0;
 }
-.ale-bio-open-btn {
-  margin-top: 0.7rem;
-  padding: 0.7rem 1.7rem;
+.ale-bio-face-dynamic .ale-eyebrow {
+  margin: 0;
+}
+.ale-bio-dynamic-content {
+  color: #191915;
+  font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
+  line-height: 1.52;
+  transition: opacity 0.22s ease;
+}
+.ale-bio-dynamic-content.ale-bio-fade-out {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ale-bio-dynamic-content {
+    transition: none;
+  }
+}
+.ale-bio-page {
+  margin: 0;
+}
+
+/* --- Right page: bio paragraph 2 only. Collapsed to nothing when the
+   book isn't open; .ale-bio-card's own width is driven by this + the
+   spine growing, not set directly, so they can never fall out of sync. */
+.ale-bio-spine {
+  width: 0;
+  align-self: stretch;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(25, 25, 21, 0) 0%,
+    rgba(25, 25, 21, 0.35) 12%,
+    rgba(25, 25, 21, 0.35) 88%,
+    rgba(25, 25, 21, 0) 100%
+  );
+}
+.ale-bio-right {
+  box-sizing: border-box;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 2rem 0;
+  border-color: #191915;
+  background: #f3efe5;
+  color: #191915;
+  font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
+  line-height: 1.52;
+  /* At width:0 the paragraph still has to wrap somewhere — without this
+     it wraps to one word (sometimes one character) per line, and
+     .ale-bio-card's align-items:stretch (row direction, >=700px) then
+     stretches the WHOLE row, including .ale-bio-left, to match that
+     absurd height. nowrap keeps it one line (however wide — invisible
+     regardless, clipped by overflow:hidden at width:0) so the auto
+     height stays sane; back to normal once actual width is given. */
+  white-space: nowrap;
+}
+.ale-bio-right .ale-eyebrow {
+  margin: 0 0 0.6rem;
+  white-space: nowrap;
+}
+
+/* --- Below-card pager: the only navigation now, replaces the old corner
+   flip/close buttons entirely --- */
+.ale-bio-pager {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 0.9rem;
+}
+.ale-bio-pager-btn {
+  padding: 0.7rem 1.5rem;
   border: 1px solid #191915;
   background: #191915;
+  color: #f3efe5 !important;
   font-family: Roboto, sans-serif;
   font-weight: 600;
   font-size: 0.92rem;
@@ -4881,106 +4981,27 @@ footer.sticky-bottom > .container {
     background-color 0.2s ease,
     color 0.2s ease;
 }
-/* !important: the arrow span read black-on-black live (reported on the
-   deployed site, not reproducible in the local Playwright harness — some
-   more-specific rule in the compiled theme CSS this repo doesn't have a
-   local copy of must be winning on `color` otherwise). Force both the
-   button and its child span so neither can lose that fight, same escape
-   hatch this file already leans on elsewhere for the same class of
-   problem (see .ale-portrait-photo width above). */
-.ale-bio-open-btn,
-.ale-bio-open-btn span {
-  color: #f3efe5 !important;
-}
-.ale-bio-open-btn:hover,
-.ale-bio-open-btn:focus-visible {
+/* !important on the two colors below: the fill/text pairing on the open
+   button read black-on-black live once (v0.9.14), not reproducible in
+   the local Playwright harness — something in the compiled theme CSS
+   this repo doesn't have a local copy of must win on `color` otherwise.
+   Same escape hatch this file already leans on elsewhere for that class
+   of problem (see .ale-portrait-photo width above). */
+.ale-bio-pager-btn:hover,
+.ale-bio-pager-btn:focus-visible {
   background: #f3efe5;
-}
-.ale-bio-open-btn:hover,
-.ale-bio-open-btn:focus-visible,
-.ale-bio-open-btn:hover span,
-.ale-bio-open-btn:focus-visible span {
   color: #191915 !important;
 }
-
-/* --- Book: two-page bio <-> interests, flip card as before --- */
-.ale-bio-book {
-  position: relative;
-  z-index: 1; /* under .ale-bio-cover, revealed as it swings open */
-  perspective: 1600px;
-}
-.ale-bio-inner {
-  display: grid;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.ale-bio-card.is-flipped .ale-bio-inner {
-  transform: rotateY(180deg);
-}
-.ale-bio-face {
-  grid-area: 1 / 1;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 1.5rem 1.6rem;
-  border: 1px solid #191915;
+.ale-bio-pager-btn--back {
   background: #f3efe5;
-  box-shadow:
-    4px 4px 0 #e4dcc9,
-    8px 8px 0 rgba(25, 25, 21, 0.14);
+  color: #191915 !important;
 }
-.ale-bio-back {
-  transform: rotateY(180deg);
+.ale-bio-pager-btn--back:hover,
+.ale-bio-pager-btn--back:focus-visible {
+  background: #191915;
+  color: #f3efe5 !important;
 }
-.ale-bio-face .ale-eyebrow {
-  margin: 0;
-}
-.ale-landing-bio {
-  margin: 0;
-  color: #191915;
-  font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
-  line-height: 1.52;
-}
-.ale-bio-page {
-  margin: 0;
-}
-.ale-bio-page + .ale-bio-page {
-  margin-top: 0.75rem;
-}
-/* Two-page spread: only once the card is wide enough (>=560px, i.e. once
-   .ale-landing's own max-width has room) that a half-width column still
-   reads comfortably — narrower than that the pages stack like a normal
-   paragraph and the spine hides itself. */
-.ale-bio-spine {
-  display: none;
-}
-@media (min-width: 560px) {
-  .ale-bio-pages {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    column-gap: 1.1rem;
-    align-items: start;
-  }
-  .ale-bio-page + .ale-bio-page {
-    margin-top: 0;
-  }
-  .ale-bio-spine {
-    display: block;
-    align-self: stretch;
-    width: 1px;
-    background: linear-gradient(
-      to bottom,
-      rgba(25, 25, 21, 0) 0%,
-      rgba(25, 25, 21, 0.35) 12%,
-      rgba(25, 25, 21, 0.35) 88%,
-      rgba(25, 25, 21, 0) 100%
-    );
-  }
-}
+
 .ale-keywords-list {
   display: flex;
   flex-wrap: wrap;
@@ -5016,122 +5037,9 @@ footer.sticky-bottom > .container {
   outline: 2px solid #9b3f2f;
   outline-offset: 2px;
 }
-.ale-bio-flip {
-  position: absolute;
-  top: -0.75rem;
-  right: -0.75rem;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.35rem;
-  height: 2.35rem;
-  padding: 0;
-  border: 1px solid #191915;
-  border-radius: 50%;
-  background: #191915;
-  color: #f3efe5;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-.ale-bio-flip:hover,
-.ale-bio-flip:focus-visible {
-  /* No hover rotation: the rotation is now the click-driven spin
-     animation (about.md), and a competing hover transform would fight the
-     Web Animations spin and snap the button on mouseout. Keep hover as a
-     colour invert only. */
-  background: #f3efe5;
-  color: #191915;
-}
-/* Mirrors .ale-bio-flip on the opposite corner: always available once the
-   book is open (it's a sibling of .ale-bio-inner, not one of the rotating
-   faces, so it doesn't flip with them) and always means the same thing —
-   close the book, back to the cover — regardless of which page is
-   showing. Outline instead of filled so it reads as the secondary action
-   next to the filled .ale-bio-flip. */
-.ale-bio-close {
-  position: absolute;
-  top: -0.75rem;
-  left: -0.75rem;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.35rem;
-  height: 2.35rem;
-  padding: 0;
-  border: 1px solid #191915;
-  border-radius: 50%;
-  background: #f3efe5;
-  color: #191915;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-.ale-bio-close:hover,
-.ale-bio-close:focus-visible {
-  background: #191915;
-  color: #f3efe5;
-}
-@media (prefers-reduced-motion: reduce) {
-  .ale-bio-inner {
-    transition: none;
-  }
-  .ale-bio-flip,
-  .ale-bio-close {
-    transition: none;
-  }
-}
-
-/* Curved label orbiting .ale-bio-flip ("MY INTERESTS" on the bio side,
-   swapped to "ABOUT ME" when flipped, via the script in about.md).
-   Decorative (aria-hidden) and pointer-events:none so the <button> stays
-   the only clickable/focusable control. Anchored with the SAME
-   top/right/width/height box as .ale-bio-flip so their centers coincide
-   at any root font-size; the SVG is then re-centered larger on that point
-   so the text orbits outside the 2.35rem button. No overflow:hidden on
-   .ale-bio-book / .ale-bio-card (verified), so it isn't clipped.
-   Static text (swapped by textContent), so no motion / reduced-motion
-   rule is needed. */
-.ale-bio-flip-ring {
-  position: absolute;
-  top: -0.75rem;
-  right: -0.75rem;
-  width: 2.35rem;
-  height: 2.35rem;
-  z-index: 2; /* below .ale-bio-flip (z-index:3), above the card faces */
-  pointer-events: none;
-}
-.ale-bio-flip-ring-svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5.125rem;
-  height: 5.125rem;
-  /* Beat the theme's global `svg { max-width: 100% }`, which clamped this
-     SVG to its 2.35rem parent (verified live: rendered 38px wide instead
-     of 82px, crushing the curved label to invisibility). */
-  max-width: none;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-.ale-bio-flip-ring-text {
-  font-family: "Roboto", sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  fill: #191915;
-}
 
 /* --- Actions: buttons, then contact centered under them, always visible
-   under the card regardless of cover/book state --- */
+   under the card regardless of page --- */
 .ale-landing-actions {
   width: 100%;
   display: flex;
@@ -5191,24 +5099,109 @@ footer.sticky-bottom > .container {
   }
 }
 
+/* --- Desktop/tablet: real side-by-side pages, width + rightward shift on
+   open. 700px is 380 (left) + 20 (spine) + 220 (right) + the SHIFT_OPEN
+   nudge + a little slack — comfortably below that the row can't fit, so
+   .ale-bio-card stays a plain single column (see the next block) and
+   .ale-bio-right/.ale-bio-spine are never given a reason to grow. --- */
+@media (min-width: 700px) {
+  .ale-bio-card {
+    flex-direction: row;
+    align-items: stretch;
+    max-width: none;
+    width: 380px;
+    transform: translateX(0);
+    transition:
+      width 0.6s ease,
+      transform 0.6s ease;
+  }
+  .ale-bio-card.is-open {
+    width: 620px;
+    /* SHIFT_OPEN: without this the row would just grow symmetrically
+       around centre (still centred via margin:auto on .ale-landing's
+       flex column) — the nudge is what makes it read as "the book moves
+       into the space on its right" rather than "the box got wider". */
+    transform: translateX(50px);
+  }
+  .ale-bio-left {
+    flex: 0 0 380px;
+  }
+  .ale-bio-spine {
+    flex: 0 0 auto;
+    transition:
+      width 0.6s ease,
+      opacity 0.4s ease;
+  }
+  .ale-bio-card.is-open .ale-bio-spine {
+    width: 20px;
+    opacity: 1;
+  }
+  .ale-bio-right {
+    flex: 0 0 auto;
+    transition:
+      width 0.6s ease,
+      opacity 0.4s ease 0.15s;
+  }
+  .ale-bio-card.is-open .ale-bio-right {
+    width: 220px;
+    opacity: 1;
+    padding: 2rem 1.6rem;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    white-space: normal;
+  }
+}
+
+/* --- Below 700px: one column throughout. The right page (when open)
+   just stacks under the left page in normal flow instead of beside it —
+   no horizontal shift makes sense in a single column, so width/transform
+   on .ale-bio-card stay at their base values (100%, no transition). --- */
+@media (max-width: 699.98px) {
+  .ale-bio-card {
+    max-width: 380px;
+  }
+  .ale-bio-spine {
+    display: none;
+  }
+  .ale-bio-right {
+    display: block;
+    width: auto;
+    opacity: 1;
+    max-height: 0;
+    padding: 0 1.5rem;
+    border-width: 0 1px 1px;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    /* Reset the base rule's white-space:nowrap (needed there only to
+       keep the desktop width:0 collapse from ballooning in height — see
+       the base rule's comment). At an actual auto width the paragraph
+       needs to wrap normally, or it renders as one very long line
+       clipped by overflow:hidden instead of the multi-line paragraph it
+       should be (caught via Playwright: scrollHeight stuck at 76px, a
+       single 20px text line, while the real content needs ~300px+). */
+    white-space: normal;
+  }
+  .ale-bio-card.is-open .ale-bio-right {
+    max-height: 600px; /* generous cap; real content is well under this */
+    padding: 0 1.5rem 1.7rem;
+  }
+}
+
 /* Short viewports (e.g. a maximised 1366x768 laptop): compact the vertical
-   rhythm so the card + actions + footer still fit one screen. */
+   rhythm so the card + pager + actions + footer still fit one screen. */
 @media (max-height: 730px) {
-  .ale-bio-cover {
+  .ale-bio-face {
     padding: 1.4rem 1.3rem 1.6rem;
   }
-  .ale-bio-cover .ale-portrait-photo {
+  .ale-bio-face-cover .ale-portrait-photo {
     width: min(140px, 16vw) !important;
   }
-  .ale-bio-cover .ale-hero-name {
-    font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+  .ale-bio-face-cover .ale-hero-name {
+    font-size: clamp(1.3rem, 2.3vw, 1.7rem);
     margin-bottom: 0.45rem;
   }
-  .ale-bio-face {
-    padding: 0.9rem 1.1rem;
-    gap: 0.4rem;
-  }
-  .ale-landing-bio {
+  .ale-bio-dynamic-content,
+  .ale-bio-right {
     font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.84rem);
     line-height: 1.36;
   }
@@ -5231,20 +5224,6 @@ footer.sticky-bottom > .container {
   .ale-landing-actions .ale-work-links {
     grid-template-columns: 1fr;
   }
-  /* Phones: keep the flip button AND its curved "MY INTERESTS" label on
-     screen — the corner position (right:-0.75rem) would push the label
-     past the card's edge on narrow cards, so pull it in. Button and ring
-     box share the same top/right so they stay concentric. .ale-bio-close
-     gets the mirrored treatment on the opposite corner. */
-  .ale-bio-flip,
-  .ale-bio-flip-ring {
-    top: 0.5rem;
-    right: 0.65rem;
-  }
-  .ale-bio-close {
-    top: 0.5rem;
-    left: 0.65rem;
-  }
   /* Lift the whole stack so the Projects / Research Outputs buttons come
      into view. The negative margin claws back the container's `mt-5` (a
      layered !important utility that can't be overridden directly). */
@@ -5252,26 +5231,17 @@ footer.sticky-bottom > .container {
     margin-top: -1.75rem;
     padding: 0.5rem 0 2rem;
   }
-  .ale-bio-cover {
+  .ale-bio-face {
     padding: 1.5rem 1.15rem 1.7rem;
   }
-  .ale-bio-cover .ale-portrait-photo {
+  .ale-bio-face-cover .ale-portrait-photo {
     margin-bottom: 0.5rem;
   }
-  .ale-bio-cover .ale-hero-name {
+  .ale-bio-face-cover .ale-hero-name {
     font-size: clamp(1.5rem, 7vw, 1.9rem);
     margin-bottom: 0.4rem;
   }
-  .ale-bio-face {
-    /* Extra top clearance: .ale-bio-close and .ale-bio-flip both sit
-       inside the card at this width (top:0.5rem, 2.35rem tall — pulled in
-       from the corners so their curved label / circle don't clip past the
-       viewport edge), so the eyebrow needs room below them on both sides,
-       not just the top margin a negative-offset corner button would need. */
-    padding: 3rem 1.15rem 1.1rem;
-    gap: 0.45rem;
-  }
-  .ale-landing-bio {
+  .ale-bio-dynamic-content {
     font-size: 0.88rem;
     line-height: 1.46;
   }
