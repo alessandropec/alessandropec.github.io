@@ -6902,6 +6902,127 @@ footer.sticky-bottom > .container {
 }
 
 /* ==========================================================================
+   v0.9.16 — Fixed-size book interaction
+   ========================================================================== */
+
+.ale-landing { max-width: 760px; }
+.ale-bio-card {
+  position: relative;
+  display: block;
+  width: min(720px, calc(100vw - 48px));
+  height: 500px;
+  max-width: none;
+  margin: 0 auto;
+  perspective: 1800px;
+  transform: translateX(-25%);
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+.ale-bio-card.is-open {
+  width: min(720px, calc(100vw - 48px));
+  transform: translateX(0);
+}
+.ale-bio-card.is-back-cover { transform: translateX(25%); }
+.ale-bio-leaf {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform: rotateY(0deg);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.2, 1);
+}
+.ale-bio-cover-leaf { z-index: 3; }
+.ale-bio-final-leaf { z-index: 2; }
+.ale-bio-cover-leaf.is-turned {
+  z-index: 1;
+  transform: rotateY(-180deg);
+}
+.ale-bio-final-leaf.is-turned {
+  z-index: 4;
+  transform: rotateY(-180deg);
+}
+.ale-bio-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 1.65rem 1.5rem;
+  overflow: hidden;
+  border: 1px solid #191915;
+  background: #f3efe5;
+  box-shadow: 4px 4px 0 #e4dcc9;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: none;
+}
+.ale-bio-face-cover-back,
+.ale-bio-face-interests { transform: rotateY(180deg); }
+.ale-bio-face-page {
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+  color: #191915;
+  font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.86rem);
+  line-height: 1.43;
+}
+.ale-bio-face-bio-right { border-left-width: 0; }
+.ale-bio-face-cover-back { border-right-width: 0; }
+.ale-bio-face-interests { border-left: 8px solid #191915; }
+.ale-bio-face-page .ale-eyebrow { margin: 0 0 0.65rem; }
+.ale-bio-face-cover .ale-portrait-photo { width: min(170px, 48%) !important; }
+.ale-bio-face-cover .ale-hero-name { font-size: clamp(1.4rem, 3vw, 1.85rem); }
+.ale-bio-pager { min-height: 44px; }
+.ale-bio-pager-btn {
+  min-width: 150px;
+  background-color: #191915 !important;
+  color: #f3efe5 !important;
+}
+.ale-bio-pager-btn > span { color: inherit !important; }
+.ale-bio-pager-btn:hover,
+.ale-bio-pager-btn:focus-visible {
+  background-color: #f3efe5 !important;
+  color: #191915 !important;
+}
+.ale-bio-pager-btn--back {
+  background-color: #f3efe5 !important;
+  color: #191915 !important;
+}
+.ale-bio-pager-btn--back:hover,
+.ale-bio-pager-btn--back:focus-visible {
+  background-color: #191915 !important;
+  color: #f3efe5 !important;
+}
+
+@media (max-width: 699.98px) {
+  .ale-landing { max-width: 380px; }
+  .ale-bio-card,
+  .ale-bio-card.is-open,
+  .ale-bio-card.is-back-cover {
+    width: min(360px, calc(100vw - 32px));
+    height: 540px;
+    transform: none;
+  }
+  .ale-bio-leaf {
+    left: 0;
+    width: 100%;
+  }
+  .ale-bio-card.is-open .ale-bio-cover-leaf { transform: none; }
+  .ale-bio-card.is-open .ale-bio-face-cover { visibility: hidden; }
+  .ale-bio-card.is-open .ale-bio-face-cover-back { transform: none; }
+  .ale-bio-card.is-open .ale-bio-final-leaf { visibility: hidden; }
+  .ale-bio-face-page { overflow-y: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ale-bio-card,
+  .ale-bio-leaf { transition: none; }
+}
+
+/* ==========================================================================
    v0.9.7 — Site-wide responsive tour fixes (Playwright audit, 30/7/2026)
    ========================================================================== */
 

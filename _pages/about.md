@@ -28,7 +28,7 @@ latest_posts:
 
 <div class="ale-landing">
   <div class="ale-bio-card" id="ale-bio-card">
-    <div class="ale-bio-left" id="ale-bio-left">
+    <div class="ale-bio-leaf ale-bio-cover-leaf" id="ale-bio-cover-leaf">
       <div class="ale-bio-face ale-bio-face-cover">
         <div class="ale-portrait-placeholder ale-portrait-photo">
           <img class="ale-hero-logo" src="{{ '/assets/img/profile-photo.png' | relative_url }}" alt="Alessandro Emmanuel Pecora">
@@ -39,15 +39,34 @@ latest_posts:
           <p class="ale-hero-roles">Data Scientist &amp; Engineer · AI Researcher</p>
         </div>
       </div>
-      <div class="ale-bio-face ale-bio-face-dynamic" id="ale-bio-left-back" aria-hidden="true" inert>
-        <p class="ale-eyebrow" id="ale-bio-left-eyebrow">About me</p>
-        <div class="ale-bio-dynamic-content" id="ale-bio-left-content"></div>
+      <div class="ale-bio-face ale-bio-face-page ale-bio-face-cover-back" aria-hidden="true" inert>
+        <p class="ale-eyebrow">About me</p>
+        <p class="ale-bio-page">Ph.D. candidate in Computer and Control Engineering at Politecnico di Torino. My journey began in childhood with a passion for <strong>space</strong>, which grew into an interest in <strong>science</strong> and led me to study <strong>computer engineering</strong>, followed by <strong>data science and engineering</strong>. I developed my expertise in AI through academic work in <strong>speech processing</strong>, <strong>natural language processing</strong>, and <strong>computer vision</strong>, alongside hands-on experience as an IT consultant and during a year of research. This path led to my Ph.D. on <strong>cognitive architectures for agentic and virtually embodied AI</strong>.</p>
       </div>
     </div>
-    <span class="ale-bio-spine" id="ale-bio-spine" aria-hidden="true"></span>
-    <div class="ale-bio-right" id="ale-bio-right" aria-hidden="true" inert>
-      <p class="ale-eyebrow">About me</p>
-      <p class="ale-bio-page">Within this field, my work on <strong>agentic AI</strong> covers applications such as <strong>cultural heritage storytelling</strong>, <strong>AI assistants</strong>, <strong>enterprise automation</strong>, and <strong>RAG systems</strong>, while my research on <strong>virtually embodied AI</strong> focuses on <strong>virtual humans</strong> operating in environments such as <strong>XR</strong>. Both embodied and non-embodied agents rely on <strong>cognitive architectures</strong>, in which <strong>long-term memory</strong> plays a central role and represents my current research focus. More broadly, my work explores <strong>computational memory models</strong> grounded in <strong>psychological theories</strong>, with the goal of developing <strong>believable virtual humans</strong>, <strong>generalist agents</strong>, and, ultimately, contributing to the pursuit of <strong>artificial general intelligence</strong>.</p>
+    <div class="ale-bio-leaf ale-bio-final-leaf" id="ale-bio-final-leaf" aria-hidden="true" inert>
+      <div class="ale-bio-face ale-bio-face-page ale-bio-face-bio-right">
+        <p class="ale-eyebrow">About me</p>
+        <p class="ale-bio-page">My work on <strong>agentic AI</strong> spans <strong>cultural heritage storytelling</strong>, <strong>AI assistants</strong>, <strong>enterprise automation</strong>, and <strong>RAG systems</strong>, while my research on <strong>virtually embodied AI</strong> focuses on <strong>virtual humans</strong> in environments such as <strong>XR</strong>. Both rely on <strong>cognitive architectures</strong>, where <strong>long-term memory</strong> plays a central role and represents my current research focus. More broadly, I investigate <strong>computational memory models</strong> grounded in <strong>psychological theories</strong>, aiming to develop <strong>believable virtual humans</strong>, <strong>generalist agents</strong>, and, ultimately, contribute to the pursuit of <strong>artificial general intelligence</strong>.</p>
+      </div>
+      <div class="ale-bio-face ale-bio-face-page ale-bio-face-interests" aria-hidden="true" inert>
+        <p class="ale-eyebrow">My interests</p>
+        <div class="ale-keywords-list">
+          <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
+          <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
+          <span tabindex="0" data-note="How machines understand and generate language. Present in everything from chatbots to storytelling systems.">Natural language processing</span>
+          <span tabindex="0" data-note="Turning speech into data and back: recognition, synthesis, voice cloning. From voice assistants to character voices in my projects.">Speech processing</span>
+          <span tabindex="0" data-note="A model of the mind, rooted in psychology, linking memory and reasoning. The blueprint behind how I build intelligent systems.">Cognitive architectures</span>
+          <span tabindex="0" data-note="AI that plans and acts on its own, not just answers. The core idea behind every agent I build.">Agentic AI</span>
+          <span tabindex="0" data-note="Intelligence with a body in a real or virtual world, not just a chatbot. A more physical, situated way to think about intelligence.">Embodied AI</span>
+          <span tabindex="0" data-note="Keeping and reusing experience instead of starting over each time. My current research focus.">Long-term memory</span>
+          <span tabindex="0" data-note="Digital characters believable enough to talk and act like people. My main line of research in embodied AI.">Virtual humans</span>
+          <span tabindex="0" data-note="Virtual and augmented reality for interaction. A strong focus of my research group, and a natural home for embodied AI.">XR</span>
+          <span tabindex="0" data-note="Practice with feedback, to build real skills over time. Through XR, I develop applications for learning and training.">Learning &amp; training</span>
+          <span tabindex="0" data-note="Research turned into things that actually work outside the lab. The bridge between my papers and real use cases.">Applied AI</span>
+          <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my research.">Artificial general intelligence</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -59,27 +78,6 @@ latest_posts:
       <span id="ale-bio-next-label">About me</span> <span aria-hidden="true">&rarr;</span>
     </button>
   </div>
-
-  <template id="ale-bio-tpl-bio1">
-    <p class="ale-bio-page">Ph.D. candidate in Computer and Control Engineering at Politecnico di Torino. My journey began in childhood with a passion for <strong>space</strong>, which grew into a broader interest in <strong>science</strong> and led me to pursue university studies in <strong>computer engineering</strong>, followed by <strong>data science and engineering</strong>. I approached AI through both my academic training—exploring <strong>speech processing</strong>, <strong>natural language processing</strong>, and <strong>computer vision</strong>—and hands-on professional experience, first as an IT consultant and later during a year of research. This path ultimately led me to pursue a Ph.D. on <strong>cognitive architectures for agentic and virtually embodied AI</strong>.</p>
-  </template>
-  <template id="ale-bio-tpl-interests">
-    <div class="ale-keywords-list">
-      <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
-      <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
-      <span tabindex="0" data-note="How machines understand and generate language. Present in everything from chatbots to storytelling systems.">Natural language processing</span>
-      <span tabindex="0" data-note="Turning speech into data and back: recognition, synthesis, voice cloning. From voice assistants to character voices in my projects.">Speech processing</span>
-      <span tabindex="0" data-note="A model of the mind, rooted in psychology, linking memory and reasoning. The blueprint behind how I build intelligent systems.">Cognitive architectures</span>
-      <span tabindex="0" data-note="AI that plans and acts on its own, not just answers. The core idea behind every agent I build.">Agentic AI</span>
-      <span tabindex="0" data-note="Intelligence with a body in a real or virtual world, not just a chatbot. A more physical, situated way to think about intelligence.">Embodied AI</span>
-      <span tabindex="0" data-note="Keeping and reusing experience instead of starting over each time. My current research focus.">Long-term memory</span>
-      <span tabindex="0" data-note="Digital characters believable enough to talk and act like people. My main line of research in embodied AI.">Virtual humans</span>
-      <span tabindex="0" data-note="Virtual and augmented reality for interaction. A strong focus of my research group, and a natural home for embodied AI.">XR</span>
-      <span tabindex="0" data-note="Practice with feedback, to build real skills over time. Through XR, I develop applications for learning and training.">Learning &amp; training</span>
-      <span tabindex="0" data-note="Research turned into things that actually work outside the lab. The bridge between my papers and real use cases.">Applied AI</span>
-      <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my research.">Artificial general intelligence</span>
-    </div>
-  </template>
 
   <div class="ale-landing-actions">
     <div class="ale-work-links">
@@ -93,52 +91,20 @@ latest_posts:
 <script>
   (function () {
     var card = document.getElementById("ale-bio-card");
-    var left = document.getElementById("ale-bio-left");
-    var coverFace = card ? card.querySelector(".ale-bio-face-cover") : null;
-    var leftBack = document.getElementById("ale-bio-left-back");
-    var leftEyebrow = document.getElementById("ale-bio-left-eyebrow");
-    var leftContent = document.getElementById("ale-bio-left-content");
-    var right = document.getElementById("ale-bio-right");
+    var coverLeaf = document.getElementById("ale-bio-cover-leaf");
+    var finalLeaf = document.getElementById("ale-bio-final-leaf");
+    var cover = card ? card.querySelector(".ale-bio-face-cover") : null;
+    var bioLeft = card ? card.querySelector(".ale-bio-face-cover-back") : null;
+    var bioRight = card ? card.querySelector(".ale-bio-face-bio-right") : null;
+    var interests = card ? card.querySelector(".ale-bio-face-interests") : null;
     var backBtn = document.getElementById("ale-bio-back-btn");
     var nextBtn = document.getElementById("ale-bio-next-btn");
     var nextLabel = document.getElementById("ale-bio-next-label");
-    var tplBio1 = document.getElementById("ale-bio-tpl-bio1");
-    var tplInterests = document.getElementById("ale-bio-tpl-interests");
-    if (!card || !left || !coverFace || !leftBack || !right || !backBtn || !nextBtn || !tplBio1 || !tplInterests) {
+    if (!card || !coverLeaf || !finalLeaf || !cover || !bioLeft || !bioRight || !interests || !backBtn || !nextBtn) {
       return;
     }
 
-    // 3-page book: 0 = cover, 1 = bio (two pages, side by side from
-    // ~700px up), 2 = interests (closes back to one page). The SAME next
-    // button drives 0->1 and 1->2 (its label swaps "About me" / "My
-    // interests"); the same back button drives 1->0 and 2->1. Nothing
-    // lingers from a previous state — hidden/inert toggle immediately on
-    // every transition, and the left face's dynamic content is fully
-    // replaced (not just visually covered) each time it changes.
     var state = 0;
-    var FADE = 220;
-    var fadeTimer = null;
-
-    function fillLeftContent(tpl, eyebrowText) {
-      leftContent.innerHTML = "";
-      leftContent.appendChild(tpl.content.cloneNode(true));
-      leftEyebrow.textContent = eyebrowText;
-    }
-
-    function crossfadeLeftContent(tpl, eyebrowText) {
-      if (fadeTimer) window.clearTimeout(fadeTimer);
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) {
-        fillLeftContent(tpl, eyebrowText);
-        return;
-      }
-      leftContent.classList.add("ale-bio-fade-out");
-      fadeTimer = window.setTimeout(function () {
-        fillLeftContent(tpl, eyebrowText);
-        leftContent.classList.remove("ale-bio-fade-out");
-        fadeTimer = null;
-      }, FADE);
-    }
 
     function updateButtons() {
       backBtn.hidden = state === 0;
@@ -147,53 +113,25 @@ latest_posts:
       nextBtn.setAttribute("aria-label", state === 1 ? "Show my interests" : "Open the book");
     }
 
-    function openRight() {
-      card.classList.add("is-open");
-      right.inert = false;
-      right.removeAttribute("aria-hidden");
-    }
-
-    function closeRight() {
-      card.classList.remove("is-open");
-      right.inert = true;
-      right.setAttribute("aria-hidden", "true");
+    function expose(element, visible) {
+      element.inert = !visible;
+      if (visible) element.removeAttribute("aria-hidden");
+      else element.setAttribute("aria-hidden", "true");
     }
 
     function goTo(target) {
       if (target === state) return;
-      if (target === 1 && state === 0) {
-        // Cover turns into the bio's left page; the right page opens
-        // alongside it. Fill the back face BEFORE turning so the flip
-        // reveals real content, not a blank face.
-        fillLeftContent(tplBio1, "About me");
-        left.classList.add("is-turned");
-        leftBack.inert = false;
-        leftBack.removeAttribute("aria-hidden");
-        coverFace.inert = true;
-        coverFace.setAttribute("aria-hidden", "true");
-        openRight();
-      } else if (target === 0 && state === 1) {
-        // Reverse: close the right page and turn the left page back to
-        // the cover.
-        closeRight();
-        left.classList.remove("is-turned");
-        coverFace.inert = false;
-        coverFace.removeAttribute("aria-hidden");
-        leftBack.inert = true;
-        leftBack.setAttribute("aria-hidden", "true");
-      } else if (target === 2 && state === 1) {
-        // Book closes to one page: the right page leaves, the left page
-        // stays turned but its content crossfades to the interests —
-        // no card-rotating animation for this step, just the page-set
-        // narrowing back down.
-        closeRight();
-        crossfadeLeftContent(tplInterests, "My interests");
-      } else if (target === 1 && state === 2) {
-        closeRight(); // already closed, but keep state consistent before reopening
-        crossfadeLeftContent(tplBio1, "About me");
-        openRight();
-      }
       state = target;
+      card.classList.toggle("is-open", state === 1);
+      card.classList.toggle("is-back-cover", state === 2);
+      coverLeaf.classList.toggle("is-turned", state > 0);
+      finalLeaf.classList.toggle("is-turned", state === 2);
+      expose(cover, state === 0);
+      expose(bioLeft, state === 1);
+      expose(bioRight, state === 1);
+      expose(interests, state === 2);
+      finalLeaf.inert = state === 0;
+      finalLeaf.setAttribute("aria-hidden", state === 0 ? "true" : "false");
       updateButtons();
       (state === 0 ? nextBtn : backBtn).focus();
     }
@@ -207,13 +145,7 @@ latest_posts:
   })();
 
   (function () {
-    // Event delegation, not per-node listeners: the interests chips are
-    // cloned from a <template> long after page load (when the reader
-    // reaches state 2), so they don't exist yet for a one-time
-    // querySelectorAll to find. mouseover/mouseout and focusin/focusout
-    // bubble (mouseenter/mouseleave and focus/blur don't), which is what
-    // makes delegating to a stable ancestor work here.
-    var root = document.getElementById("ale-bio-left-content");
+    var root = document.getElementById("ale-bio-card");
     if (!root) return;
 
     var pop = document.createElement("div");
