@@ -4876,12 +4876,6 @@ footer.sticky-bottom > .container {
   font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
   line-height: 1.52;
 }
-.ale-landing-bio p {
-  margin: 0;
-}
-.ale-landing-bio p + p {
-  margin-top: 0.75rem;
-}
 .ale-keywords-list {
   display: flex;
   flex-wrap: wrap;
@@ -5098,10 +5092,7 @@ footer.sticky-bottom > .container {
   }
   .ale-landing-bio {
     font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.84rem);
-    line-height: 1.36;
-  }
-  .ale-landing-bio p + p {
-    margin-top: 0.5rem;
+    line-height: 1.4;
   }
   .ale-landing-actions {
     margin-top: clamp(0.45rem, 1vh, 0.8rem);
