@@ -4792,11 +4792,6 @@ footer.sticky-bottom > .container {
 
 /* --- Left page: cover <-> (bio paragraph 1 / interests), the one page
    that turns --- */
-.ale-bio-left {
-  position: relative;
-  display: grid;
-  perspective: 1600px;
-}
 .ale-bio-face {
   grid-area: 1 / 1;
   -webkit-backface-visibility: hidden;
@@ -4823,20 +4818,6 @@ footer.sticky-bottom > .container {
   z-index: 2;
   transform: rotateY(0deg);
 }
-.ale-bio-face-dynamic {
-  position: relative;
-  z-index: 1;
-  align-items: stretch;
-  text-align: left;
-  /* flex-start, not center: this face shares its grid cell with the
-     (taller) cover face, so its own box is often taller than its actual
-     text needs — centering left a visible gap above the eyebrow/text
-     that the paired .ale-bio-right (which just starts at its own top,
-     no cell-sharing) didn't have. Starting both at the top keeps the two
-     pages reading as one aligned spread. */
-  justify-content: flex-start;
-  transform: rotateY(180deg);
-}
 /* Turning: hinge on the left edge (the spine) so both faces swing as one
    piece — cover rotates 0->180 out of view, the dynamic face (which
    starts pre-rotated to 180) rotates 180->360 (== 0) into view at the
@@ -4845,12 +4826,6 @@ footer.sticky-bottom > .container {
    the rest) — a snappy ease-out front-loads past that window almost
    immediately and reads as a flash-cut instead of a turn (measured via a
    Playwright trace of the computed transform matrix in v0.9.14). */
-.ale-bio-left.is-turned .ale-bio-face-cover {
-  transform: rotateY(180deg);
-}
-.ale-bio-left.is-turned .ale-bio-face-dynamic {
-  transform: rotateY(360deg);
-}
 @media (prefers-reduced-motion: reduce) {
   .ale-bio-face {
     transition: none;
@@ -4861,18 +4836,6 @@ footer.sticky-bottom > .container {
    both one page) and as the spine of the currently-visible left leaf
    when open. Always on .ale-bio-left itself (not conditional on state)
    since there's always exactly one "current" left page. */
-.ale-bio-left::before {
-  content: "";
-  position: absolute;
-  left: -10px;
-  top: 8px;
-  bottom: 8px;
-  width: 14px;
-  background: linear-gradient(115deg, #14140f, #333326 45%, #14140f);
-  border-radius: 6px 0 0 6px;
-  box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.35);
-  z-index: 3;
-}
 .ale-bio-face-cover .ale-portrait-photo {
   margin: 0 auto 0.3rem;
 }
@@ -4898,23 +4861,6 @@ footer.sticky-bottom > .container {
   text-align: center;
   margin: 0;
 }
-.ale-bio-face-dynamic .ale-eyebrow {
-  margin: 0;
-}
-.ale-bio-dynamic-content {
-  color: #191915;
-  font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
-  line-height: 1.52;
-  transition: opacity 0.22s ease;
-}
-.ale-bio-dynamic-content.ale-bio-fade-out {
-  opacity: 0;
-}
-@media (prefers-reduced-motion: reduce) {
-  .ale-bio-dynamic-content {
-    transition: none;
-  }
-}
 .ale-bio-page {
   margin: 0;
 }
@@ -4922,42 +4868,6 @@ footer.sticky-bottom > .container {
 /* --- Right page: bio paragraph 2 only. Collapsed to nothing when the
    book isn't open; .ale-bio-card's own width is driven by this + the
    spine growing, not set directly, so they can never fall out of sync. */
-.ale-bio-spine {
-  width: 0;
-  align-self: stretch;
-  opacity: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(25, 25, 21, 0) 0%,
-    rgba(25, 25, 21, 0.35) 12%,
-    rgba(25, 25, 21, 0.35) 88%,
-    rgba(25, 25, 21, 0) 100%
-  );
-}
-.ale-bio-right {
-  box-sizing: border-box;
-  width: 0;
-  opacity: 0;
-  overflow: hidden;
-  padding: 2rem 0;
-  border-color: #191915;
-  background: #f3efe5;
-  color: #191915;
-  font-size: clamp(0.86rem, 0.35vw + 0.77rem, 0.95rem);
-  line-height: 1.52;
-  /* At width:0 the paragraph still has to wrap somewhere — without this
-     it wraps to one word (sometimes one character) per line, and
-     .ale-bio-card's align-items:stretch (row direction, >=700px) then
-     stretches the WHOLE row, including .ale-bio-left, to match that
-     absurd height. nowrap keeps it one line (however wide — invisible
-     regardless, clipped by overflow:hidden at width:0) so the auto
-     height stays sane; back to normal once actual width is given. */
-  white-space: nowrap;
-}
-.ale-bio-right .ale-eyebrow {
-  margin: 0 0 0.6rem;
-  white-space: nowrap;
-}
 
 /* --- Below-card pager: the only navigation now, replaces the old corner
    flip/close buttons entirely --- */
@@ -5123,33 +5033,6 @@ footer.sticky-bottom > .container {
        into the space on its right" rather than "the box got wider". */
     transform: translateX(50px);
   }
-  .ale-bio-left {
-    flex: 0 0 380px;
-  }
-  .ale-bio-spine {
-    flex: 0 0 auto;
-    transition:
-      width 0.6s ease,
-      opacity 0.4s ease;
-  }
-  .ale-bio-card.is-open .ale-bio-spine {
-    width: 20px;
-    opacity: 1;
-  }
-  .ale-bio-right {
-    flex: 0 0 auto;
-    transition:
-      width 0.6s ease,
-      opacity 0.4s ease 0.15s;
-  }
-  .ale-bio-card.is-open .ale-bio-right {
-    width: 220px;
-    opacity: 1;
-    padding: 2rem 1.6rem;
-    border-style: solid;
-    border-width: 1px 1px 1px 0;
-    white-space: normal;
-  }
 }
 
 /* --- Below 700px: one column throughout. The right page (when open)
@@ -5159,31 +5042,6 @@ footer.sticky-bottom > .container {
 @media (max-width: 699.98px) {
   .ale-bio-card {
     max-width: 380px;
-  }
-  .ale-bio-spine {
-    display: none;
-  }
-  .ale-bio-right {
-    display: block;
-    width: auto;
-    opacity: 1;
-    max-height: 0;
-    padding: 0 1.5rem;
-    border-width: 0 1px 1px;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    /* Reset the base rule's white-space:nowrap (needed there only to
-       keep the desktop width:0 collapse from ballooning in height — see
-       the base rule's comment). At an actual auto width the paragraph
-       needs to wrap normally, or it renders as one very long line
-       clipped by overflow:hidden instead of the multi-line paragraph it
-       should be (caught via Playwright: scrollHeight stuck at 76px, a
-       single 20px text line, while the real content needs ~300px+). */
-    white-space: normal;
-  }
-  .ale-bio-card.is-open .ale-bio-right {
-    max-height: 600px; /* generous cap; real content is well under this */
-    padding: 0 1.5rem 1.7rem;
   }
 }
 
@@ -5199,11 +5057,6 @@ footer.sticky-bottom > .container {
   .ale-bio-face-cover .ale-hero-name {
     font-size: clamp(1.3rem, 2.3vw, 1.7rem);
     margin-bottom: 0.45rem;
-  }
-  .ale-bio-dynamic-content,
-  .ale-bio-right {
-    font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.84rem);
-    line-height: 1.36;
   }
   .ale-landing-actions {
     margin-top: clamp(0.5rem, 1.2vh, 0.9rem);
@@ -5241,10 +5094,6 @@ footer.sticky-bottom > .container {
     font-size: clamp(1.5rem, 7vw, 1.9rem);
     margin-bottom: 0.4rem;
   }
-  .ale-bio-dynamic-content {
-    font-size: 0.88rem;
-    line-height: 1.46;
-  }
   /* Stacked on phones, so shorter buttons + a tighter lead-in keep both
      Projects and Research Outputs above the fold on common phone heights. */
   .ale-landing-actions {
@@ -5257,6 +5106,127 @@ footer.sticky-bottom > .container {
   .ale-landing-actions .ale-contact-cta {
     margin-top: 0.7rem;
   }
+}
+
+/* ==========================================================================
+   v0.9.16 — Fixed-size book interaction
+   ========================================================================== */
+
+.ale-landing { max-width: 760px; }
+.ale-bio-card {
+  position: relative;
+  display: block;
+  width: min(720px, calc(100vw - 48px));
+  height: 500px;
+  max-width: none;
+  margin: 0 auto;
+  perspective: 1800px;
+  transform: translateX(-25%);
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+.ale-bio-card.is-open {
+  width: min(720px, calc(100vw - 48px));
+  transform: translateX(0);
+}
+.ale-bio-card.is-back-cover { transform: translateX(25%); }
+.ale-bio-leaf {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform: rotateY(0deg);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.2, 1);
+}
+.ale-bio-cover-leaf { z-index: 3; }
+.ale-bio-final-leaf { z-index: 2; }
+.ale-bio-cover-leaf.is-turned {
+  z-index: 1;
+  transform: rotateY(-180deg);
+}
+.ale-bio-final-leaf.is-turned {
+  z-index: 4;
+  transform: rotateY(-180deg);
+}
+.ale-bio-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 1.65rem 1.5rem;
+  overflow: hidden;
+  border: 1px solid #191915;
+  background: #f3efe5;
+  box-shadow: 4px 4px 0 #e4dcc9;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: none;
+}
+.ale-bio-face-cover-back,
+.ale-bio-face-interests { transform: rotateY(180deg); }
+.ale-bio-face-page {
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+  color: #191915;
+  font-size: clamp(0.76rem, 0.3vw + 0.68rem, 0.86rem);
+  line-height: 1.43;
+}
+.ale-bio-face-bio-right { border-left-width: 0; }
+.ale-bio-face-cover-back { border-right-width: 0; }
+.ale-bio-face-interests { border-left: 8px solid #191915; }
+.ale-bio-face-page .ale-eyebrow { margin: 0 0 0.65rem; }
+.ale-bio-face-cover .ale-portrait-photo { width: min(170px, 48%) !important; }
+.ale-bio-face-cover .ale-hero-name { font-size: clamp(1.4rem, 3vw, 1.85rem); }
+.ale-bio-pager { min-height: 44px; }
+.ale-bio-pager-btn {
+  min-width: 150px;
+  background-color: #191915 !important;
+  color: #f3efe5 !important;
+}
+.ale-bio-pager-btn > span { color: inherit !important; }
+.ale-bio-pager-btn:hover,
+.ale-bio-pager-btn:focus-visible {
+  background-color: #f3efe5 !important;
+  color: #191915 !important;
+}
+.ale-bio-pager-btn--back {
+  background-color: #f3efe5 !important;
+  color: #191915 !important;
+}
+.ale-bio-pager-btn--back:hover,
+.ale-bio-pager-btn--back:focus-visible {
+  background-color: #191915 !important;
+  color: #f3efe5 !important;
+}
+
+@media (max-width: 699.98px) {
+  .ale-landing { max-width: 380px; }
+  .ale-bio-card,
+  .ale-bio-card.is-open,
+  .ale-bio-card.is-back-cover {
+    width: min(360px, calc(100vw - 32px));
+    height: 540px;
+    transform: none;
+  }
+  .ale-bio-leaf {
+    left: 0;
+    width: 100%;
+  }
+  .ale-bio-card.is-open .ale-bio-cover-leaf { transform: none; }
+  .ale-bio-card.is-open .ale-bio-face-cover { visibility: hidden; }
+  .ale-bio-card.is-open .ale-bio-face-cover-back { transform: none; }
+  .ale-bio-card.is-open .ale-bio-final-leaf { visibility: hidden; }
+  .ale-bio-face-page { overflow-y: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ale-bio-card,
+  .ale-bio-leaf { transition: none; }
 }
 
 /* ==========================================================================
