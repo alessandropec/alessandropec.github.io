@@ -31,11 +31,11 @@ Images are collected in the experimental vineyard in Grugliasco with a mobile pl
 
 ## From images to disease recognition
 
-The dataset is split into training, validation and test sets, designed so the test set reflects real, in-the-wild field conditions as closely as possible. On top of it, several detection and classification network architectures were trained and compared, using data augmentation — colour, saturation and local-detail changes — to expose the models to a wider range of plausible field conditions during training.
+The dataset is split into training, validation and test sets, designed so the test set reflects real, in-the-wild field conditions as closely as possible. On top of it, several YOLO-based detection architectures were trained and compared, both as a single-stage pipeline — detecting and classifying diseased leaves in one pass — and as a two-stage one, first localising leaves and then classifying the disease. Data augmentation — colour, saturation and local-detail changes — exposed the models to a wider range of plausible field conditions during training, and the experiments identified the best-performing configuration, detailed below.
 
-## Results
+## Evaluation
 
-Results are summarized by two figures: a top F1 score of **0.84** for disease recognition and inference as fast as **17 ms**, latency that matters for real-time use on the field platform. These come from different configurations in the model search, and currently refer to a single experimental vineyard — evaluation across further sites remains necessary.
+Results are summarized by two numbers: a top F1 score of **0.84** for disease recognition and inference as fast as **17 ms**, latency that matters for real-time use on the field platform. These come from different configurations in the model search, and currently refer to a single experimental vineyard — evaluation across further sites remains necessary.
 
 ## Context and collaboration
 
