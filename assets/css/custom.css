@@ -2701,43 +2701,6 @@ code,
   transform: translate(-3px, -3px);
   box-shadow: 5px 5px 0 #191915;
 }
-.ale-project-results {
-  margin: 1.5rem 0 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  border-top: 1px solid #191915;
-  border-bottom: 1px solid #191915;
-}
-.ale-project-results article {
-  padding: 1.25rem;
-  border-right: 1px solid #191915;
-}
-.ale-project-results article:first-child {
-  padding-left: 0;
-}
-.ale-project-results article:last-child {
-  padding-right: 0;
-  border-right: 0;
-}
-.ale-project-results strong,
-.ale-project-results span {
-  display: block;
-}
-.ale-project-results strong {
-  font: 400 clamp(1.8rem, 4vw, 2.8rem)/1 "Roboto Slab", Georgia, serif;
-}
-.ale-project-results span {
-  margin-top: .35rem;
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-.ale-project-results p {
-  margin: .75rem 0 0;
-  font-size: .82rem;
-  line-height: 1.5;
-}
 
 @media (max-width: 720px) {
   .ale-project-detail-page .post-header.ale-project-hero {
@@ -2749,8 +2712,7 @@ code,
   }
   .ale-project-gallery,
   .ale-project-gallery--three,
-  .ale-project-gallery--four,
-  .ale-project-results {
+  .ale-project-gallery--four {
     grid-template-columns: 1fr;
   }
   .ale-project-related-list li {
@@ -2759,16 +2721,6 @@ code,
   }
   .ale-project-related-list .ale-project-reference-action {
     justify-self: start;
-  }
-  .ale-project-results article,
-  .ale-project-results article:first-child,
-  .ale-project-results article:last-child {
-    padding: 1rem 0;
-    border-right: 0;
-    border-bottom: 1px solid #aaa59a;
-  }
-  .ale-project-results article:last-child {
-    border-bottom: 0;
   }
 }
 
