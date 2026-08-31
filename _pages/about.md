@@ -51,6 +51,7 @@ latest_posts:
       </div>
       <div class="ale-bio-face ale-bio-face-page ale-bio-face-interests" aria-hidden="true" inert>
         <p class="ale-eyebrow"><span>My interests</span></p>
+        <p class="ale-keywords-heading">Research interests</p>
         <div class="ale-keywords-list">
           <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
           <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
@@ -65,6 +66,14 @@ latest_posts:
           <span tabindex="0" data-note="Practice with feedback, to build real skills over time. Through XR, I develop applications for learning and training.">Learning &amp; training</span>
           <span tabindex="0" data-note="Research turned into things that actually work outside the lab. The bridge between my papers and real use cases.">Applied AI</span>
           <span tabindex="0" data-note="AI with broad, human-like reasoning, not narrow one-task skills. The long-term question behind my research.">Artificial general intelligence</span>
+        </div>
+        <p class="ale-keywords-heading">Outside the lab</p>
+        <div class="ale-keywords-list">
+          <span tabindex="0">Kickboxing</span>
+          <span tabindex="0">Hiking &amp; mountains</span>
+          <span tabindex="0">DJing</span>
+          <span tabindex="0">Festivals</span>
+          <span tabindex="0">Nerd culture</span>
         </div>
       </div>
     </div>
@@ -130,7 +139,7 @@ latest_posts:
       nextBtn.setAttribute("aria-hidden", hideNext ? "true" : "false");
       nextLabel.textContent = state === 1 ? "My interests" : "About me";
       nextBtn.setAttribute("aria-label", state === 1 ? "Show my interests" : "Open the book");
-      backLabel.textContent = state === 2 ? "My interests" : "Back";
+      backLabel.textContent = state === 2 ? "About me" : "Back";
       (state === 0 ? nextBtn : backBtn).focus();
     }
 

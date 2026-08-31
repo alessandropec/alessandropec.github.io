@@ -42,18 +42,4 @@ Alongside the VR experience, a companion web interface exposes every conversatio
 
 ## Context and collaboration
 
-Project Lazarus is one of the core projects of my PhD, developed within the **Computer Graphics and Vision Group at Politecnico di Torino** as part of the group's research on believable virtual humans, embodied AI and cognitive architectures, in collaboration with the nursing and public-health researchers of the **University of Turin**.
-
-## Related work
-
-<div class="ale-project-pub ale-in-press">
-  <div class="ale-project-pub__meta">
-    <span class="ale-project-pub__venue">MetroXRAINE</span>
-    <span class="ale-project-pub__status">In press</span>
-  </div>
-  <div class="ale-project-pub__body">
-    <p class="ale-project-pub__title">Design and Preliminary Evaluation of an LLM-Driven Cognitive Architecture for an Immersive Virtual Patient in Healthcare Communication Training</p>
-    <p class="ale-project-pub__authors">C. Annicchiarico, A. Gianolla, <u>A. E. Pecora</u>, S. Calzolari, F. Strada, A. Bottino, B. Albanesi, I. Lovetro and S. Gonella</p>
-    <p class="ale-project-pub__source">In Proceedings of IEEE MetroXRAINE 2026 · IEEE</p>
-  </div>
-</div>
+Project Lazarus is one of the core projects of my PhD, developed within the **Computer Graphics and Vision Group at Politecnico di Torino** as part of the group's research on believable virtual humans, embodied AI and cognitive architectures, in collaboration with the nursing and public-health researchers of the **University of Turin**. The project is ongoing, with several outputs and publications in the pipeline.
