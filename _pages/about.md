@@ -70,7 +70,7 @@ latest_posts:
         <p class="ale-keywords-heading">Outside the lab</p>
         <div class="ale-keywords-list">
           <span tabindex="0">Kickboxing</span>
-          <span tabindex="0">Hiking &amp; mountains</span>
+          <span tabindex="0">Nature &amp; hiking</span>
           <span tabindex="0">DJing</span>
           <span tabindex="0">Festivals</span>
           <span tabindex="0">Nerd culture</span>
