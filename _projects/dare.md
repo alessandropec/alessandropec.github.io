@@ -14,7 +14,7 @@ Home insurance claims come with a written expert appraisal and a set of photogra
 
 <figure class="ale-project-feature ale-project-feature--diagram">
   <img src="{{ '/assets/img/projects/dare/pipeline-overview.jpeg' | relative_url }}" alt="DARE pipeline: photos are segmented, then combined with domain knowledge to produce a damage-estimation report" loading="eager">
-  <figcaption>Photos are segmented against a domain ontology of damage types, and the result feeds a model that produces the damage estimate.</figcaption>
+  <figcaption>Photos are segmented to identify the damage, and that result, together with the domain ontology, feeds the model that produces the damage estimate.</figcaption>
 </figure>
 
 ## From claim photos to a damage estimate
