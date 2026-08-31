@@ -19,9 +19,9 @@ Home insurance claims come with a written expert appraisal and a set of photogra
 
 ## From claim photos to a damage estimate
 
-Photos submitted with a claim are rarely all usable: selfies, screenshots, exterior shots, blurry or duplicate images sit alongside genuine damage photos, and identifying details need to be removed before anything can be used for training. A cleaning pipeline filters this out with CLIP, prompted in plain language to flag outdoor shots, documents and blurry photos, before a domain ontology of damage types — mould, staining, peeling, pipe damage, and more — guides annotation of what remains: a segmentation mask for the damaged area, its type, and some context about the room and materials involved.
+Photos submitted with a claim are rarely all usable: selfies, screenshots, exterior shots, blurry or duplicate images sit alongside genuine damage photos, and identifying details need to be removed before anything can be used for training. An image classifier, trained on annotated examples, filters out what isn't needed — selfies, blur and the rest — before a domain ontology of damage types — mould, staining, peeling, pipe damage, and more — guides annotation of what remains: a segmentation mask for the damaged area, its type, and some context about the room and materials involved.
 
-Several segmentation architectures were then trained and compared to localise and classify the damage in a photo, from closed-vocabulary transformer models like SegFormer to open-vocabulary, promptable ones like SEEM, which can take a point, a box or free text as a guiding prompt — the same family of techniques surveyed in the related publication below. My work on DARE focused on building these classification and segmentation models. Their output — what kind of damage, and where — feeds, together with the text extracted from the expert's own report, into a graph-based model built on the domain ontology that supports the final cost estimate.
+Several segmentation architectures were then trained and compared to localise and classify the damage in a photo, from closed-vocabulary transformer models like SegFormer to open-vocabulary, promptable ones like SEEM, which can take a point, a box or free text as a guiding prompt. My work on DARE focused on building these classification and segmentation models. Their output — what kind of damage, and where — feeds, together with the text extracted from the expert's own report, into a graph-based model built on the domain ontology that supports the final cost estimate.
 
 <figure class="ale-project-feature">
   <img src="{{ '/assets/img/projects/dare/segmentation-results.jpeg' | relative_url }}" alt="Segmentation result on a pipe-damage photo: the original photo, the human-made ground truth, and the SegFormer and SEEM predictions" loading="lazy">
@@ -34,7 +34,7 @@ Segmentation quality varies a lot by damage type: well-represented categories li
 
 ## Context and collaboration
 
-DARE is a research collaboration between **Politecnico di Torino** and a major Italian insurance group, funded by **Fondazione Compagnia di San Paolo** and **Fondazione CDP** under a public call on artificial intelligence. Project-specific claim data and operational interfaces are not published.
+DARE is a research collaboration between **Politecnico di Torino** and a major Italian insurance group, funded by **Fondazione Compagnia di San Paolo** and **Fondazione CDP** under a public call on artificial intelligence. The segmentation work on DARE also inspired a broader academic survey of promptable segmentation techniques, listed below. Project-specific claim data and operational interfaces are not published.
 
 ## Related work
 
