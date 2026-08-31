@@ -25,7 +25,7 @@ A final stage turns each event and its dramatic scaffold into a 6-to-8-scene sto
 
 ## Evaluation
 
-Generated stories were scored by museum curators and drama experts against a shared rubric covering historical accuracy and dramatic quality: the best-performing model's stories included all three narrative turning points — inciting incident, climax, resolution — in 65% of cases.
+Generated stories were scored by museum curators and drama experts against a shared rubric covering historical accuracy and dramatic quality: the best-performing model's stories averaged **2.65 out of 3** for character plausibility, close to the top of the scale.
 
 A core part of the work was testing, rather than assuming, whether LLM-based judges can take on some of that evaluation at scale: judged against the same rubric, the best LLM judge reached a correlation of up to 0.59 with expert scores on the clearest dimensions, like whether real historical events were adapted faithfully — encouraging, though still short of a substitute for human judgment on the more interpretive dramatic criteria.
 
