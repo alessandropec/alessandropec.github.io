@@ -31,16 +31,11 @@ Images are collected in the experimental vineyard in Grugliasco with a mobile pl
 
 ## From images to disease recognition
 
-The images are divided into separate training, validation and test groups. Several detection and classification models were trained in multiple configurations. Colour, saturation and local-detail transformations were used specifically as **data augmentation**, helping the models encounter a wider range of plausible field conditions during training while leaving validation and test images unchanged.
+The dataset is split into training, validation and test sets, designed so the test set reflects real, in-the-wild field conditions as closely as possible. On top of it, several detection and classification network architectures were trained and compared, using data augmentation — colour, saturation and local-detail changes — to expose the models to a wider range of plausible field conditions during training.
 
 ## Results
 
-<div class="ale-project-results">
-  <article><strong>0.84</strong><span>Best F1 score</span><p>the strongest balanced disease-recognition result among the tested configurations.</p></article>
-  <article><strong>17 ms</strong><span>Fastest inference</span><p>the lowest measured inference time among the real-time detector configurations.</p></article>
-</div>
-
-The figures above summarize two distinct outcomes of the model search: the best balanced recognition score and the fastest inference configuration. They are not presented as a direct head-to-head comparison. Results currently refer to a single experimental vineyard; evaluation across different sites and conditions remains necessary.
+Results are summarized by two figures: a top F1 score of **0.84** for disease recognition and inference as fast as **17 ms**, latency that matters for real-time use on the field platform. These come from different configurations in the model search, and currently refer to a single experimental vineyard — evaluation across further sites remains necessary.
 
 ## Context and collaboration
 
@@ -61,14 +56,14 @@ DIVINE is developed at **Politecnico di Torino** through collaboration between c
   </div>
 </div>
 
-<div class="ale-project-pub ale-in-press">
+<div class="ale-project-pub">
   <div class="ale-project-pub__meta">
     <span class="ale-project-pub__venue">M.Sc. thesis</span>
-    <span class="ale-project-pub__status">In progress</span>
+    <a class="ale-project-pub__code" href="https://webthesis.biblio.polito.it/41295/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>Thesis</span><span aria-hidden="true">↗</span></a>
   </div>
   <div class="ale-project-pub__body">
-    <p class="ale-project-pub__title">DIVINE: Imaging Diagnosis of Vine diseases using Neural networks and deep learning</p>
+    <p class="ale-project-pub__title">DIVINE: Imaging DIagnosis of VIne diseases using NEural networks and deep learning</p>
     <p class="ale-project-pub__authors">Matteo Giardino · Supervisors: A. Bottino, <u>A. E. Pecora</u></p>
-    <p class="ale-project-pub__source">M.Sc. thesis · Politecnico di Torino · in progress</p>
+    <p class="ale-project-pub__source">M.Sc. thesis · Politecnico di Torino · 2026</p>
   </div>
 </div>
