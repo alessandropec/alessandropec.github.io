@@ -1419,11 +1419,6 @@ nav [aria-label*="search"] {
   object-fit: cover;
   border-bottom: 1px solid #191915;
 }
-.ale-projects-page .ale-project-card .ale-project-card__image--contain {
-  object-fit: contain;
-  padding: 0.35rem;
-  background: #f3efe5;
-}
 .ale-projects-page .ale-project-card:not(:has(.card-img-top)) .card-body {
   padding-top: 3rem;
 }
@@ -2625,13 +2620,6 @@ code,
 .ale-project-feature--teaser img {
   max-height: none;
   padding: 0;
-}
-.ale-project-feature--perception {
-  max-width: 720px;
-  margin-inline: auto;
-}
-.ale-project-feature--perception img {
-  max-height: 680px;
 }
 .ale-project-gallery figcaption,
 .ale-project-feature figcaption,
