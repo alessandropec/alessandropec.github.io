@@ -50,7 +50,7 @@ latest_posts:
         <p class="ale-bio-page">My work on <strong>agentic AI</strong> spans <strong>cultural heritage storytelling</strong>, <strong>AI assistants</strong>, <strong>enterprise automation</strong>, and <strong>RAG systems</strong>, while my research on <strong>virtually embodied AI</strong> focuses on <strong>virtual humans</strong> in environments such as <strong>XR</strong>. Both rely on <strong>cognitive architectures</strong>, where <strong>long-term memory</strong> plays a central role and represents my current research focus. More broadly, I investigate <strong>computational memory models</strong> grounded in <strong>psychological theories</strong>, aiming to develop <strong>believable virtual humans</strong>, <strong>generalist agents</strong>, and, ultimately, contribute to the pursuit of <strong>artificial general intelligence</strong>.</p>
       </div>
       <div class="ale-bio-face ale-bio-face-page ale-bio-face-interests" aria-hidden="true" inert>
-        <p class="ale-eyebrow"><span>My interests</span><span class="ale-page-number" aria-label="Page 3">03</span></p>
+        <p class="ale-eyebrow"><span>My interests</span></p>
         <div class="ale-keywords-list">
           <span tabindex="0" data-note="Turning raw data into models and working pipelines. The engineering base under everything else I build.">Data science &amp; engineering</span>
           <span tabindex="0" data-note="Teaching machines to see and interpret images. Useful across my work, from workflow automation to agentic perception.">Computer vision</span>
@@ -71,7 +71,7 @@ latest_posts:
 
     <div class="ale-bio-pager" id="ale-bio-pager">
       <button type="button" id="ale-bio-back-btn" class="ale-bio-pager-btn ale-bio-pager-btn--back is-concealed" aria-hidden="true" disabled>
-        <span aria-hidden="true">&larr;</span> Back
+        <span aria-hidden="true">&larr;</span> <span id="ale-bio-back-label">Back</span>
       </button>
       <button type="button" id="ale-bio-next-btn" class="ale-bio-pager-btn" aria-controls="ale-bio-card">
         <span id="ale-bio-next-label">About me</span> <span aria-hidden="true">&rarr;</span>
@@ -102,7 +102,8 @@ latest_posts:
     var backBtn = document.getElementById("ale-bio-back-btn");
     var nextBtn = document.getElementById("ale-bio-next-btn");
     var nextLabel = document.getElementById("ale-bio-next-label");
-    if (!card || !coverLeaf || !finalLeaf || !cover || !bioLeft || !bioRight || !interests || !pager || !backBtn || !nextBtn) {
+    var backLabel = document.getElementById("ale-bio-back-label");
+    if (!card || !coverLeaf || !finalLeaf || !cover || !bioLeft || !bioRight || !interests || !pager || !backBtn || !nextBtn || !backLabel) {
       return;
     }
 
@@ -129,6 +130,7 @@ latest_posts:
       nextBtn.setAttribute("aria-hidden", hideNext ? "true" : "false");
       nextLabel.textContent = state === 1 ? "My interests" : "About me";
       nextBtn.setAttribute("aria-label", state === 1 ? "Show my interests" : "Open the book");
+      backLabel.textContent = state === 2 ? "My interests" : "Back";
       (state === 0 ? nextBtn : backBtn).focus();
     }
 
