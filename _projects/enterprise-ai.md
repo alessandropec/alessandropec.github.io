@@ -16,11 +16,11 @@ An energy utility's customer-service team received a large volume of inbound ema
 
 ## Modernising a data ingestion pipeline
 
-For a client in the same sector I worked on the refactoring of the main data ingestion pipeline — the one feeding the bulk of their analytics. The existing infrastructure was rebuilt around the newer **Azure** and **Databricks** components that had become available in the meantime, preserving the data flows the business depended on while moving them onto a stack that was cheaper to run and easier to maintain.
+For an energy client I worked on the refactoring of the main data ingestion pipeline — the one feeding the bulk of their analytics. The existing infrastructure was rebuilt around the newer **Azure** and **Databricks** components that had become available in the meantime, preserving the data flows the business depended on while moving them onto a stack that was cheaper to run and easier to maintain.
 
 ## AI assistants and chatbots
 
-Across automotive, energy and banking clients I built LLM-powered assistants and chatbots of two broad kinds. The first were retrieval-augmented (RAG) systems that let employees ask questions in natural language over the company's own documentation and get answers grounded in it. The second were assistants connected directly to enterprise databases, able to turn a request into a query, run it and bring the retrieved data back into the conversation.
+Across automotive, energy and banking clients I built LLM-powered assistants and chatbots of two broad kinds. The first were retrieval-augmented (RAG) systems that let employees ask questions in natural language over the company's own documentation and get answers grounded in it. The second were assistants connected directly to enterprise databases, able to turn a request into a query, run it and bring the retrieved data back into the conversation. In the automotive case the same approach became a customer-facing chatbot that recommends cars, reading the catalogue to match a buyer's requirements against what is actually available.
 
 ## Open-item reconciliation, end to end
 
@@ -30,10 +30,6 @@ For an energy client we automated the handling of open items. The system reads i
 
 An internal company project I was put in charge of: an AI platform combining assistants and automations that analyse tabular data and reconstruct what sits behind it — the relational schema of a set of tables, the meaning of their columns, the keys and relationships connecting them — so that unfamiliar data can be understood before it is used.
 
-## Other work
-
-The same period also included a recommender system for car sales, and further machine-learning and OCR classification workflows integrated with Salesforce.
-
 ## Context and collaboration
 
-This work was carried out at **Cluster Reply**, an Italian systems-integration and technology-consulting firm, for enterprise clients in regulated industries. Client data, figures and interfaces remain confidential, so this page describes scope and responsibilities rather than screenshots or proprietary performance numbers.
+This work was carried out at **Cluster Reply**, one of the largest Italian IT consulting firms, whose clients include the major players in energy, automotive, banking and other regulated industries. Client data, figures and interfaces remain confidential, so this page describes scope and responsibilities rather than screenshots or proprietary performance numbers.
