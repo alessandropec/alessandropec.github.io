@@ -121,13 +121,14 @@ latest_posts:
        simply skips index 2 (see nextPage/prevPage); below the single-page
        breakpoint every index is its own screen. The query string must stay
        identical to the one opening the v0.9.20 block in custom.css. */
-    var SINGLE_PAGE_QUERY = "(max-width: 699.98px), (max-height: 559.98px)";
+    var SINGLE_PAGE_QUERY = "(max-width: 819.98px), (max-height: 559.98px)";
     var LAST_PAGE = 3;
     var singleMq = window.matchMedia(SINGLE_PAGE_QUERY);
     var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
     var faces = [cover, bioLeft, bioRight, interests];
     var page = 0;
     var controlsTimer = null;
+    var turnTimer = null;
     var heightFrame = null;
 
     function isSingle() {
@@ -221,7 +222,7 @@ latest_posts:
       coverLeaf.classList.toggle("is-turned", page >= 1);
       finalLeaf.classList.toggle("is-turned", page === LAST_PAGE);
       expose(cover, page === 0);
-      expose(bioLeft, single ? page === 1 : page === 1);
+      expose(bioLeft, page === 1);
       expose(bioRight, single ? page === 2 : page === 1);
       expose(interests, page === LAST_PAGE);
       var finalLeafHidden = single ? page < 2 : page === 0;
@@ -233,16 +234,35 @@ latest_posts:
     function goTo(target) {
       if (target === page) return;
       if (controlsTimer) window.clearTimeout(controlsTimer);
+      if (turnTimer) window.clearTimeout(turnTimer);
       hideButtons();
+      /* Which kind of step this is: the single-page tier hides the leaf
+         underneath while the cover leaf turns over it, since the two planes
+         cross mid-rotation (see the [data-turn] rule in custom.css). */
+      card.setAttribute(
+        "data-turn",
+        isSingle() && Math.min(page, target) === 0 && Math.max(page, target) === 1
+          ? "cover-flip"
+          : "page"
+      );
       page = target;
       render();
       if (reduceMq.matches) {
+        card.removeAttribute("data-turn");
         updateButtons(true);
       } else {
+        turnTimer = window.setTimeout(function () {
+          card.removeAttribute("data-turn");
+          turnTimer = null;
+        }, 700);
+        /* Long enough that the outgoing labels are already faded out (the
+           buttons take 0.16s to go), short enough that they fade back IN
+           over the last third of the turn and settle with the page — the
+           old full-turn wait made the controls feel detached from it. */
         controlsTimer = window.setTimeout(function () {
           updateButtons(true);
           controlsTimer = null;
-        }, 780);
+        }, 360);
       }
     }
 

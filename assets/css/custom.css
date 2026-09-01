@@ -7054,12 +7054,27 @@ footer.sticky-bottom > .container {
   transform: translateX(-50%);
   transition:
     transform 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.15s ease,
+    opacity 0.26s ease;
 }
 .ale-bio-pager-btn--back { left: 25%; }
 .ale-bio-pager-btn:not(.ale-bio-pager-btn--back) { left: 75%; }
+/* Concealed, not removed. `display: none` made the buttons blink out at the
+   start of a turn and pop back whole once it was over, which read as lag
+   between the page and its controls; they now sink and fade out fast, then
+   come back with the page as it lands (the timing lives in about.md). The
+   same class also carries the permanently unavailable direction — back on
+   the cover, next on the last page — so it stays disabled + aria-hidden and
+   takes no pointer events either way. */
 .ale-bio-pager-btn.is-concealed {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 7px);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease,
+    visibility 0s linear 0.16s;
 }
 .ale-bio-pager-btn > span { color: inherit !important; }
 .ale-bio-pager-btn:hover,
@@ -7076,7 +7091,7 @@ footer.sticky-bottom > .container {
    blank, since a leaf hinged on its left edge turns *outside* a card that is
    only one page wide. */
 
-@media (min-width: 700px) and (min-height: 560px) and (max-height: 730px) {
+@media (min-width: 820px) and (max-height: 730px) {
   .ale-bio-card,
   .ale-bio-card.is-open {
     width: min(720px, calc(100vw - 32px));
@@ -7087,6 +7102,14 @@ footer.sticky-bottom > .container {
     font-size: 0.88rem;
     line-height: 1.42;
   }
+  /* The cover has no padding-bottom reserve of its own — on a 540px card it
+     simply ran out of content before the buttons. At 470px it didn't: the
+     "AI Researcher" line ended up behind the "About me" button on a 1366x768
+     laptop, so the portrait and the type scale down with the card. */
+  .ale-bio-face-cover .ale-portrait-photo { width: min(120px, 34%) !important; }
+  .ale-bio-face-cover .ale-hero-name { font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
+  .ale-bio-face-cover .ale-doctorate { font-size: 0.95rem; }
+  .ale-bio-face-cover .ale-hero-roles { font-size: 1.05rem; }
   .ale-bio-pager-btn { bottom: 0.9rem; }
 }
 
@@ -7262,7 +7285,7 @@ footer.sticky-bottom > .container {
 /* Short-viewport desktop tier (see v0.9.16's own max-height:730px block):
    the two-group interests page no longer fits at the already-compacted
    chip size, so shrink it further here specifically. */
-@media (min-width: 700px) and (min-height: 560px) and (max-height: 730px) {
+@media (min-width: 820px) and (max-height: 730px) {
   .ale-keywords-heading {
     margin-bottom: 0.3rem;
     font-size: 0.6rem;
@@ -7285,17 +7308,21 @@ footer.sticky-bottom > .container {
 /* ==========================================================================
    v0.9.20 — Single-page book on small / short screens (1/9/2026)
    --------------------------------------------------------------------------
-   The two-page spread needs ~700px of width and ~560px of height to read as a
-   book. Below either threshold the card now shows ONE page at a time and the
-   pager walks all four in order: cover -> bio 01 -> bio 02 -> interests.
+   The spread is a fixed 780px-wide card, so it only ever gets its designed
+   geometry at >=820px of viewport; narrower than that it used to shrink, and
+   at ~700-810px the interests page ran past the bottom of the card and was
+   clipped (its chips wrap into more rows as the page narrows). It also needs
+   ~560px of height. Outside that envelope the card now shows ONE page at a
+   time and the pager walks all four in order: cover -> bio 01 -> bio 02 ->
+   interests.
 
    Why the old small-screen tier had to go: it kept the leaves hinged on their
    left edge (transform-origin: left center) while making them full-card wide,
    so a turned leaf swung to a position entirely outside the card — the
    interests page rendered blank off-screen, and bio 02 was hidden altogether
    to work around it. Here the leaves flip in place (origin: center), so each
-   back face lands exactly over the front it replaces. Only the 1 <-> 2 step
-   changes leaf rather than flipping one, and that step cross-fades.
+   back face lands exactly over the front it replaces. The 1 <-> 2 step is
+   the one that changes leaf, and it lifts the top sheet away instead.
 
    Height is driven by JS (`--ale-book-h`, measured from the live page in
    about.md) so the card grows to whatever the current page actually needs
@@ -7303,7 +7330,7 @@ footer.sticky-bottom > .container {
    The clamp() below is the no-JS fallback.
    ========================================================================== */
 
-@media (max-width: 699.98px), (max-height: 559.98px) {
+@media (max-width: 819.98px), (max-height: 559.98px) {
   .ale-landing { max-width: 440px; }
 
   .ale-bio-card,
@@ -7352,28 +7379,98 @@ footer.sticky-bottom > .container {
     left: 0;
     width: 100%;
     transform-origin: center center;
-    transition:
-      transform 0.7s cubic-bezier(0.45, 0.05, 0.2, 1),
-      opacity 0.32s ease;
+    transition: transform 0.62s cubic-bezier(0.3, 0.7, 0.25, 1);
   }
-  .ale-bio-cover-leaf.is-turned,
-  .ale-bio-final-leaf.is-turned {
-    transform: rotateY(180deg);
+  /* The leaf only ever MOVES; what fades is the page printed on it. Fading
+     the leaf itself is not an option: Chrome flattens an element with a
+     running opacity transition, and a flattened leaf stops honouring
+     backface-visibility, so the cover's front face showed through the
+     lifting sheet, mirrored, for the whole turn. The 0.26s delay lets you
+     watch a solid page leave instead of two pages dissolving into one
+     another. */
+  .ale-bio-face-cover-back {
+    transition: opacity 0.26s ease 0.26s;
   }
-
-  /* Exactly one leaf is on screen per page: the cover leaf carries pages
-     0 (cover) and 1 (bio 01), the final leaf pages 2 (bio 02) and 3
-     (interests). */
-  .ale-bio-card[data-page="2"] .ale-bio-cover-leaf,
-  .ale-bio-card[data-page="3"] .ale-bio-cover-leaf,
-  .ale-bio-card[data-page="0"] .ale-bio-final-leaf,
-  .ale-bio-card[data-page="1"] .ale-bio-final-leaf {
+  .ale-bio-card[data-page="2"] .ale-bio-face-cover-back,
+  .ale-bio-card[data-page="3"] .ale-bio-face-cover-back {
     opacity: 0;
+  }
+  /* --- The four page states -------------------------------------------
+     Each leaf holds two consecutive pages — the cover leaf pages 0 (cover)
+     and 1 (bio 01), the final leaf pages 2 (bio 02) and 3 (interests) — so
+     those two steps are a flip in place, one sheet showing its other side.
+
+     1 <-> 2 is the step that changes leaf, and it is NOT a sheet turning:
+     there you move PAST the sheet you were reading, to the one under it. So
+     page 01 lifts off the stack towards the reader and fades out of frame,
+     uncovering page 02 already lying underneath. Cross-fading two
+     near-identical cream pages — what this step did first — reads as a
+     glitch rather than as a page turn.
+
+     Three rendering notes, all learned the hard way, before the rules:
+     - the cover leaf is the sheet ON TOP at every page, so it needs its own
+       z-index here: the spread's `.is-turned { z-index: 1 }` would drop it
+       behind the very leaf it is lifting off;
+     - every state writes the SAME three transform functions in the same
+       order. Between lists that differ in shape the browser interpolates
+       decomposed matrices, and a decomposed 180deg turn is ambiguous — the
+       lift came out spinning back through 0deg, flashing the mirrored front
+       of the cover halfway through;
+     - the card keeps NO background of its own. Painted, it becomes another
+       surface at z=0 in the same 3D scene, and a leaf rotating through that
+       plane is sliced along the intersection: half the turning page
+       vanishes behind a blank rectangle. */
+  .ale-bio-card[data-page] .ale-bio-cover-leaf { z-index: 3; }
+  .ale-bio-card[data-page] .ale-bio-final-leaf { z-index: 2; }
+  .ale-bio-card[data-page="0"] .ale-bio-cover-leaf {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
+  }
+  .ale-bio-card[data-page="1"] .ale-bio-cover-leaf {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(180deg);
+  }
+  .ale-bio-card[data-page="2"] .ale-bio-cover-leaf,
+  .ale-bio-card[data-page="3"] .ale-bio-cover-leaf {
+    /* The sheet rises off the stack, tipping back as it comes towards the
+       reader, and is gone before it clears the top of the book.
+       Two things this transform is careful about:
+       - order: the move sits to the LEFT of the flip so it happens in
+         screen space. Written after the 180deg it inherits the leaf's
+         mirrored axes and pushes the sheet AWAY from the viewer, behind the
+         very page it is lifting off (while still measuring as "in front").
+       - straight up, no sideways travel: the card already runs to within
+         13px of a phone's edges, so a sheet drifting right would poke past
+         the viewport and give the whole page a horizontal scrollbar
+         mid-turn. Only the 60px of z remains, and it grows the sheet by
+         ~3% — still inside those margins. */
+    transform: translate3d(0, -16%, 60px) rotateX(8deg) rotateY(180deg);
     pointer-events: none;
   }
-  .ale-bio-card[data-page="2"] .ale-bio-final-leaf,
+  /* While the cover leaf TURNS, the leaf underneath is taken out of the
+     picture altogether: their planes cross halfway through the rotation and
+     the compositor splits both along the intersection, tearing page 01 and
+     page 02 into each other down a moving seam. It applies to that one step
+     only — about.md flags the step on the card — so the 1 -> 2 lift still
+     uncovers page 02 lying underneath, and nothing is lost meanwhile: the
+     sheet doing the turning covers the whole card anyway. */
+  .ale-bio-card[data-turn="cover-flip"] .ale-bio-final-leaf {
+    visibility: hidden;
+  }
+
+  /* The leaf underneath just lies there, covered, until the sheet above it
+     is lifted away — but it has to lie 4px BEHIND it. Left exactly coplanar
+     the two leaves z-fight: through the cover flip, page 01 and page 02
+     rendered interleaved word by word. 4px is unambiguous to the compositor
+     and a 0.2% scale change to the eye. */
+  .ale-bio-card[data-page="0"] .ale-bio-final-leaf,
+  .ale-bio-card[data-page="1"] .ale-bio-final-leaf {
+    transform: translate3d(0, 0, -4px) rotateX(0deg) rotateY(0deg);
+    pointer-events: none;
+  }
+  .ale-bio-card[data-page="2"] .ale-bio-final-leaf {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
+  }
   .ale-bio-card[data-page="3"] .ale-bio-final-leaf {
-    z-index: 4;
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(180deg);
   }
 
   /* No gutter to draw down the middle, and no facing page to butt against:
@@ -7422,5 +7519,20 @@ footer.sticky-bottom > .container {
   .ale-bio-pager-btn {
     padding: 0.6rem 0.6rem;
     font-size: 0.82rem;
+  }
+}
+
+/* Last word on motion: the tiers above re-declare `transition` on the card
+   and its leaves, so the earlier reduced-motion block no longer outranks
+   them by source order. Keep this at the end of the file. */
+@media (prefers-reduced-motion: reduce) {
+  .ale-bio-card,
+  .ale-bio-card.is-open,
+  .ale-bio-card.is-back-cover,
+  .ale-bio-leaf,
+  .ale-bio-face,
+  .ale-bio-pager-btn,
+  .ale-bio-pager-btn.is-concealed {
+    transition: none;
   }
 }
