@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Memory Models for Virtual Humans
+title: Memory Models for Virtual Agents & Humans
 card_description: Survey of memory models for virtual agents and humans, from psychological foundations to computational architectures.
 img: assets/img/projects/memory-models/memory-architecture-cover.jpg
 importance: 6
@@ -8,11 +8,13 @@ year: 2025
 category: phd-research
 ---
 
-<p class="ale-project-lead">A survey that connects the <strong>psychological foundations of human memory</strong> with the <strong>computational architectures</strong> used to give virtual agents continuity, adaptation and coherent long-term behaviour.</p>
+<p class="ale-project-lead">A survey of memory models for <strong>Virtual Agents &amp; Humans</strong>, connecting the <strong>psychological foundations of human memory</strong> with the <strong>computational cognitive architectures</strong> that give them continuity, adaptation and coherent long-term behaviour.</p>
 
-Memory is often treated as a single capability, yet a believable virtual human needs very different mechanisms to hold recent observations, personal experiences, factual knowledge, learned procedures and spatial relationships. Together these are what let a character stay coherent across an interaction, recall what happened and adapt over time, instead of starting from scratch at every step.
+Virtual Agents are artificial systems that perceive their environment and act autonomously toward a goal; Virtual Humans are a more advanced subset that add anthropomorphic embodiment and human-like cognitive and social behaviour. Both increasingly rely on computational cognitive architectures — systems that integrate perception, reasoning, memory and learning — to act coherently over time.
 
-These mechanisms are studied in parallel by cognitive psychology, symbolic AI, connectionist models and, more recently, Memory-Augmented Neural Networks and Large Language Models, each with its own vocabulary. This survey bridges psychological theory and computational practice, offering a shared way to describe and compare how artificial memory is built.
+Memory is often treated as a single capability, yet this coherence needs very different mechanisms to hold recent observations, personal experiences, factual knowledge, learned procedures and spatial relationships. Together these are what let an agent or virtual human stay coherent across an interaction, recall what happened and adapt over time, instead of starting from scratch at every step.
+
+These mechanisms are studied in parallel by cognitive psychology and by computational cognitive architectures, each with its own vocabulary. This survey bridges psychological theory and computational practice, offering a shared way to describe and compare how artificial memory is built.
 
 <figure class="ale-project-feature ale-project-feature--diagram">
   <img src="{{ '/assets/img/projects/memory-models/framework.png' | relative_url }}" alt="Memory framework: external environment, sensory registers, working memory and long-term memory components for virtual agents" loading="lazy">
