@@ -28,7 +28,7 @@ The framework organises memory as a flow: stimuli from the external environment 
 Using this structure, the survey follows each memory type — episodic, autobiographical, procedural, semantic and spatial — from its cognitive definition to its computational implementation, comparing symbolic and connectionist approaches. The table below reflects how the reviewed literature actually splits across the two paradigms:
 
 <div class="table-responsive">
-<table class="table table-sm">
+<table class="table table-sm" style="min-width:480px">
   <thead>
     <tr><th scope="col">Long-term memory type</th><th scope="col">Connectionist</th><th scope="col">Symbolic</th></tr>
   </thead>
