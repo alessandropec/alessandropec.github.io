@@ -2594,16 +2594,6 @@ code,
   object-fit: cover;
   border: 1px solid #191915;
 }
-.ale-project-gallery--contain img {
-  aspect-ratio: auto;
-  height: auto;
-  max-height: 520px;
-  object-fit: contain;
-  background: #fff;
-}
-.ale-project-gallery--contain figure {
-  min-width: 0;
-}
 .ale-project-feature {
   margin: 2rem 0 2.75rem;
 }
