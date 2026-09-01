@@ -25,7 +25,24 @@ The framework organises memory as a flow: stimuli from the external environment 
 
 ## From psychology to computation
 
-Using this structure, the survey follows each memory type from its cognitive definition to its implementation in virtual humans and agents, comparing symbolic, connectionist, Memory-Augmented Neural Network and LLM-based approaches. It examines how systems encode experience, retrieve what is relevant, and forget or consolidate content, and asks a central question: whether a memory mechanism actually improves behaviour, rather than simply storing more context. The review closes with applications in education, games and social simulation, and a set of open challenges, such as deciding where one remembered episode ends and the next begins.
+Using this structure, the survey follows each memory type — episodic, autobiographical, procedural, semantic and spatial — from its cognitive definition to its computational implementation, comparing symbolic and connectionist approaches. The table below reflects how the reviewed literature actually splits across the two paradigms:
+
+<div class="table-responsive">
+<table class="table table-sm">
+  <thead>
+    <tr><th scope="col">Long-term memory type</th><th scope="col">Connectionist</th><th scope="col">Symbolic</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Episodic</td><td>Extensive</td><td>Limited</td></tr>
+    <tr><td>Autobiographical</td><td>None yet</td><td>Primary approach</td></tr>
+    <tr><td>Procedural</td><td>Extensive</td><td>Limited</td></tr>
+    <tr><td>Semantic</td><td>Well established</td><td>Well established</td></tr>
+    <tr><td>Spatial</td><td>Emerging</td><td>Rare</td></tr>
+  </tbody>
+</table>
+</div>
+
+This split also shows which memory types matter for which domains: conversational and social-simulation agents lean on episodic and semantic memory, agents that must learn open-ended skills lean on procedural memory, and embodied agents need spatial memory. It exposes clear gaps too — autobiographical memory has no connectionist implementation yet — and, together with open questions like where one remembered episode ends and how to forget efficiently, sets the agenda for the review's closing discussion and future directions.
 
 ## Context and collaboration
 
