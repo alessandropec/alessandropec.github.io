@@ -32,4 +32,4 @@ An internal company project I was put in charge of: an AI platform combining ass
 
 ## Context and collaboration
 
-This work was carried out at **Cluster Reply**, one of the largest Italian IT consulting firms, whose clients include the major players in energy, automotive, banking and other regulated industries. Client data, figures and interfaces remain confidential, so this page describes scope and responsibilities rather than screenshots or proprietary performance numbers.
+This work was carried out at **Cluster Reply**, one of the largest Italian IT consulting firms, whose clients include the major players in energy, automotive, banking and other regulated industries. Client names, data and interfaces remain confidential.
