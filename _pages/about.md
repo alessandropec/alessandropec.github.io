@@ -116,8 +116,33 @@ latest_posts:
       return;
     }
 
-    var state = 0;
+    /* One page counter for both layouts: 0 cover, 1 bio 01, 2 bio 02,
+       3 interests. The two-page spread shows 1 and 2 side by side, so it
+       simply skips index 2 (see nextPage/prevPage); below the single-page
+       breakpoint every index is its own screen. The query string must stay
+       identical to the one opening the v0.9.20 block in custom.css. */
+    var SINGLE_PAGE_QUERY = "(max-width: 699.98px), (max-height: 559.98px)";
+    var LAST_PAGE = 3;
+    var singleMq = window.matchMedia(SINGLE_PAGE_QUERY);
+    var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var faces = [cover, bioLeft, bioRight, interests];
+    var page = 0;
     var controlsTimer = null;
+    var heightFrame = null;
+
+    function isSingle() {
+      return singleMq.matches;
+    }
+
+    function nextPage(from) {
+      if (isSingle()) return Math.min(from + 1, LAST_PAGE);
+      return from === 0 ? 1 : LAST_PAGE;
+    }
+
+    function prevPage(from) {
+      if (isSingle()) return Math.max(from - 1, 0);
+      return from >= 2 ? 1 : 0;
+    }
 
     function hideButtons() {
       backBtn.classList.add("is-concealed");
@@ -128,19 +153,29 @@ latest_posts:
       nextBtn.setAttribute("aria-hidden", "true");
     }
 
-    function updateButtons() {
-      var hideBack = state === 0;
-      var hideNext = state === 2;
+    function updateButtons(moveFocus) {
+      var hideBack = page === 0;
+      var hideNext = page === LAST_PAGE;
       backBtn.classList.toggle("is-concealed", hideBack);
       nextBtn.classList.toggle("is-concealed", hideNext);
       backBtn.disabled = hideBack;
       nextBtn.disabled = hideNext;
       backBtn.setAttribute("aria-hidden", hideBack ? "true" : "false");
       nextBtn.setAttribute("aria-hidden", hideNext ? "true" : "false");
-      nextLabel.textContent = state === 1 ? "My interests" : "About me";
-      nextBtn.setAttribute("aria-label", state === 1 ? "Show my interests" : "Open the book");
-      backLabel.textContent = state === 2 ? "About me" : "Back";
-      (state === 0 ? nextBtn : backBtn).focus();
+      /* On the single-page layout there is one more step between the cover
+         and the interests, so the button says where it actually goes. */
+      if (page === 0) {
+        nextLabel.textContent = "About me";
+        nextBtn.setAttribute("aria-label", "Open the book");
+      } else if (isSingle() && page === 1) {
+        nextLabel.textContent = "Continue";
+        nextBtn.setAttribute("aria-label", "Next page");
+      } else {
+        nextLabel.textContent = "My interests";
+        nextBtn.setAttribute("aria-label", "Show my interests");
+      }
+      backLabel.textContent = page === LAST_PAGE ? "About me" : "Back";
+      if (moveFocus) (page === 0 ? nextBtn : backBtn).focus();
     }
 
     function expose(element, visible) {
@@ -149,37 +184,95 @@ latest_posts:
       else element.setAttribute("aria-hidden", "true");
     }
 
+    /* Single-page only: size the card to the page on screen, so a page is
+       never clipped and never needs a scroller of its own. The height is the
+       one the browser itself computes for that page — see the .is-measuring
+       block in custom.css, which drops the current face back into normal
+       flow for the read. Deliberately uncapped: on a phone a long page (the
+       interests chips at 320px) is better read by scrolling the page itself
+       than by nesting a scroller inside the book, where the pager buttons
+       float over the text being scrolled. */
+    function applyHeight() {
+      if (!isSingle()) {
+        card.style.removeProperty("--ale-book-h");
+        return;
+      }
+      card.classList.add("is-measuring");
+      var wanted = card.getBoundingClientRect().height;
+      card.classList.remove("is-measuring");
+      if (!wanted) return;
+      card.style.setProperty("--ale-book-h", Math.max(300, Math.ceil(wanted)) + "px");
+    }
+
+    function queueHeight() {
+      if (heightFrame) return;
+      heightFrame = window.requestAnimationFrame(function () {
+        heightFrame = null;
+        applyHeight();
+      });
+    }
+
+    function render() {
+      var single = isSingle();
+      if (single) card.setAttribute("data-page", String(page));
+      else card.removeAttribute("data-page");
+      card.classList.toggle("is-open", single ? page === 1 || page === 2 : page === 1);
+      card.classList.toggle("is-back-cover", page === LAST_PAGE);
+      coverLeaf.classList.toggle("is-turned", page >= 1);
+      finalLeaf.classList.toggle("is-turned", page === LAST_PAGE);
+      expose(cover, page === 0);
+      expose(bioLeft, single ? page === 1 : page === 1);
+      expose(bioRight, single ? page === 2 : page === 1);
+      expose(interests, page === LAST_PAGE);
+      var finalLeafHidden = single ? page < 2 : page === 0;
+      finalLeaf.inert = finalLeafHidden;
+      finalLeaf.setAttribute("aria-hidden", finalLeafHidden ? "true" : "false");
+      applyHeight();
+    }
+
     function goTo(target) {
-      if (target === state) return;
+      if (target === page) return;
       if (controlsTimer) window.clearTimeout(controlsTimer);
       hideButtons();
-      state = target;
-      card.classList.toggle("is-open", state === 1);
-      card.classList.toggle("is-back-cover", state === 2);
-      coverLeaf.classList.toggle("is-turned", state > 0);
-      finalLeaf.classList.toggle("is-turned", state === 2);
-      expose(cover, state === 0);
-      expose(bioLeft, state === 1);
-      expose(bioRight, state === 1);
-      expose(interests, state === 2);
-      finalLeaf.inert = state === 0;
-      finalLeaf.setAttribute("aria-hidden", state === 0 ? "true" : "false");
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        updateButtons();
+      page = target;
+      render();
+      if (reduceMq.matches) {
+        updateButtons(true);
       } else {
         controlsTimer = window.setTimeout(function () {
-          updateButtons();
+          updateButtons(true);
           controlsTimer = null;
-        }, 820);
+        }, 780);
       }
     }
 
     nextBtn.addEventListener("click", function () {
-      goTo(state + 1);
+      goTo(nextPage(page));
     });
     backBtn.addEventListener("click", function () {
-      goTo(state - 1);
+      goTo(prevPage(page));
     });
+
+    /* Crossing the breakpoint (rotation, a resized window): the spread has
+       no page 2 of its own, so fold it back onto the open spread. */
+    function syncLayout() {
+      if (!isSingle() && page === 2) page = 1;
+      render();
+      updateButtons(false);
+    }
+    if (singleMq.addEventListener) singleMq.addEventListener("change", syncLayout);
+    else if (singleMq.addListener) singleMq.addListener(syncLayout);
+    window.addEventListener("resize", queueHeight, { passive: true });
+    window.addEventListener("orientationchange", queueHeight);
+
+    /* The measured height depends on how the text and the portrait lay out,
+       so re-measure once each of those is settled. */
+    var portrait = card.querySelector(".ale-hero-logo");
+    if (portrait && !portrait.complete) portrait.addEventListener("load", queueHeight);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(queueHeight);
+
+    render();
+    updateButtons(false);
   })();
 
   (function () {

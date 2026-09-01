@@ -7070,32 +7070,13 @@ footer.sticky-bottom > .container {
   box-shadow: 6px 6px 0 #191915;
 }
 
-@media (max-width: 699.98px) {
-  .ale-landing { max-width: 380px; }
-  .ale-bio-card,
-  .ale-bio-card.is-open,
-  .ale-bio-card.is-back-cover {
-    width: min(360px, calc(100vw - 32px));
-    height: 540px;
-    transform: none;
-  }
-  .ale-bio-leaf {
-    left: 0;
-    width: 100%;
-  }
-  .ale-bio-card.is-open .ale-bio-cover-leaf { transform: none; }
-  .ale-bio-card.is-open .ale-bio-face-cover { visibility: hidden; }
-  .ale-bio-card.is-open .ale-bio-face-cover-back { transform: none; }
-  .ale-bio-card.is-open .ale-bio-final-leaf { visibility: hidden; }
-  .ale-bio-face-page { overflow-y: auto; }
-  .ale-bio-card.is-open::after { display: none; }
-  .ale-bio-card:not(.is-open):not(.is-back-cover) .ale-bio-pager-btn:not(.ale-bio-pager-btn--back),
-  .ale-bio-card.is-back-cover .ale-bio-pager-btn--back {
-    left: 50%;
-  }
-}
+/* The small-screen tier that used to live here (a 360x540 card that hid one
+   leaf at a time) is replaced by the single-page book in v0.9.20 at the end
+   of this file — it dropped bio page 02 entirely and left the interests page
+   blank, since a leaf hinged on its left edge turns *outside* a card that is
+   only one page wide. */
 
-@media (min-width: 700px) and (max-height: 730px) {
+@media (min-width: 700px) and (min-height: 560px) and (max-height: 730px) {
   .ale-bio-card,
   .ale-bio-card.is-open {
     width: min(720px, calc(100vw - 32px));
@@ -7281,7 +7262,7 @@ footer.sticky-bottom > .container {
 /* Short-viewport desktop tier (see v0.9.16's own max-height:730px block):
    the two-group interests page no longer fits at the already-compacted
    chip size, so shrink it further here specifically. */
-@media (min-width: 700px) and (max-height: 730px) {
+@media (min-width: 700px) and (min-height: 560px) and (max-height: 730px) {
   .ale-keywords-heading {
     margin-bottom: 0.3rem;
     font-size: 0.6rem;
@@ -7298,5 +7279,148 @@ footer.sticky-bottom > .container {
   }
   .ale-bio-face-interests .ale-keywords-list span[data-note] {
     padding-right: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   v0.9.20 — Single-page book on small / short screens (1/9/2026)
+   --------------------------------------------------------------------------
+   The two-page spread needs ~700px of width and ~560px of height to read as a
+   book. Below either threshold the card now shows ONE page at a time and the
+   pager walks all four in order: cover -> bio 01 -> bio 02 -> interests.
+
+   Why the old small-screen tier had to go: it kept the leaves hinged on their
+   left edge (transform-origin: left center) while making them full-card wide,
+   so a turned leaf swung to a position entirely outside the card — the
+   interests page rendered blank off-screen, and bio 02 was hidden altogether
+   to work around it. Here the leaves flip in place (origin: center), so each
+   back face lands exactly over the front it replaces. Only the 1 <-> 2 step
+   changes leaf rather than flipping one, and that step cross-fades.
+
+   Height is driven by JS (`--ale-book-h`, measured from the live page in
+   about.md) so the card grows to whatever the current page actually needs
+   instead of clipping it or forcing a nested scroll inside a fixed 540px box.
+   The clamp() below is the no-JS fallback.
+   ========================================================================== */
+
+@media (max-width: 699.98px), (max-height: 559.98px) {
+  .ale-landing { max-width: 440px; }
+
+  .ale-bio-card,
+  .ale-bio-card.is-open,
+  .ale-bio-card.is-back-cover {
+    width: min(430px, calc(100vw - 26px));
+    height: var(--ale-book-h, clamp(320px, 74vh, 540px));
+    transform: none;
+    transition:
+      height 0.42s cubic-bezier(0.22, 0.7, 0.2, 1),
+      transform 0.8s cubic-bezier(0.22, 0.7, 0.2, 1);
+  }
+  /* Measuring pass (about.md adds and removes .is-measuring synchronously,
+     so this state is never painted): the card is released to height:auto and
+     the leaf + face holding the CURRENT page drop back into normal flow, so
+     the card takes exactly the height the browser would give that page —
+     real line wrapping, real fonts, no scrollbar. The other three faces stay
+     absolute and contribute nothing. Measuring any other way (a tall card, a
+     collapsed one, scrollHeight) misreads it: the faces are flex columns, so
+     their children both shrink and overflow depending on the height they are
+     measured at, and an overflowing page steals width for its scrollbar and
+     re-wraps. */
+  .ale-bio-card.is-measuring,
+  .ale-bio-card.is-measuring.is-open,
+  .ale-bio-card.is-measuring.is-back-cover {
+    height: auto !important;
+    transition: none !important;
+  }
+  .ale-bio-card.is-measuring[data-page="0"] .ale-bio-cover-leaf,
+  .ale-bio-card.is-measuring[data-page="1"] .ale-bio-cover-leaf,
+  .ale-bio-card.is-measuring[data-page="2"] .ale-bio-final-leaf,
+  .ale-bio-card.is-measuring[data-page="3"] .ale-bio-final-leaf {
+    position: relative;
+    height: auto;
+  }
+  .ale-bio-card.is-measuring[data-page="0"] .ale-bio-face-cover,
+  .ale-bio-card.is-measuring[data-page="1"] .ale-bio-face-cover-back,
+  .ale-bio-card.is-measuring[data-page="2"] .ale-bio-face-bio-right,
+  .ale-bio-card.is-measuring[data-page="3"] .ale-bio-face-interests {
+    position: relative;
+    inset: auto;
+    height: auto;
+  }
+
+  .ale-bio-leaf {
+    left: 0;
+    width: 100%;
+    transform-origin: center center;
+    transition:
+      transform 0.7s cubic-bezier(0.45, 0.05, 0.2, 1),
+      opacity 0.32s ease;
+  }
+  .ale-bio-cover-leaf.is-turned,
+  .ale-bio-final-leaf.is-turned {
+    transform: rotateY(180deg);
+  }
+
+  /* Exactly one leaf is on screen per page: the cover leaf carries pages
+     0 (cover) and 1 (bio 01), the final leaf pages 2 (bio 02) and 3
+     (interests). */
+  .ale-bio-card[data-page="2"] .ale-bio-cover-leaf,
+  .ale-bio-card[data-page="3"] .ale-bio-cover-leaf,
+  .ale-bio-card[data-page="0"] .ale-bio-final-leaf,
+  .ale-bio-card[data-page="1"] .ale-bio-final-leaf {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ale-bio-card[data-page="2"] .ale-bio-final-leaf,
+  .ale-bio-card[data-page="3"] .ale-bio-final-leaf {
+    z-index: 4;
+  }
+
+  /* No gutter to draw down the middle, and no facing page to butt against:
+     the inner edges take the normal 1px rule, only the outer edge of the
+     cover / interests faces keeps the thick bound edge. */
+  .ale-bio-card.is-open::after { display: none; }
+  .ale-bio-face-bio-right { border-left-width: 1px; }
+  .ale-bio-face-cover-back { border-right-width: 1px; }
+
+  .ale-bio-face { padding: 1.45rem 1.25rem; }
+  /* Every page is now sized to its own content, so each one has to reserve
+     the strip the pager buttons float over — on the spread only the text
+     pages needed it, the cover had spare height to give away. */
+  .ale-bio-face-cover { padding-bottom: 4.8rem; }
+  .ale-bio-face-page {
+    padding-bottom: 5rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ale-bio-face-cover .ale-portrait-photo { width: min(160px, 42%) !important; }
+
+  /* Two buttons side by side have to fit a ~360px card, so let them shrink
+     to their label instead of holding the desktop 150px floor. */
+  .ale-bio-pager-btn {
+    min-width: 0;
+    max-width: 46%;
+    padding: 0.62rem 0.85rem;
+    font-size: 0.86rem;
+  }
+  .ale-bio-card[data-page="0"] .ale-bio-pager-btn:not(.ale-bio-pager-btn--back),
+  .ale-bio-card[data-page="3"] .ale-bio-pager-btn--back {
+    left: 50%;
+  }
+}
+
+/* Narrow phones: buy back horizontal room for the two pager buttons and the
+   longest chips ("Artificial general intelligence"). */
+@media (max-width: 380px) {
+  /* Longhands on purpose: the shorthand would come after (and wipe out) the
+     padding-bottom each page reserves for the pager buttons above. */
+  .ale-bio-face {
+    padding-top: 1.25rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  .ale-bio-pager-btn {
+    padding: 0.6rem 0.6rem;
+    font-size: 0.82rem;
   }
 }
