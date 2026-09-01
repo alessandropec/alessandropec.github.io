@@ -2,7 +2,7 @@
   :root {
     --max-content-width: 930px;
   }
-</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/aep-favicon-white.png?v=240fd333914ebebc3c6eea0f98d5d2c0"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="stylesheet" href="/assets/css/custom.css?v=8cbc939b912d0b579a4c1298080ec089"> <link rel="canonical" href="https://alessandropec.github.io/"> <script>
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/aep-favicon-white.png?v=240fd333914ebebc3c6eea0f98d5d2c0"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="stylesheet" href="/assets/css/custom.css?v=11aa7b8f291cacbcfc9bf1e8d85a1620"> <link rel="canonical" href="https://alessandropec.github.io/"> <script>
   document.addEventListener("DOMContentLoaded", function () {
     var navbar = document.querySelector(".navbar");
     if (navbar) {
@@ -97,13 +97,14 @@
        simply skips index 2 (see nextPage/prevPage); below the single-page
        breakpoint every index is its own screen. The query string must stay
        identical to the one opening the v0.9.20 block in custom.css. */
-    var SINGLE_PAGE_QUERY = "(max-width: 699.98px), (max-height: 559.98px)";
+    var SINGLE_PAGE_QUERY = "(max-width: 819.98px), (max-height: 559.98px)";
     var LAST_PAGE = 3;
     var singleMq = window.matchMedia(SINGLE_PAGE_QUERY);
     var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
     var faces = [cover, bioLeft, bioRight, interests];
     var page = 0;
     var controlsTimer = null;
+    var turnTimer = null;
     var heightFrame = null;
 
     function isSingle() {
@@ -197,7 +198,7 @@
       coverLeaf.classList.toggle("is-turned", page >= 1);
       finalLeaf.classList.toggle("is-turned", page === LAST_PAGE);
       expose(cover, page === 0);
-      expose(bioLeft, single ? page === 1 : page === 1);
+      expose(bioLeft, page === 1);
       expose(bioRight, single ? page === 2 : page === 1);
       expose(interests, page === LAST_PAGE);
       var finalLeafHidden = single ? page < 2 : page === 0;
@@ -209,16 +210,35 @@
     function goTo(target) {
       if (target === page) return;
       if (controlsTimer) window.clearTimeout(controlsTimer);
+      if (turnTimer) window.clearTimeout(turnTimer);
       hideButtons();
+      /* Which kind of step this is: the single-page tier hides the leaf
+         underneath while the cover leaf turns over it, since the two planes
+         cross mid-rotation (see the [data-turn] rule in custom.css). */
+      card.setAttribute(
+        "data-turn",
+        isSingle() && Math.min(page, target) === 0 && Math.max(page, target) === 1
+          ? "cover-flip"
+          : "page"
+      );
       page = target;
       render();
       if (reduceMq.matches) {
+        card.removeAttribute("data-turn");
         updateButtons(true);
       } else {
+        turnTimer = window.setTimeout(function () {
+          card.removeAttribute("data-turn");
+          turnTimer = null;
+        }, 700);
+        /* Long enough that the outgoing labels are already faded out (the
+           buttons take 0.16s to go), short enough that they fade back IN
+           over the last third of the turn and settle with the page — the
+           old full-turn wait made the controls feel detached from it. */
         controlsTimer = window.setTimeout(function () {
           updateButtons(true);
           controlsTimer = null;
-        }, 780);
+        }, 360);
       }
     }
 
