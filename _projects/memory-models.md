@@ -25,24 +25,25 @@ The framework organises memory as a flow: stimuli from the external environment 
 
 ## From psychology to computation
 
-Using this structure, the survey follows each memory type — episodic, autobiographical, procedural, semantic and spatial — from its cognitive definition to its computational implementation, comparing symbolic and connectionist approaches. The table below reflects how the reviewed literature actually splits across the two paradigms:
+Using this structure, the survey follows each memory type — episodic, autobiographical, procedural, semantic and spatial — from its cognitive definition to its computational implementation, comparing two computational paradigms: symbolic approaches, which encode knowledge as explicit, rule-based structures, and connectionist ones, where memory and reasoning emerge from a neural network's own parameters. The table below counts how many of the reviewed works use each paradigm for each memory type:
 
 <div class="table-responsive">
 <table class="table table-sm" style="min-width:480px">
+  <caption>Number of reviewed works using each paradigm, per memory type.</caption>
   <thead>
     <tr><th scope="col">Long-term memory type</th><th scope="col">Connectionist</th><th scope="col">Symbolic</th></tr>
   </thead>
   <tbody>
-    <tr><td>Episodic</td><td>Extensive</td><td>Limited</td></tr>
-    <tr><td>Autobiographical</td><td>None yet</td><td>Primary approach</td></tr>
-    <tr><td>Procedural</td><td>Extensive</td><td>Limited</td></tr>
-    <tr><td>Semantic</td><td>Well established</td><td>Well established</td></tr>
-    <tr><td>Spatial</td><td>Emerging</td><td>Rare</td></tr>
+    <tr><td>Episodic</td><td>6</td><td>1</td></tr>
+    <tr><td>Autobiographical</td><td>0</td><td>3</td></tr>
+    <tr><td>Procedural</td><td>6</td><td>2</td></tr>
+    <tr><td>Semantic</td><td>4</td><td>5</td></tr>
+    <tr><td>Spatial</td><td>2</td><td>1</td></tr>
   </tbody>
 </table>
 </div>
 
-This split also shows which memory types matter for which domains: conversational and social-simulation agents lean on episodic and semantic memory, agents that must learn open-ended skills lean on procedural memory, and embodied agents need spatial memory. It exposes clear gaps too — autobiographical memory has no connectionist implementation yet — and, together with open questions like where one remembered episode ends and how to forget efficiently, sets the agenda for the review's closing discussion and future directions.
+The pattern also shows which memory types matter for which domains: episodic and procedural memory are almost entirely connectionist, which fits agents that must hold open-ended conversations or learn open-ended skills. Semantic memory is the one type split about evenly between the two paradigms, while autobiographical memory — central to a virtual human's sense of continuity — has no connectionist implementation at all yet. It's this kind of gap, together with open questions like where one remembered episode ends and how to forget efficiently, that sets the agenda for the review's closing discussion and future directions.
 
 ## Context and collaboration
 
