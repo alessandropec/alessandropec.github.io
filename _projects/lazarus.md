@@ -26,7 +26,7 @@ The virtual patient runs on an emotion-driven cognitive architecture. As the tra
     <source src="{{ '/assets/video/lazarus-demo.mp4' | relative_url }}" type="video/mp4">
     Your browser does not support embedded video.
   </video>
-  <p>Project Lazarus in use: a trainee holds a spoken conversation with the virtual patient inside the immersive VR room. Spoken demonstration in Italian.</p>
+  <p>Project Lazarus in use: a trainee holds a spoken conversation with the virtual patient inside the immersive VR room. Spoken in Italian, with Italian and English subtitles.</p>
 </div>
 
 ## Evaluation
